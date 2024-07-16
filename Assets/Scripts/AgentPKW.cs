@@ -29,7 +29,7 @@ public class AgentPKW : Agent
     [SerializeField]
     private bool inGoal;
     [SerializeField]
-    private bool isRunning;
+    private bool isRunning{get;set;}
 
     public override void Initialize()
     {
