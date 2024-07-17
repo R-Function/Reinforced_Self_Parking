@@ -3,12 +3,16 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - ParkLineMark
+  - ParkSpace
+  - ParkSpaceContainer
+  - Border
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - ParkingSpace
   - Water
   - UI
   - 
