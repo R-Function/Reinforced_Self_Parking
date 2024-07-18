@@ -15,7 +15,7 @@ public class Parking_Lot_Environment_Controller : MonoBehaviour
     private const float TILE_SPACING = 7.5f;
 
     //Testvariablen
-    private int parkedCarCount;
+    private int parkedCarCount = 10;
     private float randomiseCounter = 0;
     private float randomiseAt = 3;
 
@@ -62,6 +62,7 @@ public class Parking_Lot_Environment_Controller : MonoBehaviour
         if(randomiseCounter > randomiseAt)
         {
             ZLineShuffle(1,4,0,3);
+            SetAndShuffleCars(parkedCarCount);
             randomiseCounter = 0f;
         } 
     }
