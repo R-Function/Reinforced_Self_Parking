@@ -8,6 +8,8 @@ TagManager:
   - ParkSpace
   - ParkSpaceContainer
   - Border
+  - Obstacle
+  - TrainingArea
   layers:
   - Default
   - TransparentFX

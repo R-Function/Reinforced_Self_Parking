@@ -44,6 +44,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Parkinglot Center 3
       objectReference: {fileID: 0}
+    - target: {fileID: 105158, guid: baf7bb04094c1fe4d994d728999eae1b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 491360, guid: baf7bb04094c1fe4d994d728999eae1b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.75

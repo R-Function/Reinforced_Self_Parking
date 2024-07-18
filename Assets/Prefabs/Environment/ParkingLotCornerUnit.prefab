@@ -120,6 +120,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Parkinglot Corner 3
       objectReference: {fileID: 0}
+    - target: {fileID: 115310, guid: 0dd93b050725d874f92e2caeffb53367, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 457996, guid: 0dd93b050725d874f92e2caeffb53367, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.75

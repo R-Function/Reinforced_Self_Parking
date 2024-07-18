@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
@@ -24,12 +23,16 @@ public class AgentPKW : Agent
 
     private Rigidbody rBody;
     private PKW_Controller pkw;
-    private List<Transform> freeParkingSpace;
-    private Park_Training_Controller trainingController;
+
+    // den hier einführen wenn es nicht anders geht
+    // private List<Transform> freeParkingSpace;
+
     [SerializeField]
     private bool inGoal;
     [SerializeField]
-    private bool isRunning{get;set;}
+    public bool isRunning;
+
+    private Park_Training_Controller critic;
 
     public override void Initialize()
     {
@@ -37,7 +40,7 @@ public class AgentPKW : Agent
         pkw       = GetComponent<PKW_Controller>();
         isRunning = true;
     }
-
+    
     /*____________________OBSERVATIONEN______________________*/
     
     // Geschwindigkeit/Beschleunigung
@@ -98,7 +101,7 @@ public class AgentPKW : Agent
     /*______________TRIGGER/COLLIDER METHODEN__________________*/
     private void OnTriggerEnter(Collider col)
     {
-
+        
     }
 
     private void OnTriggerExit(Collider col)
@@ -169,4 +172,7 @@ public class AgentPKW : Agent
         //Bremsen
         discreteActionsOut[1]   = Input.GetKey("space")? 1 : 0;
     }
+
+    /*_____________________Attribute________________________*/
+    public Park_Training_Controller Critic{get{return critic;}set{critic = value;}}
 }
