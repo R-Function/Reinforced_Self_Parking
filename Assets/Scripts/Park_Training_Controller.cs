@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using Unity.MLAgents;
+using Unity.VisualScripting;
 
 public class Park_Training_Controller : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class Park_Training_Controller : MonoBehaviour
     [Header("Agent List and Parameters")]
     public List<AgentPKW> agentList;
     private SimpleMultiAgentGroup m_AgentGroup;
+
+    public List<Transform> spawnPoints;
 
 
     // Start is called before the first frame update
@@ -88,12 +91,45 @@ public class Park_Training_Controller : MonoBehaviour
         */
     }
 
+    
+    /*#########################################################*/
+    /*                  Environment Methoden                   */
+    /*#########################################################*/
     private void ResetScene()
     {
-
+        currentLesson = curriculum[(int)envParameters.GetWithDefault("", 4)];
     }
 
+    private void SpawnAgents()
+    {
+        if(agentList.Count > spawnPoints.Count)
+        {
+            Debug.LogError("Not enough Spawn-Points for the registered Agents!!");
+        }
 
+        Transform[] spawnBuffer = new Transform[spawnPoints.Count];
+        foreach(AgentPKW agent in agentList)
+        {
+            // Bewegung zurücksetzen
+            agent.RBody.velocity = Vector3.zero;
+            agent.RBody.angularVelocity = Vector3.zero;
+            do
+            {
+                
+            }while(false);
+            //agent.transform.position = UnityEngine.Random.Range(0, spawnPoints.Count)
+        }
+    }
+
+    private bool isTransformInArray(Transform[] array, Transform transform)
+    {
+        foreach(Transform arrTrans in array)
+        {
+            if(arrTrans == transform)
+                return true;
+        }
+        return false;
+    }
 }
 
 [System.Serializable]

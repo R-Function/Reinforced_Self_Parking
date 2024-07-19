@@ -175,4 +175,5 @@ public class AgentPKW : Agent
 
     /*_____________________Attribute________________________*/
     public Park_Training_Controller Critic{get{return critic;}set{critic = value;}}
+    public Rigidbody RBody{get{return rBody;}set{rBody = value;}}
 }

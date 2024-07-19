@@ -34,6 +34,7 @@ Transform:
   - {fileID: 3269757362055491844}
   - {fileID: 2310114018664600128}
   - {fileID: 5491501322905172717}
+  - {fileID: 252426384238743870}
   - {fileID: 4121329119993963268}
   - {fileID: 1336131568766492468}
   - {fileID: 6740754879452806967}
@@ -56,7 +57,6 @@ Transform:
   - {fileID: 2846996260923986625}
   - {fileID: 2321318330688561749}
   - {fileID: 6982773671449141933}
-  - {fileID: 252426384238743870}
   - {fileID: 5024141077861468313}
   - {fileID: 1682670817580280701}
   - {fileID: 5249644595116055728}
@@ -78,7 +78,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caee4809078b820418e8f867d0ab8e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parkedCarCount: 10
   carObstaclePrefab: {fileID: 4915974200540530724, guid: 7ae22020479cb5c43ad2e1e5eb9b8c29, type: 3}
   carObstacleContainer: {fileID: 0}
   parkingSpaceTransforms:

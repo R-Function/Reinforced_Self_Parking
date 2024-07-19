@@ -1,11 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using Unity.Sentis.Layers;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.TextCore.LowLevel;
 
 /*
     - Die benennung der Parklücken abändern, so dass klarer ist, was gemeint wird.
