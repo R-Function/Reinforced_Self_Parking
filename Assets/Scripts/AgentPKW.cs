@@ -3,6 +3,7 @@ using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Sensors.Reflection;
+using UnityEditor.Animations;
 using UnityEngine;
 
 /*  Noziten:
@@ -23,6 +24,7 @@ public class AgentPKW : Agent
 
     private Rigidbody rBody;
     private PKW_Controller pkw;
+    private Transform pkwBody;
 
     // den hier einführen wenn es nicht anders geht
     // private List<Transform> freeParkingSpace;
@@ -32,6 +34,7 @@ public class AgentPKW : Agent
     [SerializeField]
     public bool isRunning;
 
+    // public string indexName;
     private Park_Training_Controller critic;
 
     public override void Initialize()
@@ -39,6 +42,13 @@ public class AgentPKW : Agent
         rBody     = GetComponent<Rigidbody>();
         pkw       = GetComponent<PKW_Controller>();
         isRunning = true;
+        int i = 0;
+        do
+        {
+            pkwBody = this.transform.GetChild(i);
+            i++;
+        }while(pkwBody.name != "Body");
+        
     }
     
     /*____________________OBSERVATIONEN______________________*/
@@ -101,12 +111,23 @@ public class AgentPKW : Agent
     /*______________TRIGGER/COLLIDER METHODEN__________________*/
     private void OnTriggerEnter(Collider col)
     {
-        
+        Debug.Log("Betrete Trigger: "+col.gameObject.tag);
+        if(col.gameObject.tag == "ParkSpace")
+        {
+            critic.GoalEnterParkingSpace(this, col.transform);
+        }
+        else if(col.gameObject.tag == "Border")
+        {
+            critic.ExitRoad(this);
+        }
     }
 
     private void OnTriggerExit(Collider col)
     {
-        
+        if(col.gameObject.tag == "ParkSpace")
+        {
+            critic.GoalExitParkingSpace(this, col.transform);
+        }
     }
 
     private void OnTriggerStay(Collider col)
@@ -116,7 +137,11 @@ public class AgentPKW : Agent
 
     private void OnCollisionEnter(Collision col)
     {
-        
+        Debug.Log("Collision mit: "+col.gameObject.name);
+        if (col.gameObject.tag == "Obstacle")
+        {
+            critic.CollisionWithObstacle(this);
+        }
     }
 
     /*____________________HILFSMETHODEN______________________*/
@@ -176,4 +201,5 @@ public class AgentPKW : Agent
     /*_____________________Attribute________________________*/
     public Park_Training_Controller Critic{get{return critic;}set{critic = value;}}
     public Rigidbody RBody{get{return rBody;}set{rBody = value;}}
+    public Transform PKWBody{get{return pkwBody;}}
 }

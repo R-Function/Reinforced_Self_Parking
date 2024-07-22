@@ -33,19 +33,27 @@ public class Park_Training_Controller : MonoBehaviour
 
     public List<Transform> spawnPoints;
 
+    private Dictionary<AgentPKW, Transform> agentInGoalCheckList;
+
 
     // Start is called before the first frame update
     void Start()
     {
         // laden der Curricula
-        string curriculumText = curriculumFile.text;
-        curriculum = JsonUtility.FromJson<Curriculum>(curriculumText).Lessons;
+        // string curriculumText = curriculumFile.text;
+        // curriculum = JsonUtility.FromJson<Curriculum>(curriculumText).Lessons;
 
+        agentInGoalCheckList = new Dictionary<AgentPKW, Transform>();
+        m_AgentGroup = new SimpleMultiAgentGroup();
         //initialisieren der Agenten
+        // int index = 0;
         foreach(AgentPKW agent in agentList)
         {
             agent.Critic = this;
+            agentInGoalCheckList.Add(agent, null);
+            // agent.indexName = "agent_"+index.ToString();
             m_AgentGroup.RegisterAgent(agent);
+            // index++;
         }
 
         SpawnAgents();
@@ -54,18 +62,30 @@ public class Park_Training_Controller : MonoBehaviour
 
     void FixedUpdate()
     {
-        
+        //zum testen, wenn agent auf parkplatz, dann belohnung berechnen
+        foreach(KeyValuePair<AgentPKW, Transform> agentCheck in agentInGoalCheckList)
+        {
+            if(agentCheck.Value != null)
+            {
+                var distanceReward = CalcDistanceReward(agentCheck.Key.PKWBody, agentCheck.Value.transform, 1);
+                var rotationReward = CalcRotationReward(agentCheck.Key.PKWBody, agentCheck.Value.transform, 1);
+                Debug.Log(agentCheck.Key.gameObject.name
+                          +" hat folgende Belohnung:\nDistanz: "
+                          + distanceReward.ToString() + ", Rotation: " 
+                          + rotationReward.ToString());
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        randomiseCounter += Time.deltaTime;
-        if(randomiseCounter > randomiseAt)
-        {
-            SpawnAgents();
-            randomiseCounter = 0f;
-        } 
+        // randomiseCounter += Time.deltaTime;
+        // if(randomiseCounter > randomiseAt)
+        // {
+        //     SpawnAgents();
+        //     randomiseCounter = 0f;
+        // } 
     }
 
     /*#########################################################*/
@@ -100,6 +120,12 @@ public class Park_Training_Controller : MonoBehaviour
                     vom ziel entfernt ist
                 - Curriculum könnte beinhalten, dass der agent selbst abschaltet.
         */
+        agentInGoalCheckList[agent] = parkingSpace;
+    }
+
+    public void GoalExitParkingSpace(AgentPKW agent, Transform parkingSpace)
+    {
+        agentInGoalCheckList[agent] = null;
     }
 
     public void GoalExitParkingLot()
@@ -110,15 +136,15 @@ public class Park_Training_Controller : MonoBehaviour
         */
     }
 
-    private float CalcDistanceReward(Transform agent, Transform goal, float baseReward = 0)
+    private float CalcDistanceReward(Transform agentBody, Transform goal, float baseReward = 0)
     {
         // Berechnung des maximal möglichen abstands der mittelpunkte bei collision
-        float agentDiagonal = Mathf.Sqrt(Mathf.Pow(LongSide(agent),2f)+Mathf.Pow(ShortSide(agent),2f));
+        float agentDiagonal = Mathf.Sqrt(Mathf.Pow(LongSide(agentBody),2f)+Mathf.Pow(ShortSide(agentBody),2f));
         float goalDiagonal  = Mathf.Sqrt(Mathf.Pow(LongSide(goal),2f)+Mathf.Pow(ShortSide(goal),2f));
         float maxDistance   = goalDiagonal + agentDiagonal;
 
         // Normalisierter Abstand von Agent und Ziel
-        float distanceNorm = UnityEngine.Vector3.Distance(agent.position, goal.position)/maxDistance;
+        float distanceNorm = UnityEngine.Vector3.Distance(agentBody.position, goal.position)/maxDistance;
         
         // Reward wird quadratisch bestimmt, damit der mittelpunkt
         // deutlich besser belohnt wird als der rand
@@ -126,10 +152,10 @@ public class Park_Training_Controller : MonoBehaviour
         return reward;
     }
 
-    private float CalcRotationReward(Transform agent, Transform goal, float baseReward = 0)
+    private float CalcRotationReward(Transform agentBody, Transform goal, float baseReward = 0)
     {
-        float rotAgent  = agent.rotation.y;
-        float rotGoal   = goal.rotation.y;
+        float rotAgent  = agentBody.eulerAngles.y;
+        float rotGoal   = goal.eulerAngles.y;
         float rotOffset = Mathf.Abs(rotGoal-rotAgent);
 
         // normalisiert auf einen bereich von -1 bis 1
@@ -139,7 +165,7 @@ public class Park_Training_Controller : MonoBehaviour
         // Rewardbestimmung entspricht der Distanz,
         // unterschied ist, dass die beiden Randwerte (0, 180)
         // die höchste belohnung geben sollen
-        float reward = Mathf.Pow(Mathf.Abs(offsetNorm), 2) * baseReward;
+        float reward = Mathf.Pow(offsetNorm, 2) * baseReward;
         return reward;
     }
 
@@ -151,9 +177,10 @@ public class Park_Training_Controller : MonoBehaviour
             float x = t.GetComponent<Collider>().bounds.extents.x;
             float z = t.GetComponent<Collider>().bounds.extents.z; 
             return x > z ? x : z;
-        }catch(Exception)
+        }catch(Exception e)
         {
-            Debug.LogError("The Transform doesnt. Contain a Collider Component.");
+            Debug.LogError(e.Message);
+            Debug.LogError("The Transform doesnt contain a Collider Component.");
             return 0f;
         }
     }
@@ -167,7 +194,7 @@ public class Park_Training_Controller : MonoBehaviour
             return x < z ? x : z;
         }catch(Exception)
         {
-            Debug.LogError("The Transform doesnt. Contain a Collider Component.");
+            Debug.LogError("The Transform doesnt contain a Collider Component.");
             return 0f;
         }
     }
@@ -233,5 +260,14 @@ public class Curriculum
 [System.Serializable]
 public class Lesson
 {
-
+    public string name;
+    
+    // amount of occupied parking spaces
+    public int carsOnParkingLot;
+    
+    // randomise at each _ Episode
+    public int randomiseSpawnAt;
+    public int randomiseEntranceAt;
+    public int randomiseCarsOnParkingLotAt;
+    public int randomiseEnvironmentRotationAt;
 }

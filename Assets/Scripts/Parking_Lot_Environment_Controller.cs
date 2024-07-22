@@ -53,13 +53,13 @@ public class Parking_Lot_Environment_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        randomiseCounter += Time.deltaTime;
-        if(randomiseCounter > randomiseAt)
-        {
-            ZLineShuffle(1,4,0,3);
-            SetAndShuffleCars(parkedCarCount);
-            randomiseCounter = 0f;
-        } 
+        // randomiseCounter += Time.deltaTime;
+        // if(randomiseCounter > randomiseAt)
+        // {
+        //     ZLineShuffle(1,4,0,3);
+        //     SetAndShuffleCars(parkedCarCount);
+        //     randomiseCounter = 0f;
+        // } 
     }
 
     // vertauscht zufällig zwei Tile-Reihen mit der länge depth 
@@ -137,7 +137,7 @@ public class Parking_Lot_Environment_Controller : MonoBehaviour
             ind_x = (int) (tile.localPosition.x / TILE_SPACING);
             ind_z = (int) (tile.localPosition.z / TILE_SPACING);
 
-            Debug.Log("!!!"+ind_x+","+ind_z+"!!!");
+            //Debug.Log("!!!"+ind_x+","+ind_z+"!!!");
 
             resultTileMatrix[ind_x,ind_z] = tile;
         }

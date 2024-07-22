@@ -1,0 +1,64 @@
+behaviors:
+  self_park_behaviour:
+    trainer_type: poca
+    hyperparameters:
+      batch_size: 1024
+      buffer_size: 10240
+      learning_rate: 0.0003
+      beta: 0.015
+      epsilon: 0.1
+      lambd: 0.95
+      num_epoch: 3
+      learning_rate_schedule: linear
+    network_settings:
+      normalize: true
+      hidden_units: 256
+      num_layers: 2
+      vis_encode_type: simple
+    reward_signals:
+      extrinsic:
+        gamma: 0.99
+        strength: 1.0
+    keep_checkpoints: 5
+    max_steps: 20000000
+    time_horizon: 128
+    summary_freq: 20000
+    
+environment_parameters:
+  bridge_crossing_parameters:
+    curriculum:
+      - name: LessonSimpleControll
+        completion_criteria:
+          measure: progress
+          behavior: CrossBridgeBehaviour
+          signal_smoothing: true
+          min_lesson_length: 60
+          threshold: 0.06
+        value: 0
+      - name: LessonPhysicsControll
+        completion_criteria:
+          measure: progress
+          behavior: CrossBridgeBehaviour
+          signal_smoothing: true
+          min_lesson_length: 00
+          threshold: 0.1
+          require_reset: true
+        value: 1
+      - name: LessonBigBridge
+        completion_criteria:
+          measure: reward
+          behavior: CrossBridgeBehaviour
+          signal_smoothing: true
+          min_lesson_length: 200
+          threshold: 0.3
+        value: 2
+      - name: LessonSmallerBridge
+        completion_criteria:
+          measure: reward
+          behavior: CrossBridgeBehaviour
+          signal_smoothing: true
+          min_lesson_length: 100
+          threshold: 0.5
+        value: 3
+      - name: LessonCrossBridgeFinal
+        value: 4
