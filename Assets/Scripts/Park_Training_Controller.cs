@@ -3,9 +3,17 @@ using System.IO;
 using UnityEngine;
 using Unity.MLAgents;
 using Unity.VisualScripting;
+using System;
 
 public class Park_Training_Controller : MonoBehaviour
 {
+    //Testvariablen
+    private int parkedCarCount = 10;
+    private float randomiseCounter = 0;
+    private float randomiseAt = 3;
+
+
+
     [Header("Training")]
     public int MaxTrainingSteps = 10000;
     private int m_ResetTimer;
@@ -40,13 +48,24 @@ public class Park_Training_Controller : MonoBehaviour
             m_AgentGroup.RegisterAgent(agent);
         }
 
-        ResetScene();
+        SpawnAgents();
+        //ResetScene();
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        randomiseCounter += Time.deltaTime;
+        if(randomiseCounter > randomiseAt)
+        {
+            SpawnAgents();
+            randomiseCounter = 0f;
+        } 
     }
 
     /*#########################################################*/
@@ -91,6 +110,68 @@ public class Park_Training_Controller : MonoBehaviour
         */
     }
 
+    private float CalcDistanceReward(Transform agent, Transform goal, float baseReward = 0)
+    {
+        // Berechnung des maximal möglichen abstands der mittelpunkte bei collision
+        float agentDiagonal = Mathf.Sqrt(Mathf.Pow(LongSide(agent),2f)+Mathf.Pow(ShortSide(agent),2f));
+        float goalDiagonal  = Mathf.Sqrt(Mathf.Pow(LongSide(goal),2f)+Mathf.Pow(ShortSide(goal),2f));
+        float maxDistance   = goalDiagonal + agentDiagonal;
+
+        // Normalisierter Abstand von Agent und Ziel
+        float distanceNorm = UnityEngine.Vector3.Distance(agent.position, goal.position)/maxDistance;
+        
+        // Reward wird quadratisch bestimmt, damit der mittelpunkt
+        // deutlich besser belohnt wird als der rand
+        float reward = Mathf.Pow((1-distanceNorm),2f) * baseReward;
+        return reward;
+    }
+
+    private float CalcRotationReward(Transform agent, Transform goal, float baseReward = 0)
+    {
+        float rotAgent  = agent.rotation.y;
+        float rotGoal   = goal.rotation.y;
+        float rotOffset = Mathf.Abs(rotGoal-rotAgent);
+
+        // normalisiert auf einen bereich von -1 bis 1
+        // --> vorwärts wird genauso gewertet wie rückwärts
+        float offsetNorm = (2 * rotOffset / 180) - 1;
+
+        // Rewardbestimmung entspricht der Distanz,
+        // unterschied ist, dass die beiden Randwerte (0, 180)
+        // die höchste belohnung geben sollen
+        float reward = Mathf.Pow(Mathf.Abs(offsetNorm), 2) * baseReward;
+        return reward;
+    }
+
+    //hilfmethoden
+    private float LongSide(Transform t)
+    {
+        try
+        {
+            float x = t.GetComponent<Collider>().bounds.extents.x;
+            float z = t.GetComponent<Collider>().bounds.extents.z; 
+            return x > z ? x : z;
+        }catch(Exception)
+        {
+            Debug.LogError("The Transform doesnt. Contain a Collider Component.");
+            return 0f;
+        }
+    }
+
+    private float ShortSide(Transform t)
+    {
+        try
+        {
+            float x = t.GetComponent<Collider>().bounds.extents.x;
+            float z = t.GetComponent<Collider>().bounds.extents.z; 
+            return x < z ? x : z;
+        }catch(Exception)
+        {
+            Debug.LogError("The Transform doesnt. Contain a Collider Component.");
+            return 0f;
+        }
+    }
+
     
     /*#########################################################*/
     /*                  Environment Methoden                   */
@@ -107,21 +188,32 @@ public class Park_Training_Controller : MonoBehaviour
             Debug.LogError("Not enough Spawn-Points for the registered Agents!!");
         }
 
-        Transform[] spawnBuffer = new Transform[spawnPoints.Count];
+        Transform[] occupiedSpawnPoints = new Transform[spawnPoints.Count];
+        Transform spawnPoint;
+        int agentIndex = 0;
         foreach(AgentPKW agent in agentList)
         {
             // Bewegung zurücksetzen
             agent.RBody.velocity = Vector3.zero;
             agent.RBody.angularVelocity = Vector3.zero;
+
+            // zufälligen, freien spawnpunkt finden
             do
             {
-                
-            }while(false);
-            //agent.transform.position = UnityEngine.Random.Range(0, spawnPoints.Count)
+                spawnPoint = spawnPoints[UnityEngine.Random.Range(0,spawnPoints.Count-1)];
+            }while(isTransformInArray(spawnPoint, occupiedSpawnPoints));
+            
+            // wenn freien Punkt gefunden, setze agenten dahin
+            agent.transform.position = spawnPoint.position;
+            agent.transform.rotation = spawnPoint.rotation;
+
+            // speichere besetzten spawn punkt und inkrementiere index
+            occupiedSpawnPoints[agentIndex] = spawnPoint;
+            agentIndex++;
         }
     }
 
-    private bool isTransformInArray(Transform[] array, Transform transform)
+    private bool isTransformInArray(Transform transform, Transform[] array)
     {
         foreach(Transform arrTrans in array)
         {
