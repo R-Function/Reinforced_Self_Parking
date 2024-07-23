@@ -1,18 +1,15 @@
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 using Unity.MLAgents;
-using Unity.VisualScripting;
 using System;
 using System.Linq;
-using UnityEditor.Animations;
 
 public class Park_Training_Controller : MonoBehaviour
 {
     //Testvariablen
-    private int parkedCarCount = 10;
-    private float randomiseCounter = 0;
-    private float randomiseAt = 3;
+    // private int parkedCarCount = 10;
+    // private float randomiseCounter = 0;
+    // private float randomiseAt = 3;
 
     private Parking_Lot_Environment_Controller envController;
 
@@ -25,7 +22,7 @@ public class Park_Training_Controller : MonoBehaviour
     private Lesson[] curriculum;
     private Lesson   currentLesson;
 
-    [Header("Environment Parameter")]
+    //[Header("Environment Parameter")]
     private EnvironmentParameters envParameters;
 
 
@@ -76,7 +73,7 @@ public class Park_Training_Controller : MonoBehaviour
     {
         m_ResetTimer += 1;
         foreach(Agent a in m_AgentGroup.GetRegisteredAgents())
-            a.AddReward(-0.5f/MaxTrainingSteps);
+            a.AddReward(-1f/MaxTrainingSteps);
         if (m_ResetTimer >= MaxTrainingSteps && MaxTrainingSteps > 0)
         {
             FinishEpisode(true);
@@ -112,7 +109,8 @@ public class Park_Training_Controller : MonoBehaviour
     /*#########################################################*/
     public void ExitTrainingArea(AgentPKW agent)
     {
-        agent.SetReward(-1f);
+        agent.AddReward(-1f);
+        FinishEpisode();
     }
 
     public void ExitRoad(AgentPKW agent)
@@ -128,6 +126,8 @@ public class Park_Training_Controller : MonoBehaviour
     public void CollisionWithObstacle(AgentPKW agent)
     {
         agent.AddReward(-0.8f);
+        if(currentLesson.agentControllReverse == false)
+            FinishEpisode();
     }
 
     public void GoalEnterParkingSpace(AgentPKW agent, Transform parkingSpace)
@@ -149,9 +149,10 @@ public class Park_Training_Controller : MonoBehaviour
         if(agentInfoPair.Value.parkingSpacesInContact.Any())
         {
             // wenn lange genug in parklücke gewesen,
-            // --> reward austeilen
-            if(agentInfoPair.Value.getTimeinSeconds() >= this.currentLesson.remainTimeInParkingSpace)
+            // --> reward austeilen, agent abschalten
+            if(agentInfoPair.Value.GetTimeinSeconds() >= this.currentLesson.remainTimeInParkingSpace)
             {
+                agentInfoPair.Key.isRunning = false;
                 agentInfoPair.Key.AddReward(CalcDistanceReward(agentInfoPair.Key.PKWBody, agentInfoPair.Value.parkingSpacesInContact.Last(), 0.5f));
                 agentInfoPair.Key.AddReward(CalcRotationReward(agentInfoPair.Key.PKWBody, agentInfoPair.Value.parkingSpacesInContact.Last(), 0.5f));
                 FinishEpisode();
@@ -257,23 +258,37 @@ public class Park_Training_Controller : MonoBehaviour
         currentLesson = curriculum[(int)envParameters.GetWithDefault("", 0)];
         Debug.Log(currentLesson.name);
 
+        m_ResetTimer = 0;
+        foreach(AgentPKW agent in agentList)
+        {
+            // m_AgentGroup.RegisterAgent(agent);
+            agent.isRunning = true;
+            agent.IsBreakAllowed    = currentLesson.agentControllBreak;
+            agent.IsReverseAllowed  = currentLesson.agentControllReverse;
+            agentInformationList[agent].ResetInfo();
+        }
+
         // Eingang verschieben
-        if(episodeCounter % currentLesson.randomiseEntranceAt == 0)
+        if(currentLesson.randomiseEntranceAt != 0
+        && episodeCounter % currentLesson.randomiseEntranceAt == 0 )
             envController.ZLineShuffle(1,3,0,3);
         
         // Geparkte Autos umstellen
-        if(episodeCounter % currentLesson.randomiseCarsOnParkingLotAt == 0)
+        if(currentLesson.randomiseCarsOnParkingLotAt != 0
+        && episodeCounter % currentLesson.randomiseCarsOnParkingLotAt == 0)
             envController.SetAndShuffleCars(currentLesson.carsOnParkingLot);
         
         // Autos Spawnen
-        if(episodeCounter % currentLesson.randomiseSpawnAt == 0)
-            SpawnAgents(true);
+        if(currentLesson.randomiseSpawnAt != 0
+        && episodeCounter % currentLesson.randomiseSpawnAt == 0)
+            SpawnAgents(isRandom : true);
         else
             SpawnAgents();
 
         // Trainingsareal rotieren
-        // if(episodeCounter % currentLesson.randomiseEnvironmentRotationAt == 1)
-        //      this.transform.rotation = GetRandomRot();
+        if(currentLesson.randomiseEnvironmentRotationAt != 0
+        && episodeCounter % currentLesson.randomiseEnvironmentRotationAt == 1)
+             this.transform.rotation = GetRandomRot();
 
         episodeCounter++;
     }
@@ -347,6 +362,10 @@ public class Curriculum
 public class Lesson
 {
     public string name;
+
+    // agent controlls
+    public bool agentControllBreak;
+    public bool agentControllReverse;
     
     // amount of occupied parking spaces
     public int carsOnParkingLot;
@@ -380,8 +399,14 @@ public class AgentInfo
         set{timeInParkingSpace = value;}
     }
 
-    public float getTimeinSeconds()
+    public float GetTimeinSeconds()
     {
         return timeInParkingSpace * Time.fixedDeltaTime;
+    }
+
+    public void ResetInfo()
+    {
+        parkingSpacesInContact = new List<Transform>();
+        timeInParkingSpace = 0;
     }
 }

@@ -13,6 +13,7 @@ TagManager:
   - Spawn
   - Environment
   - Agent
+  - FailState
   layers:
   - Default
   - TransparentFX
@@ -20,10 +21,10 @@ TagManager:
   - ParkingSpace
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - Area1
+  - Area2
+  - Area3
+  - Area4
   - 
   - 
   - 

@@ -10,9 +10,9 @@ public class Parking_Lot_Environment_Controller : MonoBehaviour
     private const float TILE_SPACING = 7.5f;
 
     //Testvariablen
-    private int parkedCarCount = 10;
-    private float randomiseCounter = 0;
-    private float randomiseAt = 3;
+    // private int parkedCarCount = 10;
+    // private float randomiseCounter = 0;
+    // private float randomiseAt = 3;
 
 
     public GameObject carObstaclePrefab;

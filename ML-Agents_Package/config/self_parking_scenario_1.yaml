@@ -1,5 +1,5 @@
 behaviors:
-  self_park_behaviour:
+  PKWParking:
     trainer_type: poca
     hyperparameters:
       batch_size: 1024
@@ -20,45 +20,28 @@ behaviors:
         gamma: 0.99
         strength: 1.0
     keep_checkpoints: 5
-    max_steps: 20000000
+    max_steps: 10000000
     time_horizon: 128
     summary_freq: 20000
     
 environment_parameters:
-  bridge_crossing_parameters:
+  PKWParking_Parameters:
     curriculum:
-      - name: LessonSimpleControll
+      - name: DriveForwardLesson
         completion_criteria:
           measure: progress
-          behavior: CrossBridgeBehaviour
-          signal_smoothing: true
-          min_lesson_length: 60
-          threshold: 0.06
-        value: 0
-      - name: LessonPhysicsControll
-        completion_criteria:
-          measure: progress
-          behavior: CrossBridgeBehaviour
-          signal_smoothing: true
-          min_lesson_length: 00
-          threshold: 0.1
-          require_reset: true
-        value: 1
-      - name: LessonBigBridge
-        completion_criteria:
-          measure: reward
           behavior: CrossBridgeBehaviour
           signal_smoothing: true
           min_lesson_length: 200
-          threshold: 0.3
-        value: 2
-      - name: LessonSmallerBridge
+          threshold: 0.1
+        value: 0
+      - name: BreakLesson
         completion_criteria:
-          measure: reward
+          measure: progress
           behavior: CrossBridgeBehaviour
           signal_smoothing: true
-          min_lesson_length: 100
-          threshold: 0.5
-        value: 3
-      - name: LessonCrossBridgeFinal
-        value: 4
+          min_lesson_length: 200
+          threshold: 0.2
+        value: 1
+      - name: BreakLesson
+        value: 2

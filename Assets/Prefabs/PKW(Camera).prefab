@@ -251,7 +251,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SensorName: FrontLiDAR
-  m_DetectableTags: []
+  m_DetectableTags:
+  - Obstacle
+  - Agent
   m_RaysPerDirection: 4
   m_MaxRayDegrees: 90
   m_SphereCastRadius: 0.2
@@ -265,7 +267,7 @@ MonoBehaviour:
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
   m_StartVerticalOffset: 0
-  m_EndVerticalOffset: -0.76
+  m_EndVerticalOffset: 0
 --- !u!1 &2314287801447121506
 GameObject:
   m_ObjectHideFlags: 0
@@ -690,7 +692,6 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
-  inGoal: 0
   isRunning: 0
 --- !u!114 &3631358316615922521
 MonoBehaviour:
@@ -705,7 +706,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 3
+    VectorObservationSize: 4
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 1
@@ -737,7 +738,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 90
   maxReverseSpeed: 45
-  accelerationMultiplier: 2
+  accelerationMultiplier: 4
   maxSteeringAngle: 35
   steeringSpeed: 0.5
   brakeForce: 450

@@ -1,12 +1,36 @@
 {"Lessons":[
 	{
-		"name":"FirstLesson",		
-		"carsOnParkingLot": 1,
-		"remainTimeInParkingSpace":3.0,
-		"randomiseSpawnAt": 1,		
-		"randomiseEntranceAt": 1,
-		"randomiseCarsOnParkingLotAt": 1,
-		"randomiseEnvironmentRotationAt": 2
+		"name":"DriveForwardLesson",
+		"agentControllBreak": false,
+		"agentControllReverse": false,		
+		"carsOnParkingLot": 6,
+		"remainTimeInParkingSpace":1.0,
+		"randomiseSpawnAt": 30,		
+		"randomiseEntranceAt": 0,
+		"randomiseCarsOnParkingLotAt": 0,
+		"randomiseEnvironmentRotationAt": 0
+	},
+	{
+		"name":"BreakLesson",		
+		"agentControllBreak": true,
+		"agentControllReverse": false,
+		"carsOnParkingLot": 10,
+		"remainTimeInParkingSpace":3.5,
+		"randomiseSpawnAt": 2,		
+		"randomiseEntranceAt": 0,
+		"randomiseCarsOnParkingLotAt": 50,
+		"randomiseEnvironmentRotationAt": 0
+	},
+	{
+		"name":"ReverseLesson",		
+		"agentControllBreak": true,
+		"agentControllReverse": true,
+		"carsOnParkingLot": 10,
+		"remainTimeInParkingSpace":3.5,
+		"randomiseSpawnAt": 2,		
+		"randomiseEntranceAt": 0,
+		"randomiseCarsOnParkingLotAt": 50,
+		"randomiseEnvironmentRotationAt": 0
 	}
 ]
 }
