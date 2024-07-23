@@ -4,6 +4,8 @@ using UnityEngine;
 using Unity.MLAgents;
 using Unity.VisualScripting;
 using System;
+using System.Linq;
+using UnityEditor.Animations;
 
 public class Park_Training_Controller : MonoBehaviour
 {
@@ -12,12 +14,12 @@ public class Park_Training_Controller : MonoBehaviour
     private float randomiseCounter = 0;
     private float randomiseAt = 3;
 
-
+    private Parking_Lot_Environment_Controller envController;
 
     [Header("Training")]
     public int MaxTrainingSteps = 10000;
     private int m_ResetTimer;
-    private int espisodeCounter = 0;
+    private int episodeCounter = 0;
     
     public TextAsset curriculumFile;
     private Lesson[] curriculum;
@@ -33,59 +35,76 @@ public class Park_Training_Controller : MonoBehaviour
 
     public List<Transform> spawnPoints;
 
-    private Dictionary<AgentPKW, Transform> agentInGoalCheckList;
+    private Dictionary<AgentPKW, AgentInfo> agentInformationList;
 
 
     // Start is called before the first frame update
     void Start()
     {
         // laden der Curricula
-        // string curriculumText = curriculumFile.text;
-        // curriculum = JsonUtility.FromJson<Curriculum>(curriculumText).Lessons;
+        envParameters         = Academy.Instance.EnvironmentParameters;
+        string curriculumText = curriculumFile.text;
+        curriculum            = JsonUtility.FromJson<Curriculum>(curriculumText).Lessons;
 
-        agentInGoalCheckList = new Dictionary<AgentPKW, Transform>();
-        m_AgentGroup = new SimpleMultiAgentGroup();
+        // instanziieren der Listen
+        agentInformationList  = new Dictionary<AgentPKW, AgentInfo>();
+        m_AgentGroup          = new SimpleMultiAgentGroup();
+        
+        // einen Handle auf den Umgebungscontroller holen
+        int i = 0;
+        Transform child;
+        do
+        {
+            child = this.transform.GetChild(i);
+            i++;
+        }while(child.tag != "Environment");
+        envController = child.GetComponent<Parking_Lot_Environment_Controller>();
+
+
         //initialisieren der Agenten
-        // int index = 0;
         foreach(AgentPKW agent in agentList)
         {
             agent.Critic = this;
-            agentInGoalCheckList.Add(agent, null);
-            // agent.indexName = "agent_"+index.ToString();
+            agentInformationList.Add(agent, new AgentInfo());
             m_AgentGroup.RegisterAgent(agent);
-            // index++;
         }
 
-        SpawnAgents();
-        //ResetScene();
+        ResetScene();
     }
 
     void FixedUpdate()
     {
-        //zum testen, wenn agent auf parkplatz, dann belohnung berechnen
-        foreach(KeyValuePair<AgentPKW, Transform> agentCheck in agentInGoalCheckList)
+        m_ResetTimer += 1;
+        foreach(Agent a in m_AgentGroup.GetRegisteredAgents())
+            a.AddReward(-0.5f/MaxTrainingSteps);
+        if (m_ResetTimer >= MaxTrainingSteps && MaxTrainingSteps > 0)
         {
-            if(agentCheck.Value != null)
-            {
-                var distanceReward = CalcDistanceReward(agentCheck.Key.PKWBody, agentCheck.Value.transform, 1);
-                var rotationReward = CalcRotationReward(agentCheck.Key.PKWBody, agentCheck.Value.transform, 1);
-                Debug.Log(agentCheck.Key.gameObject.name
-                          +" hat folgende Belohnung:\nDistanz: "
-                          + distanceReward.ToString() + ", Rotation: " 
-                          + rotationReward.ToString());
-            }
+            FinishEpisode(true);
+            Debug.Log("Folgendes Training hat die erlaubte Anzahl Steps überschritten: "+this.gameObject.name);
         }
+
+        //zum testen, wenn agent auf parkplatz, dann belohnung berechnen
+        // foreach(KeyValuePair<AgentPKW, AgentInfo> agentInfo in agentInformationList)
+        // {
+        //     if(agentInfo.Value.parkingSpacesInContact.Any())
+        //     {
+        //         var distanceReward = CalcDistanceReward(agentInfo.Key.PKWBody, agentInfo.Value.parkingSpacesInContact.Last(), 1);
+        //         var rotationReward = CalcRotationReward(agentInfo.Key.PKWBody, agentInfo.Value.parkingSpacesInContact.Last(), 1);
+        //         Debug.Log(agentInfo.Key.gameObject.name
+        //                   +" hat folgende Belohnung:\nDistanz: "
+        //                   + distanceReward.ToString() + ", Rotation: " 
+        //                   + rotationReward.ToString());
+        //     }
+        // }
     }
 
     // Update is called once per frame
     void Update()
     {
-        // randomiseCounter += Time.deltaTime;
-        // if(randomiseCounter > randomiseAt)
-        // {
-        //     SpawnAgents();
-        //     randomiseCounter = 0f;
-        // } 
+        foreach(KeyValuePair<AgentPKW, AgentInfo> agentInfoPair in agentInformationList)
+        {
+            GoalStayInParkingSpace(agentInfoPair);
+        }
     }
 
     /*#########################################################*/
@@ -93,22 +112,22 @@ public class Park_Training_Controller : MonoBehaviour
     /*#########################################################*/
     public void ExitTrainingArea(AgentPKW agent)
     {
-
+        agent.SetReward(-1f);
     }
 
     public void ExitRoad(AgentPKW agent)
     {
-
+        agent.AddReward(-0.2f);
     }
 
     public void CollisionWithAgent(AgentPKW agent)
     {
-
+        agent.AddReward(-0.5f);
     }
 
     public void CollisionWithObstacle(AgentPKW agent)
     {
-
+        agent.AddReward(-0.8f);
     }
 
     public void GoalEnterParkingSpace(AgentPKW agent, Transform parkingSpace)
@@ -120,12 +139,33 @@ public class Park_Training_Controller : MonoBehaviour
                     vom ziel entfernt ist
                 - Curriculum könnte beinhalten, dass der agent selbst abschaltet.
         */
-        agentInGoalCheckList[agent] = parkingSpace;
+        agentInformationList[agent].parkingSpacesInContact.Add(parkingSpace);
+        agentInformationList[agent].TimeInParkingSpace = 0;
     }
 
-    public void GoalExitParkingSpace(AgentPKW agent, Transform parkingSpace)
+    private void GoalStayInParkingSpace(KeyValuePair<AgentPKW, AgentInfo> agentInfoPair)
     {
-        agentInGoalCheckList[agent] = null;
+        // nur wenn fahrzeug eine parklücke berührt
+        if(agentInfoPair.Value.parkingSpacesInContact.Any())
+        {
+            // wenn lange genug in parklücke gewesen,
+            // --> reward austeilen
+            if(agentInfoPair.Value.getTimeinSeconds() >= this.currentLesson.remainTimeInParkingSpace)
+            {
+                agentInfoPair.Key.AddReward(CalcDistanceReward(agentInfoPair.Key.PKWBody, agentInfoPair.Value.parkingSpacesInContact.Last(), 0.5f));
+                agentInfoPair.Key.AddReward(CalcRotationReward(agentInfoPair.Key.PKWBody, agentInfoPair.Value.parkingSpacesInContact.Last(), 0.5f));
+                FinishEpisode();
+            }
+            // sonst --> reward austeilen
+            else
+                agentInfoPair.Value.TimeInParkingSpace += 1;
+        }
+    }
+
+    public void ExitParkingSpace(AgentPKW agent, Transform parkingSpace)
+    {
+        agentInformationList[agent].parkingSpacesInContact.Remove(parkingSpace);
+        agentInformationList[agent].TimeInParkingSpace = 0;
     }
 
     public void GoalExitParkingLot()
@@ -203,12 +243,44 @@ public class Park_Training_Controller : MonoBehaviour
     /*#########################################################*/
     /*                  Environment Methoden                   */
     /*#########################################################*/
+    public void FinishEpisode(bool isInterupt = false)
+    {
+        if(isInterupt)
+            m_AgentGroup.GroupEpisodeInterrupted();
+        else
+            m_AgentGroup.EndGroupEpisode();
+        ResetScene();
+    }
+    
     private void ResetScene()
     {
-        currentLesson = curriculum[(int)envParameters.GetWithDefault("", 4)];
+        currentLesson = curriculum[(int)envParameters.GetWithDefault("", 0)];
+        Debug.Log(currentLesson.name);
+
+        // Eingang verschieben
+        if(episodeCounter % currentLesson.randomiseEntranceAt == 0)
+            envController.ZLineShuffle(1,3,0,3);
+        
+        // Geparkte Autos umstellen
+        if(episodeCounter % currentLesson.randomiseCarsOnParkingLotAt == 0)
+            envController.SetAndShuffleCars(currentLesson.carsOnParkingLot);
+        
+        // Autos Spawnen
+        if(episodeCounter % currentLesson.randomiseSpawnAt == 0)
+            SpawnAgents(true);
+        else
+            SpawnAgents();
+
+        // Trainingsareal rotieren
+        // if(episodeCounter % currentLesson.randomiseEnvironmentRotationAt == 1)
+        //      this.transform.rotation = GetRandomRot();
+
+        episodeCounter++;
     }
 
-    private void SpawnAgents()
+    // aufpassen wenn der agent noch keinen Spawn zugewiesen bekommen hat
+    // könnte es zu problemen kommen
+    private void SpawnAgents(bool isRandom = false)
     {
         if(agentList.Count > spawnPoints.Count)
         {
@@ -217,6 +289,7 @@ public class Park_Training_Controller : MonoBehaviour
 
         Transform[] occupiedSpawnPoints = new Transform[spawnPoints.Count];
         Transform spawnPoint;
+        
         int agentIndex = 0;
         foreach(AgentPKW agent in agentList)
         {
@@ -224,20 +297,33 @@ public class Park_Training_Controller : MonoBehaviour
             agent.RBody.velocity = Vector3.zero;
             agent.RBody.angularVelocity = Vector3.zero;
 
-            // zufälligen, freien spawnpunkt finden
-            do
+            if(isRandom)
             {
-                spawnPoint = spawnPoints[UnityEngine.Random.Range(0,spawnPoints.Count-1)];
-            }while(isTransformInArray(spawnPoint, occupiedSpawnPoints));
-            
-            // wenn freien Punkt gefunden, setze agenten dahin
-            agent.transform.position = spawnPoint.position;
-            agent.transform.rotation = spawnPoint.rotation;
+                // zufälligen, freien spawnpunkt finden
+                do
+                {
+                    spawnPoint = spawnPoints[UnityEngine.Random.Range(0,spawnPoints.Count-1)];
+                }while(isTransformInArray(spawnPoint, occupiedSpawnPoints));
+                
+                // wenn freien punkt gefunden, in die AgentInfo liste aufnehmen
+                agentInformationList[agent].spawn = spawnPoint;
 
-            // speichere besetzten spawn punkt und inkrementiere index
-            occupiedSpawnPoints[agentIndex] = spawnPoint;
-            agentIndex++;
+                // speichere besetzten spawn punkt und inkrementiere index
+                occupiedSpawnPoints[agentIndex] = spawnPoint;
+                agentIndex++;
+            }
+            
+            // setze Agenten auf seinen Spawnpunkt und rotiere entsprechend
+            agent.transform.position = agentInformationList[agent].spawn.position;
+            agent.transform.rotation = agentInformationList[agent].spawn.rotation;
         }
+    }
+
+    //____Hilfsmethoden_______________________________________________
+
+    private Quaternion GetRandomRot()
+    {
+        return Quaternion.Euler(0, UnityEngine.Random.Range(0.0f, 360.0f), 0);
     }
 
     private bool isTransformInArray(Transform transform, Transform[] array)
@@ -264,10 +350,38 @@ public class Lesson
     
     // amount of occupied parking spaces
     public int carsOnParkingLot;
-    
+
+    // time to remain in parking space till reward comes 
+    public float remainTimeInParkingSpace;
+
     // randomise at each _ Episode
     public int randomiseSpawnAt;
     public int randomiseEntranceAt;
     public int randomiseCarsOnParkingLotAt;
     public int randomiseEnvironmentRotationAt;
+}
+
+public class AgentInfo
+{
+    public Transform        spawn;
+    public List<Transform>  parkingSpacesInContact;
+    private float           timeInParkingSpace;
+
+    public AgentInfo()
+    {
+        parkingSpacesInContact = new List<Transform>();
+        spawn = null;
+        timeInParkingSpace = 0;
+    }
+
+    public float TimeInParkingSpace
+    {
+        get{return timeInParkingSpace;}
+        set{timeInParkingSpace = value;}
+    }
+
+    public float getTimeinSeconds()
+    {
+        return timeInParkingSpace * Time.fixedDeltaTime;
+    }
 }

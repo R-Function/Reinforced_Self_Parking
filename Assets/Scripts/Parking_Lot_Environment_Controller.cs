@@ -64,14 +64,14 @@ public class Parking_Lot_Environment_Controller : MonoBehaviour
 
     // vertauscht zufällig zwei Tile-Reihen mit der länge depth 
     // im Z-bereich von min bis max 
-    public void ZLineShuffle(int col_min, int col_max, int row_min, int row_max)
+    public void ZLineShuffle(int col_from, int col_to, int row_from, int row_to)
     {
-        int column_a = UnityEngine.Random.Range(col_min, col_max);
-        int column_b = RandomRangeExcept(col_min, col_max, column_a);
+        int column_a = UnityEngine.Random.Range(col_from, col_to+1);
+        int column_b = RandomRangeExcept(col_from, col_to, column_a);
         Transform tile_buffer;
         // Debug.Log("ColA: "+column_a.ToString()+" ColB: "+column_b.ToString());
 
-        for(int row = row_min; row <= row_max; row++)
+        for(int row = row_from; row <= row_to; row++)
         {
 
             if(this.tileMatrix[row,column_a] != null)

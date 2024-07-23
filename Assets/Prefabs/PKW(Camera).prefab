@@ -690,8 +690,6 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
-  rBody: {fileID: 0}
-  pkw: {fileID: 0}
   inGoal: 0
   isRunning: 0
 --- !u!114 &3631358316615922521
@@ -740,9 +738,9 @@ MonoBehaviour:
   maxSpeed: 90
   maxReverseSpeed: 45
   accelerationMultiplier: 2
-  maxSteeringAngle: 27
+  maxSteeringAngle: 35
   steeringSpeed: 0.5
-  brakeForce: 350
+  brakeForce: 450
   decelerationMultiplier: 2
   handbrakeDriftMultiplier: 5
   bodyMassCenter: {x: 0, y: 0, z: 0}

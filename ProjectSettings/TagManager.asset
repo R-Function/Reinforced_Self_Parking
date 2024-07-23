@@ -11,6 +11,8 @@ TagManager:
   - Obstacle
   - TrainingArea
   - Spawn
+  - Environment
+  - Agent
   layers:
   - Default
   - TransparentFX

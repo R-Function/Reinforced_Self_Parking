@@ -126,7 +126,7 @@ public class AgentPKW : Agent
     {
         if(col.gameObject.tag == "ParkSpace")
         {
-            critic.GoalExitParkingSpace(this, col.transform);
+            critic.ExitParkingSpace(this, col.transform);
         }
     }
 

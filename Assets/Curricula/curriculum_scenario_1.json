@@ -1,0 +1,12 @@
+{"Lessons":[
+	{
+		"name":"FirstLesson",		
+		"carsOnParkingLot": 1,
+		"remainTimeInParkingSpace":3.0,
+		"randomiseSpawnAt": 1,		
+		"randomiseEntranceAt": 1,
+		"randomiseCarsOnParkingLotAt": 1,
+		"randomiseEnvironmentRotationAt": 2
+	}
+]
+}

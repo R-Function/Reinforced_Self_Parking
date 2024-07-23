@@ -338,30 +338,30 @@
 //     }
 // }
 
-// // [System.Serializable]
-// public class Curriculum
-// {
-//     public Lesson[] Lessons;
-// }
+// // // [System.Serializable]
+// // public class Curriculum
+// // {
+// //     public Lesson[] Lessons;
+// // }
 
-// // [System.Serializable]
-// public class Lesson
-// {
-//     //Curriculum Name
-//     public string Name;
+// // // [System.Serializable]
+// // public class Lesson
+// // {
+// //     //Curriculum Name
+// //     public string Name;
 
-//     //AgentSettings
-//     public float AgentMaxAngVel;
-//     public bool AgentPhysControll;
+// //     //AgentSettings
+// //     public float AgentMaxAngVel;
+// //     public bool AgentPhysControll;
 
-//     //Curriculum
-//     public int[] CurBridgeWidth;
-//     public int CurEnvRandomisation;
-//     public int CurSpawnSize;
+// //     //Curriculum
+// //     public int[] CurBridgeWidth;
+// //     public int CurEnvRandomisation;
+// //     public int CurSpawnSize;
 
-//     public float getBridgeWidth()
-//     {
-//         return Random.Range(CurBridgeWidth[0], CurBridgeWidth[1]);
-//     }
-// }
+// //     public float getBridgeWidth()
+// //     {
+// //         return Random.Range(CurBridgeWidth[0], CurBridgeWidth[1]);
+// //     }
+// // }
 
