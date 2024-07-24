@@ -19,10 +19,12 @@ public class Parking_Lot_Environment_Controller : MonoBehaviour
 
     public Transform carObstacleContainer;
 
+    public List<Transform> spawnPoints;
     public List<Transform> parkingSpaceTransforms;
+
     private List <ParkingSpace> parkingSpaces;
     private List <GameObject> vehicles;
-
+    
     private Transform[,] tileMatrix;
 
     // Start is called before the first frame update

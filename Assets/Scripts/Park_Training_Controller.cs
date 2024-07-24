@@ -30,7 +30,7 @@ public class Park_Training_Controller : MonoBehaviour
     public List<AgentPKW> agentList;
     private SimpleMultiAgentGroup m_AgentGroup;
 
-    public List<Transform> spawnPoints;
+    private List<Transform> spawnPoints;
 
     private Dictionary<AgentPKW, AgentInfo> agentInformationList;
 
@@ -43,10 +43,6 @@ public class Park_Training_Controller : MonoBehaviour
         string curriculumText = curriculumFile.text;
         curriculum            = JsonUtility.FromJson<Curriculum>(curriculumText).Lessons;
 
-        // instanziieren der Listen
-        agentInformationList  = new Dictionary<AgentPKW, AgentInfo>();
-        m_AgentGroup          = new SimpleMultiAgentGroup();
-        
         // einen Handle auf den Umgebungscontroller holen
         int i = 0;
         Transform child;
@@ -56,7 +52,11 @@ public class Park_Training_Controller : MonoBehaviour
             i++;
         }while(child.tag != "Environment");
         envController = child.GetComponent<Parking_Lot_Environment_Controller>();
-
+        
+        // instanziieren der Listen
+        agentInformationList  = new Dictionary<AgentPKW, AgentInfo>();
+        m_AgentGroup          = new SimpleMultiAgentGroup();
+        spawnPoints           = envController.spawnPoints;
 
         //initialisieren der Agenten
         foreach(AgentPKW agent in agentList)
