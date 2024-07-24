@@ -1,30 +1,33 @@
 {"Lessons":[
 	{
 		"name":"DriveForwardLesson",
+		"environmentPrefabName":"Environment_Three_Driveways",
 		"agentControllBreak": false,
 		"agentControllReverse": false,		
-		"carsOnParkingLot": 6,
+		"carsOnParkingLot": 0,
 		"remainTimeInParkingSpace":1.0,
-		"randomiseSpawnAt": 30,		
+		"randomiseSpawnAt": 10,		
 		"randomiseEntranceAt": 0,
 		"randomiseCarsOnParkingLotAt": 0,
-		"randomiseEnvironmentRotationAt": 0
+		"randomiseEnvironmentRotationAt": 50
 	},
 	{
-		"name":"BreakLesson",		
-		"agentControllBreak": true,
-		"agentControllReverse": false,
-		"carsOnParkingLot": 10,
-		"remainTimeInParkingSpace":3.5,
-		"randomiseSpawnAt": 2,		
-		"randomiseEntranceAt": 0,
-		"randomiseCarsOnParkingLotAt": 50,
-		"randomiseEnvironmentRotationAt": 0
-	},
-	{
-		"name":"ReverseLesson",		
+		"name":"ReverseLesson",	
+		"environmentPrefabName":"Environment_Three_Driveways",	
 		"agentControllBreak": true,
 		"agentControllReverse": true,
+		"carsOnParkingLot": 0,
+		"remainTimeInParkingSpace":2,
+		"randomiseSpawnAt": 10,		
+		"randomiseEntranceAt": 0,
+		"randomiseCarsOnParkingLotAt": 0,
+		"randomiseEnvironmentRotationAt": 50
+	},
+	{
+		"name":"BreakLesson",	
+		"environmentPrefabName":"Environment_One_Driveways",	
+		"agentControllBreak": true,
+		"agentControllReverse": false,
 		"carsOnParkingLot": 10,
 		"remainTimeInParkingSpace":3.5,
 		"randomiseSpawnAt": 2,		

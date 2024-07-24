@@ -33,7 +33,7 @@ environment_parameters:
           behavior: CrossBridgeBehaviour
           signal_smoothing: true
           min_lesson_length: 200
-          threshold: 0.1
+          threshold: 0.01
         value: 0
       - name: BreakLesson
         completion_criteria:
@@ -41,7 +41,7 @@ environment_parameters:
           behavior: CrossBridgeBehaviour
           signal_smoothing: true
           min_lesson_length: 200
-          threshold: 0.2
+          threshold: 0.015
         value: 1
       - name: BreakLesson
         value: 2

@@ -4,14 +4,16 @@ using Unity.MLAgents;
 using System;
 using System.Linq;
 
+
 public class Park_Training_Controller : MonoBehaviour
 {
     //Testvariablen
     // private int parkedCarCount = 10;
     // private float randomiseCounter = 0;
     // private float randomiseAt = 3;
-
     private Parking_Lot_Environment_Controller envController;
+    public List<GameObject> trainingEnvironmentList;
+    public Transform carObstacleContainer;
 
     [Header("Training")]
     public int MaxTrainingSteps = 10000;
@@ -42,21 +44,14 @@ public class Park_Training_Controller : MonoBehaviour
         envParameters         = Academy.Instance.EnvironmentParameters;
         string curriculumText = curriculumFile.text;
         curriculum            = JsonUtility.FromJson<Curriculum>(curriculumText).Lessons;
+        currentLesson         = curriculum[(int)envParameters.GetWithDefault("", 0)];
 
-        // einen Handle auf den Umgebungscontroller holen
-        int i = 0;
-        Transform child;
-        do
-        {
-            child = this.transform.GetChild(i);
-            i++;
-        }while(child.tag != "Environment");
-        envController = child.GetComponent<Parking_Lot_Environment_Controller>();
-        
+        // Umgebung Instanziieren
+        setEnvironment(currentLesson.environmentPrefabName);
+
         // instanziieren der Listen
         agentInformationList  = new Dictionary<AgentPKW, AgentInfo>();
         m_AgentGroup          = new SimpleMultiAgentGroup();
-        spawnPoints           = envController.spawnPoints;
 
         //initialisieren der Agenten
         foreach(AgentPKW agent in agentList)
@@ -67,6 +62,27 @@ public class Park_Training_Controller : MonoBehaviour
         }
 
         ResetScene();
+    }
+
+    public void setEnvironment(string prefabName)
+    {
+        GameObject envPrefab = new GameObject();
+        foreach(GameObject environment in trainingEnvironmentList)
+        {
+            if(environment.name == prefabName)
+                envPrefab = environment;
+        }
+        // für den fall eines Fehlers direkt abbrechen
+        if(envPrefab.transform.childCount == 0)
+            throw new Exception("Der name des Prefabs wurde unter den verfügbaren Prefabs"
+                               +"nicht gefunden. Überprüfe die Curriculum datei und die "
+                               +"Prefabs in der Prefab Liste des Training Controllers.");
+
+        Instantiate(envPrefab, this.transform);
+        envController = envPrefab.GetComponent<Parking_Lot_Environment_Controller>();
+        envController.CarObstacleContainer = this.carObstacleContainer;
+        envController.makeObject();
+        spawnPoints = envController.spawnPoints;
     }
 
     void FixedUpdate()
@@ -109,13 +125,13 @@ public class Park_Training_Controller : MonoBehaviour
     /*#########################################################*/
     public void ExitTrainingArea(AgentPKW agent)
     {
-        agent.AddReward(-1f);
+        agent.AddReward(-2f);
         FinishEpisode();
     }
 
     public void ExitRoad(AgentPKW agent)
     {
-        agent.AddReward(-0.2f);
+        agent.AddReward(-0.1f);
     }
 
     public void CollisionWithAgent(AgentPKW agent)
@@ -125,7 +141,7 @@ public class Park_Training_Controller : MonoBehaviour
 
     public void CollisionWithObstacle(AgentPKW agent)
     {
-        agent.AddReward(-0.8f);
+        agent.AddReward(-0.2f);
         if(currentLesson.agentControllReverse == false)
             FinishEpisode();
     }
@@ -255,10 +271,15 @@ public class Park_Training_Controller : MonoBehaviour
     
     private void ResetScene()
     {
+        Lesson previousLesson = currentLesson;
         currentLesson = curriculum[(int)envParameters.GetWithDefault("", 0)];
         Debug.Log(currentLesson.name);
-
         m_ResetTimer = 0;
+
+        // neue umgebung laden bei bedarf
+        if(previousLesson != currentLesson)
+            setEnvironment(currentLesson.environmentPrefabName);
+
         foreach(AgentPKW agent in agentList)
         {
             // m_AgentGroup.RegisterAgent(agent);
@@ -279,16 +300,21 @@ public class Park_Training_Controller : MonoBehaviour
             envController.SetAndShuffleCars(currentLesson.carsOnParkingLot);
         
         // Autos Spawnen
+        if(currentLesson.randomiseSpawnAt == 0)
+            throw new Exception("In der Curriculum Datei: RandomiseSpawnAt darf nicht 0 sein!");
+        
         if(currentLesson.randomiseSpawnAt != 0
         && episodeCounter % currentLesson.randomiseSpawnAt == 0)
             SpawnAgents(isRandom : true);
-        else
-            SpawnAgents();
 
         // Trainingsareal rotieren
         if(currentLesson.randomiseEnvironmentRotationAt != 0
-        && episodeCounter % currentLesson.randomiseEnvironmentRotationAt == 1)
+        && episodeCounter % currentLesson.randomiseEnvironmentRotationAt == 0)
              this.transform.rotation = GetRandomRot();
+
+        // Wenn kein Random Spawn dann
+        if(episodeCounter % currentLesson.randomiseSpawnAt != 0)
+            SpawnAgents();
 
         episodeCounter++;
     }
@@ -317,7 +343,7 @@ public class Park_Training_Controller : MonoBehaviour
                 // zufälligen, freien spawnpunkt finden
                 do
                 {
-                    spawnPoint = spawnPoints[UnityEngine.Random.Range(0,spawnPoints.Count-1)];
+                    spawnPoint = spawnPoints[UnityEngine.Random.Range(0,spawnPoints.Count)];
                 }while(isTransformInArray(spawnPoint, occupiedSpawnPoints));
                 
                 // wenn freien punkt gefunden, in die AgentInfo liste aufnehmen
@@ -329,8 +355,8 @@ public class Park_Training_Controller : MonoBehaviour
             }
             
             // setze Agenten auf seinen Spawnpunkt und rotiere entsprechend
-            agent.transform.position = agentInformationList[agent].spawn.position;
-            agent.transform.rotation = agentInformationList[agent].spawn.rotation;
+            agent.transform.localPosition = agentInformationList[agent].spawn.position;
+            agent.transform.localRotation = agentInformationList[agent].spawn.parent.localRotation;
         }
     }
 
@@ -362,6 +388,9 @@ public class Curriculum
 public class Lesson
 {
     public string name;
+
+    // environment
+    public string environmentPrefabName;
 
     // agent controlls
     public bool agentControllBreak;

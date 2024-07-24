@@ -69,7 +69,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 7857
+          seed: 1190
           value: 0
       name: DriveForwardLesson
       completion_criteria:
@@ -77,12 +77,12 @@ environment_parameters:
         measure: progress
         min_lesson_length: 200
         signal_smoothing: true
-        threshold: 0.1
+        threshold: 0.01
         require_reset: false
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 7858
+          seed: 1191
           value: 1
       name: BreakLesson
       completion_criteria:
@@ -90,12 +90,12 @@ environment_parameters:
         measure: progress
         min_lesson_length: 200
         signal_smoothing: true
-        threshold: 0.2
+        threshold: 0.015
         require_reset: false
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 7859
+          seed: 1192
           value: 2
       name: BreakLesson
       completion_criteria: null
@@ -103,8 +103,8 @@ checkpoint_settings:
   run_id: one_car_self_park
   initialize_from: null
   load_model: false
-  resume: true
-  force: false
+  resume: false
+  force: true
   train_model: false
   inference: false
   results_dir: results

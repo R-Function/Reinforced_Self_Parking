@@ -265,10 +265,9 @@ public class PKW_Controller : MonoBehaviour
 
     public void Turn(float turnMultiplier)
     {
-      var STEERING_SPEED = 0.7f;
       var steeringAngle = turnMultiplier * maxSteeringAngle; 
-      frontLeftCollider.steerAngle = Mathf.Lerp(frontLeftCollider.steerAngle, steeringAngle, STEERING_SPEED);
-      frontRightCollider.steerAngle = Mathf.Lerp(frontRightCollider.steerAngle, steeringAngle, STEERING_SPEED);
+      frontLeftCollider.steerAngle = Mathf.Lerp(frontLeftCollider.steerAngle, steeringAngle, steeringSpeed);
+      frontRightCollider.steerAngle = Mathf.Lerp(frontRightCollider.steerAngle, steeringAngle, steeringSpeed);
     }
 
     //The following method turns the front car wheels to the left. The speed of this movement will depend on the steeringSpeed variable.

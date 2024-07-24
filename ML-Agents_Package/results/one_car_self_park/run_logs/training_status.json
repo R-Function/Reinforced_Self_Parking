@@ -5,40 +5,22 @@
     "PKWParking": {
         "checkpoints": [
             {
-                "steps": 54724,
-                "file_path": "results/one_car_self_park/PKWParking/PKWParking-54724.onnx",
-                "reward": -1.1789333447813988,
-                "creation_time": 1721738400.807974,
+                "steps": 99815,
+                "file_path": "results/one_car_self_park/PKWParking/PKWParking-99815.onnx",
+                "reward": -1.552583402954042,
+                "creation_time": 1721834602.6836345,
                 "auxillary_file_paths": [
-                    "results/one_car_self_park/PKWParking/PKWParking-54724.pt"
-                ]
-            },
-            {
-                "steps": 57827,
-                "file_path": "results/one_car_self_park/PKWParking/PKWParking-57827.onnx",
-                "reward": -1.1438666476557653,
-                "creation_time": 1721740340.0865881,
-                "auxillary_file_paths": [
-                    "results/one_car_self_park/PKWParking/PKWParking-57827.pt"
-                ]
-            },
-            {
-                "steps": 105184,
-                "file_path": "results/one_car_self_park/PKWParking/PKWParking-105184.onnx",
-                "reward": -1.4197556264698505,
-                "creation_time": 1721740868.0034878,
-                "auxillary_file_paths": [
-                    "results/one_car_self_park/PKWParking/PKWParking-105184.pt"
+                    "results/one_car_self_park/PKWParking/PKWParking-99815.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 105184,
+            "steps": 99815,
             "file_path": "results/one_car_self_park/PKWParking.onnx",
-            "reward": -1.4197556264698505,
-            "creation_time": 1721740868.0034878,
+            "reward": -1.552583402954042,
+            "creation_time": 1721834602.6836345,
             "auxillary_file_paths": [
-                "results/one_car_self_park/PKWParking/PKWParking-105184.pt"
+                "results/one_car_self_park/PKWParking/PKWParking-99815.pt"
             ]
         }
     },

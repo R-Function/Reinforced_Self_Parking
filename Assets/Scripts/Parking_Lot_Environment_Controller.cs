@@ -17,7 +17,7 @@ public class Parking_Lot_Environment_Controller : MonoBehaviour
 
     public GameObject carObstaclePrefab;
 
-    public Transform carObstacleContainer;
+    private Transform carObstacleContainer;
 
     public List<Transform> spawnPoints;
     public List<Transform> parkingSpaceTransforms;
@@ -28,7 +28,7 @@ public class Parking_Lot_Environment_Controller : MonoBehaviour
     private Transform[,] tileMatrix;
 
     // Start is called before the first frame update
-    void Start()
+    public void makeObject()
     {
         parkingSpaces   = new List<ParkingSpace>();
         vehicles        = new List<GameObject>();
@@ -223,6 +223,8 @@ public class Parking_Lot_Environment_Controller : MonoBehaviour
         return number;
     }
 
+    //_________________properties_________________________
+    public Transform CarObstacleContainer{ get{return carObstacleContainer;} set{carObstacleContainer = value;}}
 }
 
 // -falls noch zeit ist können reservierte plätze zusätzlich implementiert werden
