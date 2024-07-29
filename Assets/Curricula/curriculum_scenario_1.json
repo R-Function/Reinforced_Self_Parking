@@ -17,7 +17,7 @@
 		"agentControllBreak": false,
 		"agentControllReverse": true,
 		"carsOnParkingLot": 0,
-		"remainTimeInParkingSpace":1.5,
+		"remainTimeInParkingSpace":1.0,
 		"randomiseSpawnAt": 5,		
 		"randomiseEntranceAt": 0,
 		"randomiseCarsOnParkingLotAt": 0,

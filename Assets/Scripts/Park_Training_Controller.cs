@@ -95,10 +95,10 @@ public class Park_Training_Controller : MonoBehaviour
     {
         m_ResetTimer += 1;
         foreach(Agent a in m_AgentGroup.GetRegisteredAgents())
-            a.AddReward(-1f/MaxTrainingSteps);
+            a.AddReward(-3f/MaxTrainingSteps);
         if (m_ResetTimer >= MaxTrainingSteps && MaxTrainingSteps > 0)
         {
-            FinishEpisode();
+            FinishEpisode(true);
             Debug.Log("Folgendes Training hat die erlaubte Anzahl Steps überschritten: "+this.gameObject.name);
         }
 
