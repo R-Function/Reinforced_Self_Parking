@@ -6,7 +6,7 @@ behaviors:
       batch_size: 1024
       buffer_size: 10240
       learning_rate: 0.0003
-      beta: 0.015
+      beta: 0.0175
       epsilon: 0.1
       lambd: 0.95
       num_epoch: 3
@@ -16,7 +16,7 @@ behaviors:
     checkpoint_interval: 500000
     network_settings:
       normalize: true
-      hidden_units: 256
+      hidden_units: 128
       num_layers: 2
       vis_encode_type: simple
       memory: null
@@ -37,9 +37,9 @@ behaviors:
     init_path: null
     keep_checkpoints: 5
     even_checkpoints: false
-    max_steps: 10000000
+    max_steps: 2000000
     time_horizon: 128
-    summary_freq: 20000
+    summary_freq: 7500
     threaded: false
     self_play: null
     behavioral_cloning: null
@@ -69,35 +69,48 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1190
+          seed: 7654
           value: 0
       name: DriveForwardLesson
       completion_criteria:
-        behavior: CrossBridgeBehaviour
+        behavior: PKWParking
         measure: progress
-        min_lesson_length: 200
+        min_lesson_length: 50
         signal_smoothing: true
-        threshold: 0.01
+        threshold: 0.07
         require_reset: false
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1191
+          seed: 7655
           value: 1
-      name: BreakLesson
+      name: ReverseLesson
       completion_criteria:
-        behavior: CrossBridgeBehaviour
+        behavior: PKWParking
         measure: progress
-        min_lesson_length: 200
+        min_lesson_length: 100
         signal_smoothing: true
-        threshold: 0.015
+        threshold: 0.15
         require_reset: false
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1192
+          seed: 7656
           value: 2
       name: BreakLesson
+      completion_criteria:
+        behavior: PKWParking
+        measure: progress
+        min_lesson_length: 100
+        signal_smoothing: true
+        threshold: 0.4
+        require_reset: false
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 7657
+          value: 3
+      name: TurnLesson
       completion_criteria: null
 checkpoint_settings:
   run_id: one_car_self_park

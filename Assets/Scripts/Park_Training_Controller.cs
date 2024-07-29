@@ -66,14 +66,20 @@ public class Park_Training_Controller : MonoBehaviour
 
     public void setEnvironment(string prefabName)
     {
-        GameObject envPrefab = new GameObject();
+        foreach(Transform child in this.transform)
+        {
+            if(child.tag == "environment")
+                Destroy(child);
+        }
+
+        GameObject envPrefab = null;
         foreach(GameObject environment in trainingEnvironmentList)
         {
             if(environment.name == prefabName)
                 envPrefab = environment;
         }
         // für den fall eines Fehlers direkt abbrechen
-        if(envPrefab.transform.childCount == 0)
+        if(envPrefab == null)
             throw new Exception("Der name des Prefabs wurde unter den verfügbaren Prefabs"
                                +"nicht gefunden. Überprüfe die Curriculum datei und die "
                                +"Prefabs in der Prefab Liste des Training Controllers.");
@@ -92,7 +98,7 @@ public class Park_Training_Controller : MonoBehaviour
             a.AddReward(-1f/MaxTrainingSteps);
         if (m_ResetTimer >= MaxTrainingSteps && MaxTrainingSteps > 0)
         {
-            FinishEpisode(true);
+            FinishEpisode();
             Debug.Log("Folgendes Training hat die erlaubte Anzahl Steps überschritten: "+this.gameObject.name);
         }
 
@@ -125,13 +131,13 @@ public class Park_Training_Controller : MonoBehaviour
     /*#########################################################*/
     public void ExitTrainingArea(AgentPKW agent)
     {
-        agent.AddReward(-2f);
+        agent.AddReward(-1f);
         FinishEpisode();
     }
 
     public void ExitRoad(AgentPKW agent)
     {
-        agent.AddReward(-0.1f);
+        agent.SetReward(-0.1f);
     }
 
     public void CollisionWithAgent(AgentPKW agent)
@@ -141,7 +147,7 @@ public class Park_Training_Controller : MonoBehaviour
 
     public void CollisionWithObstacle(AgentPKW agent)
     {
-        agent.AddReward(-0.2f);
+        agent.SetReward(-0.2f);
         if(currentLesson.agentControllReverse == false)
             FinishEpisode();
     }
@@ -272,7 +278,7 @@ public class Park_Training_Controller : MonoBehaviour
     private void ResetScene()
     {
         Lesson previousLesson = currentLesson;
-        currentLesson = curriculum[(int)envParameters.GetWithDefault("", 0)];
+        currentLesson = curriculum[(int)envParameters.GetWithDefault("PKWParking_Parameters", 0)];
         Debug.Log(currentLesson.name);
         m_ResetTimer = 0;
 

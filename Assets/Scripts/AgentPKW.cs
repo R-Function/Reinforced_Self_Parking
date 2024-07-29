@@ -21,6 +21,10 @@ public class AgentPKW : Agent
                Forward  = 1,
                Reverse  = 2}
 
+    enum Turn{Idle      = 0,
+              Right     = 1,
+              Left      = 2}
+
     private Rigidbody rBody;
     private PKW_Controller pkw;
     private Transform pkwBody;
@@ -87,8 +91,9 @@ public class AgentPKW : Agent
         if(isRunning)
         {
             Drive actDrive  = (Drive)actions.DiscreteActions[0];
-            int actBrake  = actions.DiscreteActions[1];
-            float actTurn = (float)Math.Clamp(actions.ContinuousActions[0], -1f,1f);
+            int actBrake    = actions.DiscreteActions[1];
+            // float actTurn = (float)Math.Clamp(actions.ContinuousActions[0], -1f,1f);
+            Turn actTurn    = (Turn)actions.DiscreteActions[2];
 
             //Vorwärts und Rückwärts fahren
             switch (actDrive)
@@ -104,8 +109,22 @@ public class AgentPKW : Agent
                         pkw.GoReverse();
                     break;
             }
-            //Lenkung
-            pkw.Turn(actTurn);
+            // Lenkung continuous
+            // pkw.Turn(actTurn);
+            // Lenkung disket
+            switch(actTurn)
+            {
+                case Turn.Idle:
+                    pkw.ResetSteeringAngle();
+                    break;
+                case Turn.Right:
+                    pkw.TurnRight();
+                    break;
+                case Turn.Left:
+                    pkw.TurnLeft();
+                    break;
+            }
+
             //Bremse
             if(actBrake == 1 && isBreakAllowed)
                 pkw.Brakes();
@@ -186,7 +205,20 @@ public class AgentPKW : Agent
         var discreteActionsOut   = actionsOut.DiscreteActions;
 
         //Lenkung
-        continuousActionsOut[0] = Input.GetAxis("Horizontal");
+        // continuousActionsOut[0] = Input.GetAxis("Horizontal");
+        switch ((int)Input.GetAxis("Horizontal"))
+        {
+            case 0:
+                discreteActionsOut[2] = 0;
+                break;
+            case 1:
+                discreteActionsOut[2] = 1;
+                break;
+            case -1:
+                discreteActionsOut[2] = 2;
+                break;
+        }
+
         //Fahren
         switch ((int)Input.GetAxis("Vertical"))
         {

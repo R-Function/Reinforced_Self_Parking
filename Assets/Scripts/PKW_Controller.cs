@@ -30,6 +30,8 @@ public class PKW_Controller : MonoBehaviour
       public int maxSteeringAngle = 27; // The maximum angle that the tires can reach while rotating the steering wheel.
       [Range(0.1f, 1f)]
       public float steeringSpeed = 0.5f; // How fast the steering wheel turns.
+      [Range(0.1f, 1f)]
+      public float resetSteeringSpeed = 0.5f; // How fast the steering wheel turns.
       [Space(10)]
       [Range(100, 600)]
       public int brakeForce = 350; // The strength of the wheel brakes.
@@ -296,16 +298,16 @@ public class PKW_Controller : MonoBehaviour
     // on the steeringSpeed variable.
     public void ResetSteeringAngle(){
       if(steeringAxis < 0f){
-        steeringAxis = steeringAxis + (Time.deltaTime * 10f * steeringSpeed);
+        steeringAxis = steeringAxis + (Time.deltaTime * 10f * resetSteeringSpeed);
       }else if(steeringAxis > 0f){
-        steeringAxis = steeringAxis - (Time.deltaTime * 10f * steeringSpeed);
+        steeringAxis = steeringAxis - (Time.deltaTime * 10f * resetSteeringSpeed);
       }
       if(Mathf.Abs(frontLeftCollider.steerAngle) < 1f){
         steeringAxis = 0f;
       }
       var steeringAngle = steeringAxis * maxSteeringAngle;
-      frontLeftCollider.steerAngle = Mathf.Lerp(frontLeftCollider.steerAngle, steeringAngle, steeringSpeed);
-      frontRightCollider.steerAngle = Mathf.Lerp(frontRightCollider.steerAngle, steeringAngle, steeringSpeed);
+      frontLeftCollider.steerAngle = Mathf.Lerp(frontLeftCollider.steerAngle, steeringAngle, resetSteeringSpeed);
+      frontRightCollider.steerAngle = Mathf.Lerp(frontRightCollider.steerAngle, steeringAngle, resetSteeringSpeed);
     }
 
     // This method matches both the position and rotation of the WheelColliders with the WheelMeshes.
