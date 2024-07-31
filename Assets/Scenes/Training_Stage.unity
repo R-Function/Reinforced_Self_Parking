@@ -206,11 +206,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trainingEnvironmentList:
+  - {fileID: 4055138494349910885, guid: 3b99b8c3d5a294fa49a0123c321a35b7, type: 3}
   - {fileID: 645403710685722226, guid: 31a6b24f2b902b8b099519be8f65c378, type: 3}
   - {fileID: 7956424732914637246, guid: 2e0f3cccb68c09c4d9039b53cdd662d2, type: 3}
   - {fileID: 8163536376273993121, guid: 4b751a0eeac7897439db520a6bb19785, type: 3}
   carObstacleContainer: {fileID: 1766363714}
-  MaxTrainingSteps: 25000
   curriculumFile: {fileID: 4900000, guid: 5a87f8fa429deab4ab829bfd9ca3e24f, type: 3}
   agentList:
   - {fileID: 1309537259}
@@ -791,11 +791,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trainingEnvironmentList:
+  - {fileID: 4055138494349910885, guid: 3b99b8c3d5a294fa49a0123c321a35b7, type: 3}
   - {fileID: 645403710685722226, guid: 31a6b24f2b902b8b099519be8f65c378, type: 3}
   - {fileID: 7956424732914637246, guid: 2e0f3cccb68c09c4d9039b53cdd662d2, type: 3}
   - {fileID: 8163536376273993121, guid: 4b751a0eeac7897439db520a6bb19785, type: 3}
   carObstacleContainer: {fileID: 1853921662}
-  MaxTrainingSteps: 25000
   curriculumFile: {fileID: 4900000, guid: 5a87f8fa429deab4ab829bfd9ca3e24f, type: 3}
   agentList:
   - {fileID: 1649947768}
@@ -897,6 +897,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1554982213}
     m_Modifications:
+    - target: {fileID: 3631358316615922521, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_BehaviorType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4915974200540530724, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
       propertyPath: m_Name
       value: PKW(Raycast)
@@ -998,11 +1002,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trainingEnvironmentList:
+  - {fileID: 4055138494349910885, guid: 3b99b8c3d5a294fa49a0123c321a35b7, type: 3}
   - {fileID: 645403710685722226, guid: 31a6b24f2b902b8b099519be8f65c378, type: 3}
   - {fileID: 7956424732914637246, guid: 2e0f3cccb68c09c4d9039b53cdd662d2, type: 3}
   - {fileID: 8163536376273993121, guid: 4b751a0eeac7897439db520a6bb19785, type: 3}
   carObstacleContainer: {fileID: 1785059833}
-  MaxTrainingSteps: 25000
   curriculumFile: {fileID: 4900000, guid: 5a87f8fa429deab4ab829bfd9ca3e24f, type: 3}
   agentList:
   - {fileID: 2111732280}
@@ -1054,11 +1058,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trainingEnvironmentList:
+  - {fileID: 4055138494349910885, guid: 3b99b8c3d5a294fa49a0123c321a35b7, type: 3}
   - {fileID: 645403710685722226, guid: 31a6b24f2b902b8b099519be8f65c378, type: 3}
   - {fileID: 7956424732914637246, guid: 2e0f3cccb68c09c4d9039b53cdd662d2, type: 3}
   - {fileID: 8163536376273993121, guid: 4b751a0eeac7897439db520a6bb19785, type: 3}
   carObstacleContainer: {fileID: 86472728}
-  MaxTrainingSteps: 25000
   curriculumFile: {fileID: 4900000, guid: 5a87f8fa429deab4ab829bfd9ca3e24f, type: 3}
   agentList:
   - {fileID: 554262318}
@@ -1152,11 +1156,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trainingEnvironmentList:
+  - {fileID: 4055138494349910885, guid: 3b99b8c3d5a294fa49a0123c321a35b7, type: 3}
   - {fileID: 645403710685722226, guid: 31a6b24f2b902b8b099519be8f65c378, type: 3}
   - {fileID: 7956424732914637246, guid: 2e0f3cccb68c09c4d9039b53cdd662d2, type: 3}
   - {fileID: 8163536376273993121, guid: 4b751a0eeac7897439db520a6bb19785, type: 3}
   carObstacleContainer: {fileID: 573299103}
-  MaxTrainingSteps: 25000
   curriculumFile: {fileID: 4900000, guid: 5a87f8fa429deab4ab829bfd9ca3e24f, type: 3}
   agentList:
   - {fileID: 142623003}
@@ -1354,11 +1358,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trainingEnvironmentList:
+  - {fileID: 4055138494349910885, guid: 3b99b8c3d5a294fa49a0123c321a35b7, type: 3}
   - {fileID: 645403710685722226, guid: 31a6b24f2b902b8b099519be8f65c378, type: 3}
   - {fileID: 7956424732914637246, guid: 2e0f3cccb68c09c4d9039b53cdd662d2, type: 3}
   - {fileID: 8163536376273993121, guid: 4b751a0eeac7897439db520a6bb19785, type: 3}
   carObstacleContainer: {fileID: 538736591}
-  MaxTrainingSteps: 25000
   curriculumFile: {fileID: 4900000, guid: 5a87f8fa429deab4ab829bfd9ca3e24f, type: 3}
   agentList:
   - {fileID: 1616191685}

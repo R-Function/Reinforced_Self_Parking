@@ -4,26 +4,25 @@ behaviors:
     hyperparameters:
       batch_size: 1024
       buffer_size: 10240
-      learning_rate: 0.0006
-      beta: 0.005
-      epsilon: 0.1
+      learning_rate: 0.0003
+      beta: 0.01
+      epsilon: 0.2
       lambd: 0.95
       num_epoch: 3
       learning_rate_schedule: linear
     network_settings:
       normalize: true
-      hidden_units: 128
+      hidden_units: 256
       num_layers: 2
       vis_encode_type: simple
-      conditioning_type: hyper
     reward_signals:
       extrinsic:
         gamma: 0.99
         strength: 1.0
-    keep_checkpoints: 5
-    max_steps: 5000000
+    keep_checkpoints: 8
+    max_steps: 8500000
     time_horizon: 128
-    summary_freq: 20000
+    summary_freq: 25000
     
 environment_parameters:
   PKWParking_Parameters:
@@ -34,16 +33,8 @@ environment_parameters:
           behavior: PKWParking
           signal_smoothing: true
           min_lesson_length: 200
-          threshold: 0.5
+          threshold: 0.1
         value: 0
-      - name: ReverseLesson
-        completion_criteria:
-          measure: reward
-          behavior: PKWParking
-          signal_smoothing: true
-          min_lesson_length: 200
-          threshold: 0.5
-        value: 1
       - name: BreakLesson
         completion_criteria:
           measure: reward
@@ -51,6 +42,14 @@ environment_parameters:
           signal_smoothing: true
           min_lesson_length: 100
           threshold: 0.6
+        value: 1
+      - name: ReverseLesson
+        completion_criteria:
+          measure: reward
+          behavior: PKWParking
+          signal_smoothing: true
+          min_lesson_length: 200
+          threshold: 0.5
         value: 2
       - name: TurnLesson
         value: 3

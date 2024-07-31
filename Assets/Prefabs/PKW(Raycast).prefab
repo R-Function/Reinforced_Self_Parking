@@ -556,6 +556,8 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
   isRunning: 0
+  isBreakAllowed: 0
+  isReverseAllowed: 1
 --- !u!114 &3631358316615922521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -569,12 +571,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 4
+    VectorObservationSize: 6
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0
-      BranchSizes: 030000000200000003000000
-    VectorActionSize: 030000000200000003000000
+      BranchSizes: 0400000003000000
+    VectorActionSize: 0400000003000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
@@ -603,10 +605,10 @@ MonoBehaviour:
   maxReverseSpeed: 45
   accelerationMultiplier: 4
   maxSteeringAngle: 40
-  steeringSpeed: 0.676
-  resetSteeringSpeed: 0.352
+  steeringSpeed: 0.345
+  resetSteeringSpeed: 0.1
   brakeForce: 450
-  decelerationMultiplier: 2
+  decelerationMultiplier: 3
   handbrakeDriftMultiplier: 5
   bodyMassCenter: {x: 0, y: 0, z: 0}
   frontLeftMesh: {fileID: 8809408339314359157}
@@ -743,7 +745,7 @@ MonoBehaviour:
   - Agent
   - Obstacle
   - ParkLineMark
-  m_RaysPerDirection: 4
+  m_RaysPerDirection: 8
   m_MaxRayDegrees: 75
   m_SphereCastRadius: 0.25
   m_RayLength: 50

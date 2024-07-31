@@ -19,7 +19,8 @@ public class AgentPKW : Agent
 {
     enum Drive{Idle     = 0,
                Forward  = 1,
-               Reverse  = 2}
+               Reverse  = 2,
+               Brake    = 3}
 
     enum Turn{Idle      = 0,
               Right     = 1,
@@ -39,7 +40,9 @@ public class AgentPKW : Agent
 
     // public string indexName;
     private Park_Training_Controller critic;
+    [SerializeField]
     private bool isBreakAllowed;
+    [SerializeField]
     private bool isReverseAllowed;
 
     public override void Initialize()
@@ -60,16 +63,16 @@ public class AgentPKW : Agent
     
     // Geschwindigkeit/Beschleunigung
     // (Zu stacked Observations gemacht, um Gefühl für Bewegung zu verbessern)
-    [Observable(numStackedObservations: 4)]
+    [Observable(numStackedObservations: 3)]
     float VelocityX{
         get { return NormalizeValue(pkw.LocalVelocityX, -pkw.maxSpeed, pkw.maxSpeed, -1, 1);}
     }
-    [Observable(numStackedObservations: 4)]
+    [Observable(numStackedObservations: 3)]
     float VelocityZ{
         get { return NormalizeValue(pkw.LocalVelocityZ, -pkw.maxReverseSpeed, pkw.maxSpeed, -1, 1);}
     }
     // Gyroskop (Drehung)
-    [Observable(numStackedObservations: 4)]
+    [Observable(numStackedObservations: 3)]
     float Rotation{
         get { return NormalizeRotation(this.transform.eulerAngles).y;}
     }
@@ -83,6 +86,9 @@ public class AgentPKW : Agent
         sensor.AddObservation(NormalizePosition(this.transform.position).z);
         //Gyroskop
         sensor.AddObservation(NormalizeRotation(this.transform.eulerAngles).y);
+        //Brems- und Rückwärtsfahrsperre
+        sensor.AddObservation(isReverseAllowed);
+        sensor.AddObservation(isBreakAllowed);
     }
 
     /*______________________AKTIONEN______________________*/
@@ -91,9 +97,8 @@ public class AgentPKW : Agent
         if(isRunning)
         {
             Drive actDrive  = (Drive)actions.DiscreteActions[0];
-            int actBrake    = actions.DiscreteActions[1];
             // float actTurn = (float)Math.Clamp(actions.ContinuousActions[0], -1f,1f);
-            Turn actTurn    = (Turn)actions.DiscreteActions[2];
+            Turn actTurn    = (Turn)actions.DiscreteActions[1];
 
             //Vorwärts und Rückwärts fahren
             switch (actDrive)
@@ -108,6 +113,10 @@ public class AgentPKW : Agent
                     if(isReverseAllowed)
                         pkw.GoReverse();
                     break;
+                case Drive.Brake:
+                    if(isBreakAllowed)
+                        pkw.Brakes();
+                    break;
             }
             // Lenkung continuous
             // pkw.Turn(actTurn);
@@ -118,23 +127,18 @@ public class AgentPKW : Agent
                     pkw.ResetSteeringAngle();
                     break;
                 case Turn.Right:
-                    pkw.TurnRight();
+                    pkw.Turn(1);
                     break;
                 case Turn.Left:
-                    pkw.TurnLeft();
+                    pkw.Turn(-1);
                     break;
             }
-
-            //Bremse
-            if(actBrake == 1 && isBreakAllowed)
-                pkw.Brakes();
         }
     }
 
     /*______________TRIGGER/COLLIDER METHODEN__________________*/
     private void OnTriggerEnter(Collider col)
     {
-        Debug.Log("Betrete Trigger: "+col.gameObject.tag);
         if(col.gameObject.tag == "ParkSpace")
         {
             critic.GoalEnterParkingSpace(this, col.transform);
@@ -162,7 +166,6 @@ public class AgentPKW : Agent
 
     private void OnCollisionEnter(Collision col)
     {
-        Debug.Log("Collision mit: "+col.gameObject.tag);
         if (col.gameObject.tag == "Obstacle")
         {
             critic.CollisionWithObstacle(this);
@@ -173,13 +176,15 @@ public class AgentPKW : Agent
     private Vector3 NormalizePosition(Vector3 position)
     {
         Bounds mapBounds;
-        try{
-            mapBounds = this.transform.parent.gameObject.GetComponent<Collider>().bounds;
-        }catch(NullReferenceException e){
-            Debug.Log(e.Message);
-            Debug.Log("Es existieren keine Map Bounds. Standardwerte werden genutzt!");
-            mapBounds = new Bounds(new Vector3(0,0,0), new Vector3(100,100,100));
-        }
+        // normalisierung auf maximalgröße von map
+        mapBounds = new Bounds(this.transform.parent.position, new Vector3(150,30,150));
+        // try{
+        //     mapBounds = this.transform.parent.gameObject.GetComponent<Collider>().bounds;
+        // }catch(NullReferenceException e){
+        //     Debug.Log(e.Message);
+        //     Debug.Log("Es existieren keine Map Bounds. Standardwerte werden genutzt!");
+        //     mapBounds = new Bounds(new Vector3(0,0,0), new Vector3(100,100,100));
+        // }
         Vector3 pos = new Vector3(NormalizeValue(position.x, mapBounds.min.x,mapBounds.max.x,-1,1),
                                   NormalizeValue(position.y, mapBounds.min.y,mapBounds.max.y,-1,1),
                                   NormalizeValue(position.z, mapBounds.min.z,mapBounds.max.z,-1,1));
@@ -209,16 +214,15 @@ public class AgentPKW : Agent
         switch ((int)Input.GetAxis("Horizontal"))
         {
             case 0:
-                discreteActionsOut[2] = 0;
+                discreteActionsOut[1] = 0;
                 break;
             case 1:
-                discreteActionsOut[2] = 1;
+                discreteActionsOut[1] = 1;
                 break;
             case -1:
-                discreteActionsOut[2] = 2;
+                discreteActionsOut[1] = 2;
                 break;
         }
-
         //Fahren
         switch ((int)Input.GetAxis("Vertical"))
         {
@@ -233,7 +237,8 @@ public class AgentPKW : Agent
                 break;
         }
         //Bremsen
-        discreteActionsOut[1]   = Input.GetKey("space")? 1 : 0;
+        if(Input.GetKey("space"))
+            discreteActionsOut[0]   = 3;
     }
 
     /*_____________________Properties________________________*/

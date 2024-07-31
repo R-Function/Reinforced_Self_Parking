@@ -3,6 +3,7 @@ using UnityEngine;
 using Unity.MLAgents;
 using System;
 using System.Linq;
+using Unity.VisualScripting;
 
 
 public class Park_Training_Controller : MonoBehaviour
@@ -15,10 +16,9 @@ public class Park_Training_Controller : MonoBehaviour
     public List<GameObject> trainingEnvironmentList;
     public Transform carObstacleContainer;
 
-    [Header("Training")]
-    public int MaxTrainingSteps = 10000;
+    private int maxTrainingSteps;
     private int m_ResetTimer;
-    private int episodeCounter = 0;
+    private int episodeCounter = 10000;
     
     public TextAsset curriculumFile;
     private Lesson[] curriculum;
@@ -33,6 +33,7 @@ public class Park_Training_Controller : MonoBehaviour
     private SimpleMultiAgentGroup m_AgentGroup;
 
     private List<Transform> spawnPoints;
+    private GameObject currentEnvironment;
 
     private Dictionary<AgentPKW, AgentInfo> agentInformationList;
 
@@ -44,9 +45,10 @@ public class Park_Training_Controller : MonoBehaviour
         envParameters         = Academy.Instance.EnvironmentParameters;
         string curriculumText = curriculumFile.text;
         curriculum            = JsonUtility.FromJson<Curriculum>(curriculumText).Lessons;
-        currentLesson         = curriculum[(int)envParameters.GetWithDefault("", 0)];
+        currentLesson         = curriculum[(int)envParameters.GetWithDefault("PKWParking_Parameters", 0)];
 
         // Umgebung Instanziieren
+        maxTrainingSteps = currentLesson.maxSteps;
         setEnvironment(currentLesson.environmentPrefabName);
 
         // instanziieren der Listen
@@ -64,39 +66,12 @@ public class Park_Training_Controller : MonoBehaviour
         ResetScene();
     }
 
-    public void setEnvironment(string prefabName)
-    {
-        foreach(Transform child in this.transform)
-        {
-            if(child.tag == "environment")
-                Destroy(child);
-        }
-
-        GameObject envPrefab = null;
-        foreach(GameObject environment in trainingEnvironmentList)
-        {
-            if(environment.name == prefabName)
-                envPrefab = environment;
-        }
-        // für den fall eines Fehlers direkt abbrechen
-        if(envPrefab == null)
-            throw new Exception("Der name des Prefabs wurde unter den verfügbaren Prefabs"
-                               +"nicht gefunden. Überprüfe die Curriculum datei und die "
-                               +"Prefabs in der Prefab Liste des Training Controllers.");
-
-        Instantiate(envPrefab, this.transform);
-        envController = envPrefab.GetComponent<Parking_Lot_Environment_Controller>();
-        envController.CarObstacleContainer = this.carObstacleContainer;
-        envController.makeObject();
-        spawnPoints = envController.spawnPoints;
-    }
-
     void FixedUpdate()
     {
         m_ResetTimer += 1;
         foreach(Agent a in m_AgentGroup.GetRegisteredAgents())
-            a.AddReward(-3f/MaxTrainingSteps);
-        if (m_ResetTimer >= MaxTrainingSteps && MaxTrainingSteps > 0)
+            a.AddReward(-1f/maxTrainingSteps);
+        if (m_ResetTimer >= maxTrainingSteps && maxTrainingSteps > 0)
         {
             FinishEpisode(true);
             Debug.Log("Folgendes Training hat die erlaubte Anzahl Steps überschritten: "+this.gameObject.name);
@@ -137,7 +112,7 @@ public class Park_Training_Controller : MonoBehaviour
 
     public void ExitRoad(AgentPKW agent)
     {
-        agent.SetReward(-0.1f);
+        agent.AddReward(-0.1f);
     }
 
     public void CollisionWithAgent(AgentPKW agent)
@@ -147,7 +122,7 @@ public class Park_Training_Controller : MonoBehaviour
 
     public void CollisionWithObstacle(AgentPKW agent)
     {
-        agent.SetReward(-0.2f);
+        agent.AddReward(-0.4f);
         if(currentLesson.agentControllReverse == false)
             FinishEpisode();
     }
@@ -279,12 +254,15 @@ public class Park_Training_Controller : MonoBehaviour
     {
         Lesson previousLesson = currentLesson;
         currentLesson = curriculum[(int)envParameters.GetWithDefault("PKWParking_Parameters", 0)];
-        Debug.Log(currentLesson.name);
         m_ResetTimer = 0;
 
         // neue umgebung laden bei bedarf
         if(previousLesson != currentLesson)
+        {
+            maxTrainingSteps = currentLesson.maxSteps;
             setEnvironment(currentLesson.environmentPrefabName);
+            Debug.Log("New Lesson for Training Environment: "+this.name);
+        }
 
         foreach(AgentPKW agent in agentList)
         {
@@ -325,10 +303,38 @@ public class Park_Training_Controller : MonoBehaviour
         episodeCounter++;
     }
 
+    public void setEnvironment(string prefabName)
+    {
+        if(currentEnvironment != null)
+            Destroy(currentEnvironment);
+        GameObject envPrefab = null;
+        foreach(GameObject environment in trainingEnvironmentList)
+        {
+            if(environment.name == prefabName)
+                envPrefab = environment;
+        }
+        // für den fall eines Fehlers direkt abbrechen
+        if(envPrefab == null)
+            throw new Exception("Der name des Prefabs wurde unter den verfügbaren Prefabs"
+                               +"nicht gefunden. Überprüfe die Curriculum datei und die "
+                               +"Prefabs in der Prefab Liste des Training Controllers.");
+
+        currentEnvironment = Instantiate(envPrefab, this.transform);
+        envController = envPrefab.GetComponent<Parking_Lot_Environment_Controller>();
+        envController.CarObstacleContainer = this.carObstacleContainer;
+        envController.makeObject();
+        spawnPoints = envController.spawnPoints;
+    }
+
     // aufpassen wenn der agent noch keinen Spawn zugewiesen bekommen hat
     // könnte es zu problemen kommen
     private void SpawnAgents(bool isRandom = false)
     {
+        // prüfe ob Spawn punkte valide sind
+        foreach(Transform spawn in spawnPoints)
+            if(spawn == null)
+                throw new Exception("There is no spawn transform attached to the spawn point list.");
+
         if(agentList.Count > spawnPoints.Count)
         {
             Debug.LogError("Not enough Spawn-Points for the registered Agents!!");
@@ -396,6 +402,7 @@ public class Lesson
     public string name;
 
     // environment
+    public int maxSteps;
     public string environmentPrefabName;
 
     // agent controlls
