@@ -267,7 +267,7 @@ public class Park_Training_Controller : MonoBehaviour
             setEnvironment(currentLesson.environmentPrefabName);
             Debug.Log("New Lesson for Training Environment: "+this.name);
             foreach(AgentPKW agent in agentList)
-                agent.ParkingLot = currentEnvironment.transform.Find("ParkingSpace");
+                agent.ParkingLot = currentEnvironment.transform.Find("ParkingSpaces");
 
         }
 
