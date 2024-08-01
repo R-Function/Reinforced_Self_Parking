@@ -3,6 +3,7 @@ using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Sensors.Reflection;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /*  Noziten:
@@ -26,6 +27,9 @@ public class AgentPKW : Agent
               Right     = 1,
               Left      = 2}
 
+    // public GameObject parkSpaceSensor;
+    // private RayPerceptionSensor rayData;
+    
     private Rigidbody rBody;
     private PKW_Controller pkw;
     private Transform pkwBody;
@@ -40,24 +44,34 @@ public class AgentPKW : Agent
 
     // public string indexName;
     private Park_Training_Controller critic;
+    private Transform parkingLot;
     [SerializeField]
     private bool isBreakAllowed;
     [SerializeField]
     private bool isReverseAllowed;
 
+
     public override void Initialize()
     {
-        rBody     = GetComponent<Rigidbody>();
-        pkw       = GetComponent<PKW_Controller>();
-        isRunning = true;
+        rBody       = GetComponent<Rigidbody>();
+        pkw         = GetComponent<PKW_Controller>();
+        // rayData     = parkSpaceSensor.GetComponent<RayPerceptionSensorComponent3D>().RaySensor;
+        isRunning   = true;
         int i = 0;
         do
         {
             pkwBody = this.transform.GetChild(i);
             i++;
         }while(pkwBody.name != "Body");
+   
+    }
+
+    void Update()
+    {
         
     }
+
+    
     
     /*____________________OBSERVATIONEN______________________*/
     
@@ -72,7 +86,7 @@ public class AgentPKW : Agent
         get { return NormalizeValue(pkw.LocalVelocityZ, -pkw.maxReverseSpeed, pkw.maxSpeed, -1, 1);}
     }
     // Gyroskop (Drehung)
-    [Observable(numStackedObservations: 3)]
+    [Observable]
     float Rotation{
         get { return NormalizeRotation(this.transform.eulerAngles).y;}
     }
@@ -86,9 +100,9 @@ public class AgentPKW : Agent
         sensor.AddObservation(NormalizePosition(this.transform.position).z);
         //Gyroskop
         sensor.AddObservation(NormalizeRotation(this.transform.eulerAngles).y);
-        //Brems- und Rückwärtsfahrsperre
-        sensor.AddObservation(isReverseAllowed);
-        sensor.AddObservation(isBreakAllowed);
+        //Parkplatzposition
+        sensor.AddObservation(NormalizePosition(parkingLot.position).x);
+        sensor.AddObservation(NormalizePosition(parkingLot.position).z);
     }
 
     /*______________________AKTIONEN______________________*/
@@ -166,6 +180,7 @@ public class AgentPKW : Agent
 
     private void OnCollisionEnter(Collision col)
     {
+        // Debug.Log("Kollision mit: "+col.gameObject.tag);
         if (col.gameObject.tag == "Obstacle")
         {
             critic.CollisionWithObstacle(this);
@@ -245,6 +260,7 @@ public class AgentPKW : Agent
     public Park_Training_Controller Critic{get{return critic;}set{critic = value;}}
     public Rigidbody RBody{get{return rBody;}set{rBody = value;}}
     public Transform PKWBody{get{return pkwBody;}}
+    public Transform ParkingLot{get{return parkingLot;} set{parkingLot = value;}}
     public bool IsBreakAllowed{get{return isBreakAllowed;} set{isBreakAllowed = value;}}
     public bool IsReverseAllowed{get{return isReverseAllowed;} set{isReverseAllowed = value;}}
 }

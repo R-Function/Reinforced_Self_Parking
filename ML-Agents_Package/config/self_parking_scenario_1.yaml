@@ -33,15 +33,15 @@ environment_parameters:
           behavior: PKWParking
           signal_smoothing: true
           min_lesson_length: 200
-          threshold: 0.1
+          threshold: 0.4
         value: 0
       - name: BreakLesson
         completion_criteria:
           measure: reward
           behavior: PKWParking
           signal_smoothing: true
-          min_lesson_length: 100
-          threshold: 0.6
+          min_lesson_length: 300
+          threshold: 0.4
         value: 1
       - name: ReverseLesson
         completion_criteria:

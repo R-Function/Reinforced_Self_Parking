@@ -30,8 +30,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3288362877877043651}
+  - {fileID: 3497345264908572338}
   - {fileID: 763747418713658089}
-  - {fileID: 1777094522808933833}
+  - {fileID: 3867276365435688838}
   m_Father: {fileID: 5724880870146593438}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &865438732138462859
@@ -82,20 +83,25 @@ MonoBehaviour:
   m_DetectableTags:
   - Agent
   - Obstacle
-  m_RaysPerDirection: 1
-  m_MaxRayDegrees: 65
-  m_SphereCastRadius: 0.43
-  m_RayLength: 50
+  - Border
+  - ParkLineMark
+  - ParkArea
+  - DrivewayArea
+  - StreetArea
+  m_RaysPerDirection: 2
+  m_MaxRayDegrees: 75
+  m_SphereCastRadius: 0.3
+  m_RayLength: 3
   m_RayLayerMask:
     serializedVersion: 2
-    m_Bits: 4294967283
+    m_Bits: 4294966323
   m_ObservationStacks: 1
   m_AlternatingRayOrder: 1
   m_UseBatchedRaycasts: 0
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
   m_StartVerticalOffset: 0
-  m_EndVerticalOffset: -10
+  m_EndVerticalOffset: -0.8
 --- !u!1 &1831940731999389886
 GameObject:
   m_ObjectHideFlags: 0
@@ -556,7 +562,7 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
   isRunning: 0
-  isBreakAllowed: 0
+  isBreakAllowed: 1
   isReverseAllowed: 1
 --- !u!114 &3631358316615922521
 MonoBehaviour:
@@ -745,14 +751,17 @@ MonoBehaviour:
   - Agent
   - Obstacle
   - ParkLineMark
-  m_RaysPerDirection: 8
-  m_MaxRayDegrees: 75
+  - ParkArea
+  - DrivewayArea
+  - StreetArea
+  m_RaysPerDirection: 5
+  m_MaxRayDegrees: 90
   m_SphereCastRadius: 0.25
-  m_RayLength: 50
+  m_RayLength: 30
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 4294966323
-  m_ObservationStacks: 1
+  m_ObservationStacks: 5
   m_AlternatingRayOrder: 1
   m_UseBatchedRaycasts: 0
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
@@ -830,7 +839,7 @@ WheelCollider:
   m_LayerOverridePriority: 0
   m_Enabled: 1
   m_ProvidesContacts: 0
---- !u!1 &6149736521451579823
+--- !u!1 &5804605056042498852
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -838,60 +847,60 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1777094522808933833}
-  - component: {fileID: 1195043381913903708}
+  - component: {fileID: 3497345264908572338}
+  - component: {fileID: 6784925596940202021}
   m_Layer: 0
-  m_Name: AllRound(Parking)
+  m_Name: FrontGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1777094522808933833
+--- !u!4 &3497345264908572338
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6149736521451579823}
+  m_GameObject: {fileID: 5804605056042498852}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.12, z: -0.09}
+  m_LocalPosition: {x: 0, y: 0.583, z: 1.181}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8457434101638535035}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1195043381913903708
+--- !u!114 &6784925596940202021
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6149736521451579823}
+  m_GameObject: {fileID: 5804605056042498852}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SensorName: ParkingLiDAR
+  m_SensorName: FrontGroundSensor
   m_DetectableTags:
+  - Obstacle
   - Border
-  - ParkLineMark
-  m_RaysPerDirection: 3
-  m_MaxRayDegrees: 122.3
-  m_SphereCastRadius: 0.2
-  m_RayLength: 20
+  m_RaysPerDirection: 2
+  m_MaxRayDegrees: 70
+  m_SphereCastRadius: 0.3
+  m_RayLength: 3
   m_RayLayerMask:
     serializedVersion: 2
-    m_Bits: 4294967283
+    m_Bits: 4294966323
   m_ObservationStacks: 1
   m_AlternatingRayOrder: 1
   m_UseBatchedRaycasts: 0
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
-  m_StartVerticalOffset: 0.3
-  m_EndVerticalOffset: -9.8
+  m_StartVerticalOffset: 0
+  m_EndVerticalOffset: -0.7
 --- !u!1 &6235514392166819855
 GameObject:
   m_ObjectHideFlags: 0
@@ -998,6 +1007,67 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -462981019419857548, guid: 3b49593a9d880324cb98566112b4d9f6, type: 3}
+--- !u!1 &6544748000649404247
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3867276365435688838}
+  - component: {fileID: 5223957599772209347}
+  m_Layer: 0
+  m_Name: ParkSpaceSensor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3867276365435688838
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6544748000649404247}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.073, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8457434101638535035}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5223957599772209347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6544748000649404247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SensorName: ParkSensor
+  m_DetectableTags:
+  - ParkSpace
+  m_RaysPerDirection: 2
+  m_MaxRayDegrees: 70
+  m_SphereCastRadius: 0.2
+  m_RayLength: 4
+  m_RayLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294966331
+  m_ObservationStacks: 1
+  m_AlternatingRayOrder: 1
+  m_UseBatchedRaycasts: 0
+  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
+  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
+  m_StartVerticalOffset: 0
+  m_EndVerticalOffset: -0.5
 --- !u!1 &7671485529217454691
 GameObject:
   m_ObjectHideFlags: 0

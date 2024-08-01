@@ -1,64 +1,6 @@
 {
     "PKWParking_Parameters": {
-        "lesson_num": 3
-    },
-    "PKWParking": {
-        "checkpoints": [
-            {
-                "steps": 499965,
-                "file_path": "results/one_car_self_park/PKWParking/PKWParking-499965.onnx",
-                "reward": -0.9997334107756615,
-                "creation_time": 1721919029.658515,
-                "auxillary_file_paths": [
-                    "results/one_car_self_park/PKWParking/PKWParking-499965.pt"
-                ]
-            },
-            {
-                "steps": 999898,
-                "file_path": "results/one_car_self_park/PKWParking/PKWParking-999898.onnx",
-                "reward": null,
-                "creation_time": 1721923387.6727777,
-                "auxillary_file_paths": [
-                    "results/one_car_self_park/PKWParking/PKWParking-999898.pt"
-                ]
-            },
-            {
-                "steps": 1499874,
-                "file_path": "results/one_car_self_park/PKWParking/PKWParking-1499874.onnx",
-                "reward": -1.0000000763684511,
-                "creation_time": 1721927769.7075558,
-                "auxillary_file_paths": [
-                    "results/one_car_self_park/PKWParking/PKWParking-1499874.pt"
-                ]
-            },
-            {
-                "steps": 1999955,
-                "file_path": "results/one_car_self_park/PKWParking/PKWParking-1999955.onnx",
-                "reward": -0.9997334107756615,
-                "creation_time": 1721932155.5386324,
-                "auxillary_file_paths": [
-                    "results/one_car_self_park/PKWParking/PKWParking-1999955.pt"
-                ]
-            },
-            {
-                "steps": 2000083,
-                "file_path": "results/one_car_self_park/PKWParking/PKWParking-2000083.onnx",
-                "reward": -0.9997334107756615,
-                "creation_time": 1721932155.6901748,
-                "auxillary_file_paths": [
-                    "results/one_car_self_park/PKWParking/PKWParking-2000083.pt"
-                ]
-            }
-        ],
-        "final_checkpoint": {
-            "steps": 2000083,
-            "file_path": "results/one_car_self_park/PKWParking.onnx",
-            "reward": -0.9997334107756615,
-            "creation_time": 1721932155.6901748,
-            "auxillary_file_paths": [
-                "results/one_car_self_park/PKWParking/PKWParking-2000083.pt"
-            ]
-        }
+        "lesson_num": 0
     },
     "metadata": {
         "stats_format_version": "0.3.0",

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5892245081654981714}
   m_Layer: 0
   m_Name: ParkingLotEdgeUnit
-  m_TagString: Untagged
+  m_TagString: ParkArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,6 +97,10 @@ PrefabInstance:
     - target: {fileID: 103474, guid: 4d2cdf2836f78914f85386a10cd7db79, type: 3}
       propertyPath: m_Name
       value: Parkinglot Edge
+      objectReference: {fileID: 0}
+    - target: {fileID: 103474, guid: 4d2cdf2836f78914f85386a10cd7db79, type: 3}
+      propertyPath: m_TagString
+      value: ParkArea
       objectReference: {fileID: 0}
     - target: {fileID: 103474, guid: 4d2cdf2836f78914f85386a10cd7db79, type: 3}
       propertyPath: m_StaticEditorFlags

@@ -58,7 +58,8 @@ public class Park_Training_Controller : MonoBehaviour
         //initialisieren der Agenten
         foreach(AgentPKW agent in agentList)
         {
-            agent.Critic = this;
+            agent.Critic     = this;
+            agent.ParkingLot = currentEnvironment.transform.Find("ParkingSpaces");
             agentInformationList.Add(agent, new AgentInfo());
             m_AgentGroup.RegisterAgent(agent);
         }
@@ -70,7 +71,10 @@ public class Park_Training_Controller : MonoBehaviour
     {
         m_ResetTimer += 1;
         foreach(Agent a in m_AgentGroup.GetRegisteredAgents())
+        {
             a.AddReward(-1f/maxTrainingSteps);
+
+        }
         if (m_ResetTimer >= maxTrainingSteps && maxTrainingSteps > 0)
         {
             FinishEpisode(true);
@@ -262,6 +266,9 @@ public class Park_Training_Controller : MonoBehaviour
             maxTrainingSteps = currentLesson.maxSteps;
             setEnvironment(currentLesson.environmentPrefabName);
             Debug.Log("New Lesson for Training Environment: "+this.name);
+            foreach(AgentPKW agent in agentList)
+                agent.ParkingLot = currentEnvironment.transform.Find("ParkingSpace");
+
         }
 
         foreach(AgentPKW agent in agentList)

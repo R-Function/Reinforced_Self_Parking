@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 2104950077395278572}
   m_Layer: 0
   m_Name: Parkinglot Entrance
-  m_TagString: Untagged
+  m_TagString: DrivewayArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 8400600456521427021}
   m_Layer: 0
   m_Name: ParkingLotEntranceUnit
-  m_TagString: Untagged
+  m_TagString: DrivewayArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

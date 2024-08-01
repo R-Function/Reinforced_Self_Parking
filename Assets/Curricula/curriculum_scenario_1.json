@@ -4,7 +4,7 @@
 		"maxSteps": 40000,
 		"environmentPrefabName":"Environment_Three_Driveways_Very_Easy",
 		"agentControllBreak": true,
-		"agentControllReverse": true,		
+		"agentControllReverse": false,		
 		"carsOnParkingLot": 0,
 		"remainTimeInParkingSpace":0.5,
 		"randomiseSpawnAt": 10,		
@@ -15,7 +15,7 @@
 	{
 		"name":"BreakLesson",
 		"maxSteps": 30000,
-		"environmentPrefabName":"Environment_Three_Driveways_Easy",	
+		"environmentPrefabName":"Environment_Three_Driveways_Very_Easy",	
 		"agentControllBreak": true,
 		"agentControllReverse": true,
 		"carsOnParkingLot": 10,
