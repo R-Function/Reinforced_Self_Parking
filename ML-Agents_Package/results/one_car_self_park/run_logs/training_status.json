@@ -1,10 +1,95 @@
 {
     "PKWParking_Parameters": {
-        "lesson_num": 0
+        "lesson_num": 2
     },
     "metadata": {
         "stats_format_version": "0.3.0",
         "mlagents_version": "1.1.0.dev0",
         "torch_version": "2.2.1"
+    },
+    "PKWParking": {
+        "checkpoints": [
+            {
+                "steps": 7499884,
+                "file_path": "results/one_car_self_park/PKWParking/PKWParking-7499884.onnx",
+                "reward": -0.4148895525140688,
+                "creation_time": 1722532224.6486938,
+                "auxillary_file_paths": [
+                    "results/one_car_self_park/PKWParking/PKWParking-7499884.pt"
+                ]
+            },
+            {
+                "steps": 7999913,
+                "file_path": "results/one_car_self_park/PKWParking/PKWParking-7999913.onnx",
+                "reward": -0.9999597568530589,
+                "creation_time": 1722532869.955678,
+                "auxillary_file_paths": [
+                    "results/one_car_self_park/PKWParking/PKWParking-7999913.pt"
+                ]
+            },
+            {
+                "steps": 8499875,
+                "file_path": "results/one_car_self_park/PKWParking/PKWParking-8499875.onnx",
+                "reward": 0.2025061398744583,
+                "creation_time": 1722533512.8935492,
+                "auxillary_file_paths": [
+                    "results/one_car_self_park/PKWParking/PKWParking-8499875.pt"
+                ]
+            },
+            {
+                "steps": 8500003,
+                "file_path": "results/one_car_self_park/PKWParking/PKWParking-8500003.onnx",
+                "reward": 0.2025061398744583,
+                "creation_time": 1722533512.958015,
+                "auxillary_file_paths": [
+                    "results/one_car_self_park/PKWParking/PKWParking-8500003.pt"
+                ]
+            },
+            {
+                "steps": 8521836,
+                "file_path": "results/one_car_self_park/PKWParking/PKWParking-8521836.onnx",
+                "reward": 0.15344447642564774,
+                "creation_time": 1722596562.13969,
+                "auxillary_file_paths": [
+                    "results/one_car_self_park/PKWParking/PKWParking-8521836.pt"
+                ]
+            },
+            {
+                "steps": 8535429,
+                "file_path": "results/one_car_self_park/PKWParking/PKWParking-8535429.onnx",
+                "reward": -0.03789821267127991,
+                "creation_time": 1722596726.5229013,
+                "auxillary_file_paths": [
+                    "results/one_car_self_park/PKWParking/PKWParking-8535429.pt"
+                ]
+            },
+            {
+                "steps": 8669555,
+                "file_path": "results/one_car_self_park/PKWParking/PKWParking-8669555.onnx",
+                "reward": null,
+                "creation_time": 1722597137.18961,
+                "auxillary_file_paths": [
+                    "results/one_car_self_park/PKWParking/PKWParking-8669555.pt"
+                ]
+            },
+            {
+                "steps": 8753331,
+                "file_path": "results/one_car_self_park/PKWParking/PKWParking-8753331.onnx",
+                "reward": -0.5291214332683012,
+                "creation_time": 1722597344.5427969,
+                "auxillary_file_paths": [
+                    "results/one_car_self_park/PKWParking/PKWParking-8753331.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 8753331,
+            "file_path": "results/one_car_self_park/PKWParking.onnx",
+            "reward": -0.5291214332683012,
+            "creation_time": 1722597344.5427969,
+            "auxillary_file_paths": [
+                "results/one_car_self_park/PKWParking/PKWParking-8753331.pt"
+            ]
+        }
     }
 }

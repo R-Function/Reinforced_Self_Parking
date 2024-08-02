@@ -158,7 +158,7 @@ public class Park_Training_Controller : MonoBehaviour
                 agentInfoPair.Key.AddReward(CalcRotationReward(agentInfoPair.Key.PKWBody, agentInfoPair.Value.parkingSpacesInContact.Last(), 0.5f));
                 FinishEpisode();
             }
-            // sonst --> reward austeilen
+            // sonst --> warten
             else
                 agentInfoPair.Value.TimeInParkingSpace += 1;
         }

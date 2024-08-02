@@ -754,14 +754,14 @@ MonoBehaviour:
   - ParkArea
   - DrivewayArea
   - StreetArea
-  m_RaysPerDirection: 5
+  m_RaysPerDirection: 3
   m_MaxRayDegrees: 90
-  m_SphereCastRadius: 0.25
-  m_RayLength: 30
+  m_SphereCastRadius: 0.65
+  m_RayLength: 40
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 4294966323
-  m_ObservationStacks: 5
+  m_ObservationStacks: 3
   m_AlternatingRayOrder: 1
   m_UseBatchedRaycasts: 0
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
@@ -865,7 +865,7 @@ Transform:
   m_GameObject: {fileID: 5804605056042498852}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.583, z: 1.181}
+  m_LocalPosition: {x: 0, y: 0.701, z: 1.181}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1057,7 +1057,7 @@ MonoBehaviour:
   m_RaysPerDirection: 2
   m_MaxRayDegrees: 70
   m_SphereCastRadius: 0.2
-  m_RayLength: 4
+  m_RayLength: 5
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 4294966331
