@@ -46,10 +46,10 @@
 		"agentControllReverse": true,
 		"carsOnParkingLot": 0,
 		"remainTimeInParkingSpace":2.5,
-		"randomiseSpawnAt": 30,		
+		"randomiseSpawnAt": 10,		
 		"randomiseEntranceAt": 0,
 		"randomiseCarsOnParkingLotAt": 0,
-		"randomiseEnvironmentRotationAt": 0
+		"randomiseEnvironmentRotationAt": 100
 	}
 	,
 	
@@ -61,7 +61,7 @@
 		"agentControllReverse": true,
 		"carsOnParkingLot": 0,
 		"remainTimeInParkingSpace":2.5,
-		"randomiseSpawnAt": 20,		
+		"randomiseSpawnAt": 30,		
 		"randomiseEntranceAt": 0,
 		"randomiseCarsOnParkingLotAt": 0,
 		"randomiseEnvironmentRotationAt": 50
