@@ -17,6 +17,7 @@ TagManager:
   - ParkArea
   - DrivewayArea
   - StreetArea
+  - EntranceArea
   layers:
   - Default
   - TransparentFX
@@ -24,10 +25,10 @@ TagManager:
   - ParkingSpace
   - Water
   - UI
-  - Area1
-  - Area2
-  - Area3
-  - Area4
+  - Border
+  - 
+  - 
+  - 
   - 
   - 
   - 

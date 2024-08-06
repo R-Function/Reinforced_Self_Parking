@@ -37,6 +37,7 @@ public class Park_Training_Controller : MonoBehaviour
 
     private Dictionary<AgentPKW, AgentInfo> agentInformationList;
 
+    public bool forwardReward = false;
 
     // Start is called before the first frame update
     void Start()
@@ -70,9 +71,11 @@ public class Park_Training_Controller : MonoBehaviour
     void FixedUpdate()
     {
         m_ResetTimer += 1;
-        foreach(Agent a in m_AgentGroup.GetRegisteredAgents())
+        foreach(AgentPKW a in m_AgentGroup.GetRegisteredAgents())
         {
             a.AddReward(-1f/maxTrainingSteps);
+            if(forwardReward && a.PKW.LocalVelocityZ < 0.8)
+                a.AddReward(0.1f/maxTrainingSteps);
 
         }
         if (m_ResetTimer >= maxTrainingSteps && maxTrainingSteps > 0)
@@ -191,23 +194,31 @@ public class Park_Training_Controller : MonoBehaviour
         // Reward wird quadratisch bestimmt, damit der mittelpunkt
         // deutlich besser belohnt wird als der rand
         float reward = Mathf.Pow((1-distanceNorm),2f) * baseReward;
+        // if(reward > baseReward)
+        //     Debug.Log("Dist Reward von "+agentBody.name+" ist = "+reward.ToString());
         return reward;
     }
 
     private float CalcRotationReward(Transform agentBody, Transform goal, float baseReward = 0)
     {
-        float rotAgent  = agentBody.eulerAngles.y;
-        float rotGoal   = goal.eulerAngles.y;
+        float rotAgent  = agentBody.eulerAngles.y - 180;
+        float rotGoal   = goal.eulerAngles.y - 180;
         float rotOffset = Mathf.Abs(rotGoal-rotAgent);
 
         // normalisiert auf einen bereich von -1 bis 1
         // --> vorwärts wird genauso gewertet wie rückwärts
-        float offsetNorm = (2 * rotOffset / 180) - 1;
+        float offsetNorm = (2 * rotOffset / 360) - 1;
 
         // Rewardbestimmung entspricht der Distanz,
         // unterschied ist, dass die beiden Randwerte (0, 180)
         // die höchste belohnung geben sollen
         float reward = Mathf.Pow(offsetNorm, 2) * baseReward;
+        // if(reward > baseReward*0.9)
+        // {
+        //     Debug.Log("Rot Reward von "+agentBody.name+" ist = "+reward.ToString());
+        //     Debug.Log("rot Agent: "+rotAgent);
+        //     Debug.Log("rot Goal: "+rotGoal);
+        // }
         return reward;
     }
 
@@ -277,6 +288,7 @@ public class Park_Training_Controller : MonoBehaviour
             agent.isRunning = true;
             agent.IsBreakAllowed    = currentLesson.agentControllBreak;
             agent.IsReverseAllowed  = currentLesson.agentControllReverse;
+            agent.resetParkSpaceMem();
             agentInformationList[agent].ResetInfo();
         }
 

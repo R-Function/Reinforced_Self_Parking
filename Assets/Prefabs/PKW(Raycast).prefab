@@ -94,7 +94,7 @@ MonoBehaviour:
   m_RayLength: 3
   m_RayLayerMask:
     serializedVersion: 2
-    m_Bits: 4294966323
+    m_Bits: 4294966387
   m_ObservationStacks: 1
   m_AlternatingRayOrder: 1
   m_UseBatchedRaycasts: 0
@@ -611,7 +611,7 @@ MonoBehaviour:
   maxReverseSpeed: 45
   accelerationMultiplier: 4
   maxSteeringAngle: 40
-  steeringSpeed: 0.345
+  steeringSpeed: 0.34
   resetSteeringSpeed: 0.1
   brakeForce: 450
   decelerationMultiplier: 3
@@ -754,6 +754,7 @@ MonoBehaviour:
   - ParkArea
   - DrivewayArea
   - StreetArea
+  - EntranceArea
   m_RaysPerDirection: 3
   m_MaxRayDegrees: 90
   m_SphereCastRadius: 0.65
@@ -893,7 +894,7 @@ MonoBehaviour:
   m_RayLength: 3
   m_RayLayerMask:
     serializedVersion: 2
-    m_Bits: 4294966323
+    m_Bits: 4294966387
   m_ObservationStacks: 1
   m_AlternatingRayOrder: 1
   m_UseBatchedRaycasts: 0

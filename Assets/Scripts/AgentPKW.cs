@@ -27,6 +27,9 @@ public class AgentPKW : Agent
               Right     = 1,
               Left      = 2}
 
+    public GameObject parkSensor;
+    private RayCastHandler rayParkSensor;
+
     // public GameObject parkSpaceSensor;
     // private RayPerceptionSensor rayData;
     
@@ -49,12 +52,18 @@ public class AgentPKW : Agent
     private bool isBreakAllowed;
     [SerializeField]
     private bool isReverseAllowed;
+    private bool parkSpaceFound;
+    private Vector3 nearestParkSpacePos;
+    private Quaternion nearestParkSpaceRot;
 
 
     public override void Initialize()
     {
-        rBody       = GetComponent<Rigidbody>();
-        pkw         = GetComponent<PKW_Controller>();
+        rBody          = GetComponent<Rigidbody>();
+        pkw            = GetComponent<PKW_Controller>();
+        rayParkSensor  = parkSensor.GetComponent<RayCastHandler>();
+        resetParkSpaceMem();
+
         // rayData     = parkSpaceSensor.GetComponent<RayPerceptionSensorComponent3D>().RaySensor;
         isRunning   = true;
         int i = 0;
@@ -68,6 +77,13 @@ public class AgentPKW : Agent
 
     void Update()
     {
+        var nearTransform = rayParkSensor.NearestTransform(this.transform);     
+        if(nearTransform != null)
+        {
+            parkSpaceFound = true;
+            nearestParkSpacePos = nearTransform.position;
+            nearestParkSpaceRot = nearTransform.rotation;
+        }
     }
 
     
@@ -102,6 +118,11 @@ public class AgentPKW : Agent
         //Parkplatzposition
         sensor.AddObservation(NormalizePosition(parkingLot.position).x);
         sensor.AddObservation(NormalizePosition(parkingLot.position).z);
+        //Parkplatzsensor
+        sensor.AddObservation(parkSpaceFound);
+        sensor.AddObservation(NormalizePosition(nearestParkSpacePos).x);
+        sensor.AddObservation(NormalizePosition(nearestParkSpacePos).z);
+        sensor.AddObservation(NormalizeRotation(nearestParkSpaceRot.eulerAngles).y);
     }
 
     /*______________________AKTIONEN______________________*/
@@ -206,7 +227,9 @@ public class AgentPKW : Agent
     }
     private Vector3 NormalizeRotation(Vector3 rotation)
     {
-        return new Vector3(rotation.x/180, rotation.y/180, rotation.z/180);
+        return new Vector3(rotation.x/360, rotation.y/360, rotation.z/360);
+        // old
+        //return new Vector3(rotation.x/180, rotation.y/180, rotation.z/180);
     }
     private float NormalizeValue(float value, float min, float max, float from = 0, float to= 1)
     {
@@ -260,6 +283,15 @@ public class AgentPKW : Agent
     public Rigidbody RBody{get{return rBody;}set{rBody = value;}}
     public Transform PKWBody{get{return pkwBody;}}
     public Transform ParkingLot{get{return parkingLot;} set{parkingLot = value;}}
+    public PKW_Controller PKW{get{return pkw;}}
     public bool IsBreakAllowed{get{return isBreakAllowed;} set{isBreakAllowed = value;}}
     public bool IsReverseAllowed{get{return isReverseAllowed;} set{isReverseAllowed = value;}}
+
+    public void resetParkSpaceMem()
+    {
+        parkSpaceFound = false;
+        nearestParkSpacePos = Vector3.zero;
+        nearestParkSpaceRot = Quaternion.identity;
+        rayParkSensor.clearHitObjects();
+    }
 }

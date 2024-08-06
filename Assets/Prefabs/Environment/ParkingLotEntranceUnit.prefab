@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 832540978695355302}
   - component: {fileID: 6894307889590779745}
   - component: {fileID: 6814143251598692169}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: BorderColliderContainer
   m_TagString: Border
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 2104950077395278572}
   m_Layer: 0
   m_Name: Parkinglot Entrance
-  m_TagString: DrivewayArea
+  m_TagString: EntranceArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 8400600456521427021}
   m_Layer: 0
   m_Name: ParkingLotEntranceUnit
-  m_TagString: DrivewayArea
+  m_TagString: EntranceArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

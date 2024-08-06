@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &5363874968788098128
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1128295634592132094, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_MaxRayDegrees
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 1128295634592132094, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_RaysPerDirection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1128295634592132094, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_DetectableTags.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1128295634592132094, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_DetectableTags.Array.data[3]
+      value: ParkArea
+      objectReference: {fileID: 0}
+    - target: {fileID: 1128295634592132094, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_DetectableTags.Array.data[4]
+      value: DrivewayArea
+      objectReference: {fileID: 0}
+    - target: {fileID: 1128295634592132094, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_DetectableTags.Array.data[5]
+      value: StreetArea
+      objectReference: {fileID: 0}
+    - target: {fileID: 1128295634592132094, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_DetectableTags.Array.data[6]
+      value: ParkLineMark
+      objectReference: {fileID: 0}
+    - target: {fileID: 4915974200540530724, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_Name
+      value: PKW(Raycast)reduced
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724880870146593438, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724880870146593438, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724880870146593438, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724880870146593438, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724880870146593438, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724880870146593438, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724880870146593438, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724880870146593438, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724880870146593438, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724880870146593438, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6784925596940202021, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_RaysPerDirection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6784925596940202021, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_SphereCastRadius
+      value: 0.4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}

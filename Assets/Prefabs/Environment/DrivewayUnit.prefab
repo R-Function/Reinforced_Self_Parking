@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: DrivewayArea
       objectReference: {fileID: 0}
+    - target: {fileID: 4850112741467777576, guid: 37e32cd7e055eea4e8b6e9620f32aacc, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5872110951004668918, guid: 37e32cd7e055eea4e8b6e9620f32aacc, type: 3}
       propertyPath: m_Name
       value: DrivewayUnit

@@ -43,7 +43,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1257184292091476759}
   - component: {fileID: 1550682226043837492}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: BorderColliderContainer
   m_TagString: Border
   m_Icon: {fileID: 0}
