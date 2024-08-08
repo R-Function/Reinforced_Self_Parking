@@ -205,6 +205,10 @@ public class AgentPKW : Agent
         {
             critic.CollisionWithObstacle(this);
         }
+        else if (col.gameObject.tag == "Agent")
+        {
+            critic.CollisionWithAgent(this);
+        }
     }
 
     /*____________________HILFSMETHODEN______________________*/

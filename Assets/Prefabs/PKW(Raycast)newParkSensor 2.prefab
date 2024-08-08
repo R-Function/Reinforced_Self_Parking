@@ -1,0 +1,319 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5545099341261545
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1681944513452303856}
+  - component: {fileID: 838411534327956318}
+  m_Layer: 0
+  m_Name: Orientation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1681944513452303856
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5545099341261545}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.2576961, y: -0, z: -0, w: 0.96622604}
+  m_LocalPosition: {x: 0, y: 0.66, z: 0.46}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6608807771831670258}
+  m_LocalEulerAnglesHint: {x: 29.867, y: 0, z: 0}
+--- !u!114 &838411534327956318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5545099341261545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SensorName: RayPerceptionSensor
+  m_DetectableTags:
+  - ParkArea
+  - DrivewayArea
+  - StreetArea
+  - EntranceArea
+  m_RaysPerDirection: 0
+  m_MaxRayDegrees: 90
+  m_SphereCastRadius: 0.35
+  m_RayLength: 40
+  m_RayLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294966323
+  m_ObservationStacks: 3
+  m_AlternatingRayOrder: 1
+  m_UseBatchedRaycasts: 0
+  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
+  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
+  m_StartVerticalOffset: 0
+  m_EndVerticalOffset: -2
+--- !u!1001 &3380483850528260745
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1128295634592132094, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_SphereCastRadius
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1128295634592132094, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_EndVerticalOffset
+      value: -0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1128295634592132094, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_DetectableTags.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3631358316615922521, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_BrainParameters.VectorObservationSize
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3867276365435688838, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3867276365435688838, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.971
+      objectReference: {fileID: 0}
+    - target: {fileID: 3867276365435688838, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3867276365435688838, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99984777
+      objectReference: {fileID: 0}
+    - target: {fileID: 3867276365435688838, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.01745245
+      objectReference: {fileID: 0}
+    - target: {fileID: 3867276365435688838, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3867276365435688838, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3867276365435688838, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3867276365435688838, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4915974200540530724, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_Name
+      value: PKW(Raycast)newParkSensor 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5339690780964078419, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: parkSensor
+      value: 
+      objectReference: {fileID: 8375140079060475358}
+    - target: {fileID: 5595685038479559817, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: maxSpeed
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595685038479559817, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: brakeForce
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595685038479559817, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: steeringSpeed
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595685038479559817, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: maxReverseSpeed
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595685038479559817, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: resetSteeringSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595685038479559817, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: accelerationMultiplier
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595685038479559817, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: decelerationMultiplier
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724880870146593438, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724880870146593438, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724880870146593438, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724880870146593438, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724880870146593438, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724880870146593438, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724880870146593438, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724880870146593438, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724880870146593438, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724880870146593438, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6419966097056364568, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_RayLength
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6419966097056364568, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_RaysPerDirection
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6419966097056364568, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_SphereCastRadius
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 6419966097056364568, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_EndVerticalOffset
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6419966097056364568, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_ObservationStacks
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6419966097056364568, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_DetectableTags.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6419966097056364568, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_DetectableTags.Array.data[0]
+      value: ParkArea
+      objectReference: {fileID: 0}
+    - target: {fileID: 6419966097056364568, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_DetectableTags.Array.data[1]
+      value: DrivewayArea
+      objectReference: {fileID: 0}
+    - target: {fileID: 6419966097056364568, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_DetectableTags.Array.data[2]
+      value: StreetArea
+      objectReference: {fileID: 0}
+    - target: {fileID: 6419966097056364568, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_DetectableTags.Array.data[3]
+      value: EntranceArea
+      objectReference: {fileID: 0}
+    - target: {fileID: 6419966097056364568, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_DetectableTags.Array.data[4]
+      value: Agent
+      objectReference: {fileID: 0}
+    - target: {fileID: 6419966097056364568, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_DetectableTags.Array.data[5]
+      value: Agent
+      objectReference: {fileID: 0}
+    - target: {fileID: 6419966097056364568, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_DetectableTags.Array.data[6]
+      value: ParkLineMark
+      objectReference: {fileID: 0}
+    - target: {fileID: 6784925596940202021, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_SphereCastRadius
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6784925596940202021, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_EndVerticalOffset
+      value: -0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6784925596940202021, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_DetectableTags.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6784925596940202021, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_DetectableTags.Array.data[0]
+      value: Agent
+      objectReference: {fileID: 0}
+    - target: {fileID: 6784925596940202021, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_DetectableTags.Array.data[1]
+      value: Obstacle
+      objectReference: {fileID: 0}
+    - target: {fileID: 6784925596940202021, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_DetectableTags.Array.data[2]
+      value: Border
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 5223957599772209347, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8457434101638535035, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1681944513452303856}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6544748000649404247, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1893613667139487127}
+  m_SourcePrefab: {fileID: 100100000, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+--- !u!4 &6608807771831670258 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8457434101638535035, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+  m_PrefabInstance: {fileID: 3380483850528260745}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8375140079060475358 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6544748000649404247, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+  m_PrefabInstance: {fileID: 3380483850528260745}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1893613667139487127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8375140079060475358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91e74dcc592d238b4944a9ef3bcbd626, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectableLayers:
+    serializedVersion: 2
+    m_Bits: 27
+  detectableTag: ParkSpace
+  rayDistance: 8
+  coneAngle: 170
+  numberOfRays: 5

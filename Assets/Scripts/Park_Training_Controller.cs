@@ -37,7 +37,8 @@ public class Park_Training_Controller : MonoBehaviour
 
     private Dictionary<AgentPKW, AgentInfo> agentInformationList;
 
-    public bool forwardReward = false;
+    [Range(0,4)]
+    public int startLessonDefault = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -46,7 +47,7 @@ public class Park_Training_Controller : MonoBehaviour
         envParameters         = Academy.Instance.EnvironmentParameters;
         string curriculumText = curriculumFile.text;
         curriculum            = JsonUtility.FromJson<Curriculum>(curriculumText).Lessons;
-        currentLesson         = curriculum[(int)envParameters.GetWithDefault("PKWParking_Parameters", 0)];
+        currentLesson         = curriculum[(int)envParameters.GetWithDefault("PKWParking_Parameters", startLessonDefault)];
 
         // Umgebung Instanziieren
         maxTrainingSteps = currentLesson.maxSteps;
@@ -74,8 +75,8 @@ public class Park_Training_Controller : MonoBehaviour
         foreach(AgentPKW a in m_AgentGroup.GetRegisteredAgents())
         {
             a.AddReward(-1f/maxTrainingSteps);
-            if(forwardReward && a.PKW.LocalVelocityZ < 0.8)
-                a.AddReward(0.1f/maxTrainingSteps);
+            if(currentLesson.rewardDriveForward && a.PKW.LocalVelocityZ >= 0.8)
+                a.AddReward(1f/maxTrainingSteps);
 
         }
         if (m_ResetTimer >= maxTrainingSteps && maxTrainingSteps > 0)
@@ -124,7 +125,7 @@ public class Park_Training_Controller : MonoBehaviour
 
     public void CollisionWithAgent(AgentPKW agent)
     {
-        agent.AddReward(-0.5f);
+        agent.AddReward(-0.3f);
     }
 
     public void CollisionWithObstacle(AgentPKW agent)
@@ -157,9 +158,15 @@ public class Park_Training_Controller : MonoBehaviour
             if(agentInfoPair.Value.GetTimeinSeconds() >= this.currentLesson.remainTimeInParkingSpace)
             {
                 agentInfoPair.Key.isRunning = false;
-                agentInfoPair.Key.AddReward(CalcDistanceReward(agentInfoPair.Key.PKWBody, agentInfoPair.Value.parkingSpacesInContact.Last(), 0.5f));
-                agentInfoPair.Key.AddReward(CalcRotationReward(agentInfoPair.Key.PKWBody, agentInfoPair.Value.parkingSpacesInContact.Last(), 0.5f));
+                float distReward = CalcDistanceReward(agentInfoPair.Key.PKWBody, agentInfoPair.Value.parkingSpacesInContact.Last(), 0.5f);
+                float rotReward  = CalcRotationReward(agentInfoPair.Key.PKWBody, agentInfoPair.Value.parkingSpacesInContact.Last(), 0.5f);
+                agentInfoPair.Key.AddReward(distReward);
+                agentInfoPair.Key.AddReward(rotReward);
                 FinishEpisode();
+                // Debug.Log(agentInfoPair.Key.gameObject.name
+                //           +" hat folgende Belohnung:\nDistanz: "
+                //           + distReward.ToString() + ", Rotation: " 
+                //           + rotReward.ToString());
             }
             // sonst --> warten
             else
@@ -268,13 +275,13 @@ public class Park_Training_Controller : MonoBehaviour
     private void ResetScene()
     {
         Lesson previousLesson = currentLesson;
-        currentLesson = curriculum[(int)envParameters.GetWithDefault("PKWParking_Parameters", 0)];
+        currentLesson = curriculum[(int)envParameters.GetWithDefault("PKWParking_Parameters", startLessonDefault)];
         m_ResetTimer = 0;
 
         // neue umgebung laden bei bedarf
         if(previousLesson != currentLesson)
         {
-            maxTrainingSteps = currentLesson.maxSteps;
+            maxTrainingSteps = currentLesson.maxSteps;           
             setEnvironment(currentLesson.environmentPrefabName);
             Debug.Log("New Lesson for Training Environment: "+this.name);
             foreach(AgentPKW agent in agentList)
@@ -427,6 +434,7 @@ public class Lesson
     // agent controlls
     public bool agentControllBreak;
     public bool agentControllReverse;
+    public bool rewardDriveForward = false;
     
     // amount of occupied parking spaces
     public int carsOnParkingLot;

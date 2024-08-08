@@ -43,8 +43,7 @@ public class Parking_Lot_Environment_Controller : MonoBehaviour
             {
                 if(child.tag == "ParkSpace")
                 {
-                    ParkingSpace.OrientationEnum ori =  (int)Math.Abs(child.localRotation.y) == 90 ? ParkingSpace.OrientationEnum.Parallel : ParkingSpace.OrientationEnum.Perpendicular;
-                    parkingSpaces.Add(new ParkingSpace(false, child.position, ori));
+                    parkingSpaces.Add(new ParkingSpace(false, child));
                     // Debug.Log("Hinzufügen des Parkplatzes zur Liste: "+child.tag+index.ToString());
                     index++;
                 }
@@ -121,6 +120,7 @@ public class Parking_Lot_Environment_Controller : MonoBehaviour
         int x_max = 0;
         int z_max = 0;
         
+        // größenbestimmung
         foreach(Transform tile in this.transform)
         {
             ind_x = (int) (tile.localPosition.x / TILE_SPACING);
@@ -164,8 +164,8 @@ public class Parking_Lot_Environment_Controller : MonoBehaviour
         {
             if (mapping[i] == true)
             {
-                vehicles[indexVeh].transform.rotation = Quaternion.Euler(0,parkingSpaces[i].getRotation(),0);
-                vehicles[indexVeh].transform.position = parkingSpaces[i].Center;
+                vehicles[indexVeh].transform.rotation = Quaternion.Euler(0,parkingSpaces[i].Rotation.eulerAngles.y,0);
+                vehicles[indexVeh].transform.localPosition = parkingSpaces[i].Center;
                 parkingSpaces[i].IsOccupied = true;
                 indexVeh++;
             }
@@ -232,11 +232,6 @@ public class Parking_Lot_Environment_Controller : MonoBehaviour
 //  wichtig ist
 class ParkingSpace
 {
-    public enum OrientationEnum
-    {
-        Perpendicular,
-        Parallel
-    }
     public enum SpaceTypeEnum
     {
         Regular,
@@ -244,28 +239,21 @@ class ParkingSpace
         Family
     }
 
-    public ParkingSpace(bool p_isOccupied, Vector3 p_center, OrientationEnum p_orientation, SpaceTypeEnum p_spaceType = SpaceTypeEnum.Regular)
+    public ParkingSpace(bool p_isOccupied, Transform p_transform, SpaceTypeEnum p_spaceType = SpaceTypeEnum.Regular)
     {
         isOccupied  = p_isOccupied;
-        center      = p_center;
-        orientation = p_orientation;
+        transform   = p_transform;
         spaceType   = p_spaceType;
     }
 
     private bool    isOccupied;
-    private Vector3 center;
-    private OrientationEnum orientation;
+    private Transform transform;
     private SpaceTypeEnum spaceType;
 
     public bool IsOccupied{set{isOccupied = value;}
                            get{return isOccupied;}}
-    public Vector3 Center{get{return center;}}
-    public OrientationEnum Orientation{get{return orientation;}}
+    public Vector3 Center{get{return transform.position;}}
+    public Quaternion Rotation{get{return transform.rotation;}}
     public SpaceTypeEnum SpaceType{get{return spaceType;}
                                    set{spaceType = value;}}
-
-    public int getRotation()
-    {
-        return orientation == OrientationEnum.Parallel ? 0 : 90;
-    }
 }

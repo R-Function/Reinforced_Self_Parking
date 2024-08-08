@@ -1,0 +1,70 @@
+{"Lessons":[
+	{
+		"name":"DriveForwardLesson",
+		"maxSteps": 40000,
+		"environmentPrefabName":"Environment_Three_Driveways_Very_Easy",
+		"agentControllBreak": true,
+		"agentControllReverse": false,		
+		"carsOnParkingLot": 5,
+		"remainTimeInParkingSpace": 0.5,
+		"randomiseSpawnAt": 10,		
+		"randomiseEntranceAt": 0,
+		"randomiseCarsOnParkingLotAt": 100,
+		"randomiseEnvironmentRotationAt": 50
+	},
+	{
+		"name":"ReverseLesson",
+		"maxSteps": 30000,
+		"environmentPrefabName":"Environment_Three_Driveways_Very_Easy",	
+		"agentControllBreak": true,
+		"agentControllReverse": true,
+		"carsOnParkingLot": 5,
+		"remainTimeInParkingSpace":1.0,
+		"randomiseSpawnAt": 10,		
+		"randomiseEntranceAt": 0,
+		"randomiseCarsOnParkingLotAt": 50,
+		"randomiseEnvironmentRotationAt": 40
+	},
+	{
+		"name":"ReverseLesson2",
+		"maxSteps": 30000,
+		"environmentPrefabName":"Environment_Three_Driveways_Easy",	
+		"agentControllBreak": true,
+		"agentControllReverse": true,
+		"carsOnParkingLot": 10,
+		"remainTimeInParkingSpace":2.0,
+		"randomiseSpawnAt": 5,		
+		"randomiseEntranceAt": 0,
+		"randomiseCarsOnParkingLotAt": 20,
+		"randomiseEnvironmentRotationAt": 35
+	},
+	{
+		"name":"TurnLesson",	
+		"maxSteps": 25000,
+		"environmentPrefabName":"Environment_Three_Driveways",	
+		"agentControllBreak": true,
+		"agentControllReverse": true,
+		"carsOnParkingLot": 0,
+		"remainTimeInParkingSpace":2.5,
+		"randomiseSpawnAt": 10,		
+		"randomiseEntranceAt": 0,
+		"randomiseCarsOnParkingLotAt": 0,
+		"randomiseEnvironmentRotationAt": 100
+	}
+	,
+	
+	{
+		"name":"Final",	
+		"maxSteps": 25000,
+		"environmentPrefabName":"Environment_One_Driveway",	
+		"agentControllBreak": true,
+		"agentControllReverse": true,
+		"carsOnParkingLot": 0,
+		"remainTimeInParkingSpace":2.5,
+		"randomiseSpawnAt": 30,		
+		"randomiseEntranceAt": 0,
+		"randomiseCarsOnParkingLotAt": 0,
+		"randomiseEnvironmentRotationAt": 50
+	}
+]
+}
