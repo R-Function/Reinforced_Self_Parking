@@ -214,7 +214,6 @@ MonoBehaviour:
   curriculumFile: {fileID: 4900000, guid: 5a87f8fa429deab4ab829bfd9ca3e24f, type: 3}
   agentList:
   - {fileID: 1200985492}
-  forwardReward: 1
   startLessonDefault: 0
 --- !u!4 &108234745
 Transform:
@@ -639,7 +638,6 @@ MonoBehaviour:
   curriculumFile: {fileID: 4900000, guid: 5a87f8fa429deab4ab829bfd9ca3e24f, type: 3}
   agentList:
   - {fileID: 1385138168}
-  forwardReward: 1
   startLessonDefault: 0
 --- !u!4 &627129108
 Transform:
@@ -935,7 +933,6 @@ MonoBehaviour:
   curriculumFile: {fileID: 4900000, guid: 5a87f8fa429deab4ab829bfd9ca3e24f, type: 3}
   agentList:
   - {fileID: 583375726}
-  forwardReward: 1
   startLessonDefault: 0
 --- !u!4 &1101706775
 Transform:
@@ -1233,7 +1230,6 @@ MonoBehaviour:
   curriculumFile: {fileID: 4900000, guid: 5a87f8fa429deab4ab829bfd9ca3e24f, type: 3}
   agentList:
   - {fileID: 1303659691}
-  forwardReward: 1
   startLessonDefault: 0
 --- !u!4 &1332634587
 Transform:
@@ -1411,8 +1407,7 @@ MonoBehaviour:
   curriculumFile: {fileID: 4900000, guid: 5a87f8fa429deab4ab829bfd9ca3e24f, type: 3}
   agentList:
   - {fileID: 1489853548}
-  forwardReward: 1
-  startLessonDefault: 0
+  startLessonDefault: 2
 --- !u!4 &1554982213
 Transform:
   m_ObjectHideFlags: 0
@@ -1511,7 +1506,6 @@ MonoBehaviour:
   curriculumFile: {fileID: 4900000, guid: 5a87f8fa429deab4ab829bfd9ca3e24f, type: 3}
   agentList:
   - {fileID: 1663751944}
-  forwardReward: 1
   startLessonDefault: 0
 --- !u!4 &1565445860
 Transform:
@@ -1787,7 +1781,6 @@ MonoBehaviour:
   curriculumFile: {fileID: 4900000, guid: 5a87f8fa429deab4ab829bfd9ca3e24f, type: 3}
   agentList:
   - {fileID: 324467112}
-  forwardReward: 1
   startLessonDefault: 0
 --- !u!4 &1876319291
 Transform:
@@ -1866,7 +1859,6 @@ MonoBehaviour:
   curriculumFile: {fileID: 4900000, guid: 5a87f8fa429deab4ab829bfd9ca3e24f, type: 3}
   agentList:
   - {fileID: 387911722}
-  forwardReward: 1
   startLessonDefault: 0
 --- !u!4 &2012720518
 Transform:
@@ -1945,7 +1937,6 @@ MonoBehaviour:
   curriculumFile: {fileID: 4900000, guid: 5a87f8fa429deab4ab829bfd9ca3e24f, type: 3}
   agentList:
   - {fileID: 1234676652}
-  forwardReward: 1
   startLessonDefault: 0
 --- !u!4 &2100553182
 Transform:

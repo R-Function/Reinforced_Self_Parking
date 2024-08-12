@@ -164,7 +164,7 @@ public class Parking_Lot_Environment_Controller : MonoBehaviour
         {
             if (mapping[i] == true)
             {
-                vehicles[indexVeh].transform.rotation = Quaternion.Euler(0,parkingSpaces[i].Rotation.eulerAngles.y,0);
+                vehicles[indexVeh].transform.localRotation = Quaternion.Euler(0,parkingSpaces[i].Rotation.eulerAngles.y,0);
                 vehicles[indexVeh].transform.localPosition = parkingSpaces[i].Center;
                 parkingSpaces[i].IsOccupied = true;
                 indexVeh++;

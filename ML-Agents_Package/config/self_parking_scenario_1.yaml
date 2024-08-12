@@ -20,7 +20,7 @@ behaviors:
         gamma: 0.99
         strength: 1.0
     keep_checkpoints: 8
-    max_steps: 40000000
+    max_steps: 150000000
     time_horizon: 256
     summary_freq: 40000
     
@@ -43,21 +43,29 @@ environment_parameters:
           min_lesson_length: 700
           threshold: 0.5
         value: 1
+      - name: ForwardLesson2
+        completion_criteria:
+          measure: reward
+          behavior: PKWParking
+          signal_smoothing: true
+          min_lesson_length: 300
+          threshold: 0.35
+        value: 2
       - name: ReverseLesson2
         completion_criteria:
           measure: reward
           behavior: PKWParking
           signal_smoothing: true
-          min_lesson_length: 400
-          threshold: 0.5
-        value: 2
+          min_lesson_length: 500
+          threshold: 0.35
+        value: 3
       - name: TurnLesson
         completion_criteria:
           measure: reward
           behavior: PKWParking
           signal_smoothing: true
-          min_lesson_length: 400
+          min_lesson_length: 1000
           threshold: 0.5
-        value: 3
-      - name: FinalLesson
         value: 4
+      - name: FinalLesson
+        value: 5

@@ -27,29 +27,43 @@
 		"randomiseEnvironmentRotationAt": 40
 	},
 	{
+		"name":"ForwardLesson2",
+		"maxSteps": 20000,
+		"environmentPrefabName":"Environment_Three_Driveways_Easy",	
+		"agentControllBreak": true,
+		"agentControllReverse": false,
+		"rewardDriveForward": true,
+		"carsOnParkingLot": 4,
+		"remainTimeInParkingSpace":1.0,
+		"randomiseSpawnAt": 2,		
+		"randomiseEntranceAt": 0,
+		"randomiseCarsOnParkingLotAt": 40,
+		"randomiseEnvironmentRotationAt": 20
+	},
+	{
 		"name":"ReverseLesson2",
 		"maxSteps": 30000,
 		"environmentPrefabName":"Environment_Three_Driveways_Easy",	
 		"agentControllBreak": true,
 		"agentControllReverse": true,
-		"carsOnParkingLot": 5,
+		"carsOnParkingLot": 4,
 		"remainTimeInParkingSpace":2.0,
 		"randomiseSpawnAt": 5,		
 		"randomiseEntranceAt": 0,
-		"randomiseCarsOnParkingLotAt": 20,
-		"randomiseEnvironmentRotationAt": 35
+		"randomiseCarsOnParkingLotAt": 40,
+		"randomiseEnvironmentRotationAt": 20
 	},
 	{
 		"name":"TurnLesson",	
-		"maxSteps": 25000,
+		"maxSteps": 23000,
 		"environmentPrefabName":"Environment_Three_Driveways",	
 		"agentControllBreak": true,
 		"agentControllReverse": true,
-		"carsOnParkingLot": 0,
-		"remainTimeInParkingSpace":2.5,
-		"randomiseSpawnAt": 10,		
+		"carsOnParkingLot": 7,
+		"remainTimeInParkingSpace":1.5,
+		"randomiseSpawnAt": 2,		
 		"randomiseEntranceAt": 0,
-		"randomiseCarsOnParkingLotAt": 0,
+		"randomiseCarsOnParkingLotAt": 50,
 		"randomiseEnvironmentRotationAt": 100
 	}
 	,

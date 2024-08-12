@@ -125,7 +125,7 @@ public class Park_Training_Controller : MonoBehaviour
 
     public void CollisionWithAgent(AgentPKW agent)
     {
-        agent.AddReward(-0.3f);
+        agent.AddReward(-0.35f);
     }
 
     public void CollisionWithObstacle(AgentPKW agent)
@@ -279,7 +279,8 @@ public class Park_Training_Controller : MonoBehaviour
         m_ResetTimer = 0;
 
         // neue umgebung laden bei bedarf
-        if(previousLesson != currentLesson)
+        bool isNewLesson = previousLesson != currentLesson; 
+        if(isNewLesson)
         {
             maxTrainingSteps = currentLesson.maxSteps;           
             setEnvironment(currentLesson.environmentPrefabName);
@@ -305,7 +306,8 @@ public class Park_Training_Controller : MonoBehaviour
             envController.ZLineShuffle(1,3,0,3);
         
         // Geparkte Autos umstellen
-        if(currentLesson.randomiseCarsOnParkingLotAt != 0
+        if(isNewLesson
+        || currentLesson.randomiseCarsOnParkingLotAt != 0
         && episodeCounter % currentLesson.randomiseCarsOnParkingLotAt == 0)
             envController.SetAndShuffleCars(currentLesson.carsOnParkingLot);
         
@@ -313,7 +315,8 @@ public class Park_Training_Controller : MonoBehaviour
         if(currentLesson.randomiseSpawnAt == 0)
             throw new Exception("In der Curriculum Datei: RandomiseSpawnAt darf nicht 0 sein!");
         
-        if(currentLesson.randomiseSpawnAt != 0
+        if(isNewLesson
+        || currentLesson.randomiseSpawnAt != 0
         && episodeCounter % currentLesson.randomiseSpawnAt == 0)
             SpawnAgents(isRandom : true);
 
@@ -332,7 +335,13 @@ public class Park_Training_Controller : MonoBehaviour
     public void setEnvironment(string prefabName)
     {
         if(currentEnvironment != null)
+        {
             Destroy(currentEnvironment);
+            foreach(Transform car in carObstacleContainer)
+            {
+                Destroy(car.gameObject);
+            }
+        }
         GameObject envPrefab = null;
         foreach(GameObject environment in trainingEnvironmentList)
         {

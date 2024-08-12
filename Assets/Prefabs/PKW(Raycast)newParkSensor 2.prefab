@@ -149,6 +149,10 @@ PrefabInstance:
       value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 5595685038479559817, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: maxSteeringAngle
+      value: 43
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595685038479559817, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
       propertyPath: resetSteeringSpeed
       value: 0.1
       objectReference: {fileID: 0}
