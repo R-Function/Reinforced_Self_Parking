@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Sensors.Reflection;
@@ -13,14 +14,15 @@ using UnityEngine;
 *       Werte zu beschränken. 
 */
 
-public class AgentPKW : AgentPKWBase
+public class AgentPKW_simple : AgentPKWBase
 {    
+    private List<Transform> parkSpaces;
+
     public override void Initialize()
     {
+        parkSpaces     = new List<Transform>();
         rBody          = GetComponent<Rigidbody>();
         pkw            = GetComponent<PKW_Controller>();
-        rayParkSensor  = parkSensor.GetComponent<RayCastHandler>();
-        resetParkSpaceMem();
 
         // rayData     = parkSpaceSensor.GetComponent<RayPerceptionSensorComponent3D>().RaySensor;
         isRunning   = true;
@@ -29,15 +31,13 @@ public class AgentPKW : AgentPKWBase
 
     void Update()
     {
-        var nearTransform = rayParkSensor.NearestTransform(this.transform);     
-        if(nearTransform != null)
-        {
-            parkSpaceFound = true;
-            nearestParkSpacePos = nearTransform.position;
-            nearestParkSpaceRot = nearTransform.rotation;
-        }
+
     }
 
+    override public void resetParkSpaceMem()
+    {
+
+    }
 
     /*____________________OBSERVATIONEN______________________*/
     
@@ -67,13 +67,12 @@ public class AgentPKW : AgentPKWBase
         //Gyroskop
         sensor.AddObservation(NormalizeRotation(this.transform.eulerAngles).y);
         //Parkplatzposition
-        sensor.AddObservation(NormalizePosition(parkingLot.position).x);
-        sensor.AddObservation(NormalizePosition(parkingLot.position).z);
-        //Parkplatzsensor
-        sensor.AddObservation(parkSpaceFound);
-        sensor.AddObservation(NormalizePosition(nearestParkSpacePos).x);
-        sensor.AddObservation(NormalizePosition(nearestParkSpacePos).z);
-        sensor.AddObservation(NormalizeRotation(nearestParkSpaceRot.eulerAngles).y);
+        foreach (Transform parkSpace in parkSpaces)
+        {
+            sensor.AddObservation(NormalizePosition(parkSpace.position).x);
+            sensor.AddObservation(NormalizePosition(parkSpace.position).z);
+            sensor.AddObservation(NormalizeRotation(parkSpace.rotation.eulerAngles).y);
+        }
     }
 
     /*______________________AKTIONEN______________________*/
@@ -197,5 +196,22 @@ public class AgentPKW : AgentPKWBase
         //Bremsen
         if(Input.GetKey("space"))
             discreteActionsOut[0]   = 3;
+    }
+
+    // Properties
+    public override void setParkingLot(Transform parkingLotTransform)
+    {
+        base.setParkingLot(parkingLotTransform);
+        
+        foreach (Transform parkSpace in parkingLot)
+            {
+                foreach(Transform child in parkSpace)
+                {
+                    if(child.tag == "ParkSpace")
+                    {
+                        parkSpaces.Add(child);
+                    }
+                }
+            }
     }
 }

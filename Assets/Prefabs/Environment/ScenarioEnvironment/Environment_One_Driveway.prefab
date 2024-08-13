@@ -230,11 +230,7 @@ MonoBehaviour:
   - {fileID: 4328619510139100404}
   - {fileID: 1564302896688966411}
   - {fileID: 4927937706165320110}
-  parkingSpaceTransforms:
-  - {fileID: 8277421774911161591}
-  - {fileID: 5537850355391031408}
-  - {fileID: 6940990047934167}
-  - {fileID: 884360281824198050}
+  parkingSpaceTransforms: {fileID: 3109715221098959615}
 --- !u!1001 &168112081173116091
 PrefabInstance:
   m_ObjectHideFlags: 0

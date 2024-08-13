@@ -20,7 +20,7 @@ public class Parking_Lot_Environment_Controller : MonoBehaviour
     private Transform carObstacleContainer;
 
     public List<Transform> spawnPoints;
-    public List<Transform> parkingSpaceTransforms;
+    public Transform parkingSpaceTransforms;
 
     private List <ParkingSpace> parkingSpaces;
     private List <GameObject> vehicles;
@@ -36,9 +36,8 @@ public class Parking_Lot_Environment_Controller : MonoBehaviour
 
         // lade die parkplätze in die parkplatzliste
         int index = 0;
-        foreach (var parkingSpaceTransform in parkingSpaceTransforms)
+        foreach (Transform parkingSpaceTransform in parkingSpaceTransforms)
         {
-            //hier mal testen was passiert
             foreach(Transform child in parkingSpaceTransform)
             {
                 if(child.tag == "ParkSpace")

@@ -6,12 +6,12 @@
 		"agentControllBreak": true,
 		"agentControllReverse": false,
 		"rewardDriveForward": true,	
-		"carsOnParkingLot": 1,
+		"carsOnParkingLot": 4,
 		"remainTimeInParkingSpace": 0.5,
 		"randomiseSpawnAt": 5,		
 		"randomiseEntranceAt": 0,
-		"randomiseCarsOnParkingLotAt": 100,
-		"randomiseEnvironmentRotationAt": 50
+		"randomiseCarsOnParkingLotAt": 50,
+		"randomiseEnvironmentRotationAt": 40
 	},
 	{
 		"name":"ReverseLesson",
@@ -56,7 +56,7 @@
 	{
 		"name":"TurnLesson",	
 		"maxSteps": 23000,
-		"environmentPrefabName":"Environment_Three_Driveways",	
+		"environmentPrefabName":"Environment_Three_Driveways_1",	
 		"agentControllBreak": true,
 		"agentControllReverse": true,
 		"carsOnParkingLot": 7,

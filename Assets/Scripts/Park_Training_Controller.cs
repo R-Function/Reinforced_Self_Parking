@@ -3,7 +3,6 @@ using UnityEngine;
 using Unity.MLAgents;
 using System;
 using System.Linq;
-using Unity.VisualScripting;
 
 
 public class Park_Training_Controller : MonoBehaviour
@@ -29,13 +28,13 @@ public class Park_Training_Controller : MonoBehaviour
 
 
     [Header("Agent List and Parameters")]
-    public List<AgentPKW> agentList;
+    public List<AgentPKWBase> agentList;
     private SimpleMultiAgentGroup m_AgentGroup;
 
     private List<Transform> spawnPoints;
     private GameObject currentEnvironment;
 
-    private Dictionary<AgentPKW, AgentInfo> agentInformationList;
+    private Dictionary<AgentPKWBase, AgentInfo> agentInformationList;
 
     [Range(0,4)]
     public int startLessonDefault = 2;
@@ -54,14 +53,14 @@ public class Park_Training_Controller : MonoBehaviour
         setEnvironment(currentLesson.environmentPrefabName);
 
         // instanziieren der Listen
-        agentInformationList  = new Dictionary<AgentPKW, AgentInfo>();
+        agentInformationList  = new Dictionary<AgentPKWBase, AgentInfo>();
         m_AgentGroup          = new SimpleMultiAgentGroup();
 
         //initialisieren der Agenten
-        foreach(AgentPKW agent in agentList)
+        foreach(AgentPKWBase agent in agentList)
         {
             agent.Critic     = this;
-            agent.ParkingLot = currentEnvironment.transform.Find("ParkingSpaces");
+            agent.setParkingLot(envController.parkingSpaceTransforms);
             agentInformationList.Add(agent, new AgentInfo());
             m_AgentGroup.RegisterAgent(agent);
         }
@@ -72,7 +71,7 @@ public class Park_Training_Controller : MonoBehaviour
     void FixedUpdate()
     {
         m_ResetTimer += 1;
-        foreach(AgentPKW a in m_AgentGroup.GetRegisteredAgents())
+        foreach(AgentPKWBase a in m_AgentGroup.GetRegisteredAgents())
         {
             a.AddReward(-1f/maxTrainingSteps);
             if(currentLesson.rewardDriveForward && a.PKW.LocalVelocityZ >= 0.8)
@@ -86,7 +85,7 @@ public class Park_Training_Controller : MonoBehaviour
         }
 
         //zum testen, wenn agent auf parkplatz, dann belohnung berechnen
-        // foreach(KeyValuePair<AgentPKW, AgentInfo> agentInfo in agentInformationList)
+        // foreach(KeyValuePair<AgentPKWBase, AgentInfo> agentInfo in agentInformationList)
         // {
         //     if(agentInfo.Value.parkingSpacesInContact.Any())
         //     {
@@ -103,7 +102,7 @@ public class Park_Training_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        foreach(KeyValuePair<AgentPKW, AgentInfo> agentInfoPair in agentInformationList)
+        foreach(KeyValuePair<AgentPKWBase, AgentInfo> agentInfoPair in agentInformationList)
         {
             GoalStayInParkingSpace(agentInfoPair);
         }
@@ -112,30 +111,30 @@ public class Park_Training_Controller : MonoBehaviour
     /*#########################################################*/
     /*                     Reward Methoden                     */
     /*#########################################################*/
-    public void ExitTrainingArea(AgentPKW agent)
+    public void ExitTrainingArea(AgentPKWBase agent)
     {
         agent.AddReward(-1f);
         FinishEpisode();
     }
 
-    public void ExitRoad(AgentPKW agent)
+    public void ExitRoad(AgentPKWBase agent)
     {
         agent.AddReward(-0.1f);
     }
 
-    public void CollisionWithAgent(AgentPKW agent)
+    public void CollisionWithAgent(AgentPKWBase agent)
     {
         agent.AddReward(-0.35f);
     }
 
-    public void CollisionWithObstacle(AgentPKW agent)
+    public void CollisionWithObstacle(AgentPKWBase agent)
     {
         agent.AddReward(-0.4f);
         if(currentLesson.agentControllReverse == false)
             FinishEpisode();
     }
 
-    public void GoalEnterParkingSpace(AgentPKW agent, Transform parkingSpace)
+    public void GoalEnterParkingSpace(AgentPKWBase agent, Transform parkingSpace)
     {
         /*  Das ganze soll wie folgt verlaufen
                 - Agent meldet, welche Parklücke er betreten hat
@@ -148,7 +147,7 @@ public class Park_Training_Controller : MonoBehaviour
         agentInformationList[agent].TimeInParkingSpace = 0;
     }
 
-    private void GoalStayInParkingSpace(KeyValuePair<AgentPKW, AgentInfo> agentInfoPair)
+    private void GoalStayInParkingSpace(KeyValuePair<AgentPKWBase, AgentInfo> agentInfoPair)
     {
         // nur wenn fahrzeug eine parklücke berührt
         if(agentInfoPair.Value.parkingSpacesInContact.Any())
@@ -160,8 +159,7 @@ public class Park_Training_Controller : MonoBehaviour
                 agentInfoPair.Key.isRunning = false;
                 float distReward = CalcDistanceReward(agentInfoPair.Key.PKWBody, agentInfoPair.Value.parkingSpacesInContact.Last(), 0.5f);
                 float rotReward  = CalcRotationReward(agentInfoPair.Key.PKWBody, agentInfoPair.Value.parkingSpacesInContact.Last(), 0.5f);
-                agentInfoPair.Key.AddReward(distReward);
-                agentInfoPair.Key.AddReward(rotReward);
+                agentInfoPair.Key.AddReward(distReward + rotReward);
                 FinishEpisode();
                 // Debug.Log(agentInfoPair.Key.gameObject.name
                 //           +" hat folgende Belohnung:\nDistanz: "
@@ -174,7 +172,7 @@ public class Park_Training_Controller : MonoBehaviour
         }
     }
 
-    public void ExitParkingSpace(AgentPKW agent, Transform parkingSpace)
+    public void ExitParkingSpace(AgentPKWBase agent, Transform parkingSpace)
     {
         agentInformationList[agent].parkingSpacesInContact.Remove(parkingSpace);
         agentInformationList[agent].TimeInParkingSpace = 0;
@@ -285,12 +283,12 @@ public class Park_Training_Controller : MonoBehaviour
             maxTrainingSteps = currentLesson.maxSteps;           
             setEnvironment(currentLesson.environmentPrefabName);
             Debug.Log("New Lesson for Training Environment: "+this.name);
-            foreach(AgentPKW agent in agentList)
-                agent.ParkingLot = currentEnvironment.transform.Find("ParkingSpaces");
+            foreach(AgentPKWBase agent in agentList)
+                agent.setParkingLot(envController.parkingSpaceTransforms);
 
         }
 
-        foreach(AgentPKW agent in agentList)
+        foreach(AgentPKWBase agent in agentList)
         {
             // m_AgentGroup.RegisterAgent(agent);
             agent.isRunning = true;
@@ -379,7 +377,7 @@ public class Park_Training_Controller : MonoBehaviour
         Transform spawnPoint;
         
         int agentIndex = 0;
-        foreach(AgentPKW agent in agentList)
+        foreach(AgentPKWBase agent in agentList)
         {
             // Bewegung zurücksetzen
             agent.RBody.velocity = Vector3.zero;
