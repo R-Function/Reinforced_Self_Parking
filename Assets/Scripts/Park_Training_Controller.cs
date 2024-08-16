@@ -74,7 +74,7 @@ public class Park_Training_Controller : MonoBehaviour
         foreach(AgentPKWBase a in m_AgentGroup.GetRegisteredAgents())
         {
             a.AddReward(-1f/maxTrainingSteps);
-            if(currentLesson.rewardDriveForward && a.PKW.LocalVelocityZ >= 0.8)
+            if(currentLesson.rewardDriveForward && a.PKW.LocalVelocityZ >= 0.7)
                 a.AddReward(1f/maxTrainingSteps);
 
         }
@@ -119,7 +119,7 @@ public class Park_Training_Controller : MonoBehaviour
 
     public void ExitRoad(AgentPKWBase agent)
     {
-        agent.AddReward(-0.1f);
+        agent.AddReward(-0.08f);
     }
 
     public void CollisionWithAgent(AgentPKWBase agent)

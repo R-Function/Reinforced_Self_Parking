@@ -43,11 +43,11 @@ public class AgentPKW_simple : AgentPKWBase
     
     // Geschwindigkeit/Beschleunigung
     // (Zu stacked Observations gemacht, um Gefühl für Bewegung zu verbessern)
-    [Observable(numStackedObservations: 3)]
+    [Observable(numStackedObservations: 2)]
     float VelocityX{
         get { return NormalizeValue(pkw.LocalVelocityX, -pkw.maxSpeed, pkw.maxSpeed, -1, 1);}
     }
-    [Observable(numStackedObservations: 3)]
+    [Observable(numStackedObservations: 2)]
     float VelocityZ{
         get { return NormalizeValue(pkw.LocalVelocityZ, -pkw.maxReverseSpeed, pkw.maxSpeed, -1, 1);}
     }
@@ -202,7 +202,7 @@ public class AgentPKW_simple : AgentPKWBase
     public override void setParkingLot(Transform parkingLotTransform)
     {
         base.setParkingLot(parkingLotTransform);
-        
+        parkSpaces.Clear();
         foreach (Transform parkSpace in parkingLot)
             {
                 foreach(Transform child in parkSpace)
