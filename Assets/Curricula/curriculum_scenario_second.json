@@ -37,7 +37,7 @@
 		"carsOnParkingLot": 3,
 		"remainTimeInParkingSpace":1,
 		"randomiseSpawnAt": 5,		
-		"randomiseEntranceAt": 0,
+		"randomiseEntranceAt": 5,
 		"randomiseCarsOnParkingLotAt": 50,
 		"randomiseEnvironmentRotationAt": 40
 	},
