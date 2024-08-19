@@ -43,18 +43,14 @@ public class AgentPKW_simple : AgentPKWBase
     
     // Geschwindigkeit/Beschleunigung
     // (Zu stacked Observations gemacht, um Gefühl für Bewegung zu verbessern)
-    [Observable(numStackedObservations: 2)]
-    float VelocityX{
-        get { return NormalizeValue(pkw.LocalVelocityX, -pkw.maxSpeed, pkw.maxSpeed, -1, 1);}
-    }
-    [Observable(numStackedObservations: 2)]
+    [Observable(numStackedObservations: 3)]
     float VelocityZ{
-        get { return NormalizeValue(pkw.LocalVelocityZ, -pkw.maxReverseSpeed, pkw.maxSpeed, -1, 1);}
+        get {return NormalizeValue(pkw.carSpeed, -pkw.maxSpeed, pkw.maxSpeed, -1, 1);}
     }
     // Gyroskop (Drehung)
-    [Observable]
+    [Observable(numStackedObservations: 3)]
     float Rotation{
-        get { return NormalizeRotation(this.transform.eulerAngles).y;}
+        get { return NormalizeValue((int)this.transform.localEulerAngles.y,0,360);}
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -62,16 +58,14 @@ public class AgentPKW_simple : AgentPKWBase
         //Motor
         sensor.AddObservation(this.isRunning);
         //GPS
-        sensor.AddObservation(NormalizePosition(this.transform.position).x);
-        sensor.AddObservation(NormalizePosition(this.transform.position).z);
-        //Gyroskop
-        sensor.AddObservation(NormalizeRotation(this.transform.eulerAngles).y);
+        sensor.AddObservation(this.transform.position.x);
+        sensor.AddObservation(this.transform.position.z);
         //Parkplatzposition
         foreach (Transform parkSpace in parkSpaces)
         {
-            sensor.AddObservation(NormalizePosition(parkSpace.position).x);
-            sensor.AddObservation(NormalizePosition(parkSpace.position).z);
-            sensor.AddObservation(NormalizeRotation(parkSpace.rotation.eulerAngles).y);
+            sensor.AddObservation(parkSpace.position.x);
+            sensor.AddObservation(parkSpace.position.z);
+            sensor.AddObservation(NormalizeValue((int)parkSpace.localEulerAngles.y,0,360));
         }
     }
 
