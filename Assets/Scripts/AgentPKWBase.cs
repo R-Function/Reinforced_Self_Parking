@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
@@ -49,14 +50,13 @@ public class AgentPKWBase : Agent
     {
         Bounds mapBounds;
         // normalisierung auf maximalgröße von map
-        mapBounds = new Bounds(this.transform.parent.position, new Vector3(150,30,150));
-        // try{
-        //     mapBounds = this.transform.parent.gameObject.GetComponent<Collider>().bounds;
-        // }catch(NullReferenceException e){
-        //     Debug.Log(e.Message);
-        //     Debug.Log("Es existieren keine Map Bounds. Standardwerte werden genutzt!");
-        //     mapBounds = new Bounds(new Vector3(0,0,0), new Vector3(100,100,100));
-        // }
+        try{
+            mapBounds = this.transform.parent.gameObject.GetComponent<Collider>().bounds;
+        }catch(NullReferenceException e){
+            Debug.Log(e.Message);
+            Debug.Log("Es existieren keine Map Bounds. Standardwerte werden genutzt!");
+            mapBounds = new Bounds(new Vector3(0,0,0), new Vector3(100,100,100));
+        }
         Vector3 pos = new Vector3(NormalizeValue(position.x, mapBounds.min.x,mapBounds.max.x,-1,1),
                                   NormalizeValue(position.y, mapBounds.min.y,mapBounds.max.y,-1,1),
                                   NormalizeValue(position.z, mapBounds.min.z,mapBounds.max.z,-1,1));

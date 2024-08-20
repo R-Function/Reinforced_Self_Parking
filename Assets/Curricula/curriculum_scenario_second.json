@@ -6,12 +6,12 @@
 		"agentControllBreak": true,
 		"agentControllReverse": false,
 		"rewardDriveForward": true,	
-		"carsOnParkingLot": 5,
+		"carsOnParkingLot": 7,
 		"remainTimeInParkingSpace": 0.5,
 		"randomiseSpawnAt": 5,		
 		"randomiseEntranceAt": 0,
-		"randomiseCarsOnParkingLotAt": 100,
-		"randomiseEnvironmentRotationAt": 80
+		"randomiseCarsOnParkingLotAt": 50,
+		"randomiseEnvironmentRotationAt": 0
 	},
 	{
 		"name":"ReverseLesson",
@@ -25,7 +25,7 @@
 		"randomiseSpawnAt": 5,		
 		"randomiseEntranceAt": 0,
 		"randomiseCarsOnParkingLotAt": 100,
-		"randomiseEnvironmentRotationAt": 80
+		"randomiseEnvironmentRotationAt": 0
 	},
 	{
 		"name":"TurnLesson",
@@ -37,9 +37,9 @@
 		"carsOnParkingLot": 3,
 		"remainTimeInParkingSpace":1,
 		"randomiseSpawnAt": 5,		
-		"randomiseEntranceAt": 5,
+		"randomiseEntranceAt": 0,
 		"randomiseCarsOnParkingLotAt": 50,
-		"randomiseEnvironmentRotationAt": 40
+		"randomiseEnvironmentRotationAt": 0
 	},
 	{
 		"name":"TurnLesson2",	
@@ -52,7 +52,7 @@
 		"randomiseSpawnAt": 2,		
 		"randomiseEntranceAt": 0,
 		"randomiseCarsOnParkingLotAt": 50,
-		"randomiseEnvironmentRotationAt": 100
+		"randomiseEnvironmentRotationAt": 0
 	},	
 	{
 		"name":"Final",	
@@ -65,7 +65,7 @@
 		"randomiseSpawnAt": 30,		
 		"randomiseEntranceAt": 0,
 		"randomiseCarsOnParkingLotAt": 0,
-		"randomiseEnvironmentRotationAt": 50
+		"randomiseEnvironmentRotationAt": 0
 	}
 ]
 }

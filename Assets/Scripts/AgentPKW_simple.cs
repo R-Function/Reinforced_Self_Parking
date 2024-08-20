@@ -58,13 +58,15 @@ public class AgentPKW_simple : AgentPKWBase
         //Motor
         sensor.AddObservation(this.isRunning);
         //GPS
-        sensor.AddObservation(this.transform.position.x);
-        sensor.AddObservation(this.transform.position.z);
+        // Debug.Log("Position"+this.transform.position);
+        // Debug.Log("Norm Position"+NormalizePosition(this.transform.position));
+        sensor.AddObservation(NormalizePosition(this.transform.position).x);
+        sensor.AddObservation(NormalizePosition(this.transform.position).z);
         //Parkplatzposition
         foreach (Transform parkSpace in parkSpaces)
         {
-            sensor.AddObservation(parkSpace.position.x);
-            sensor.AddObservation(parkSpace.position.z);
+            sensor.AddObservation(NormalizePosition(parkSpace.localPosition).x);
+            sensor.AddObservation(NormalizePosition(parkSpace.localPosition).z);
             sensor.AddObservation(NormalizeValue((int)parkSpace.localEulerAngles.y,0,360));
         }
     }
@@ -139,7 +141,8 @@ public class AgentPKW_simple : AgentPKWBase
 
     private void OnTriggerStay(Collider col)
     {
-        
+        if(col.gameObject.tag == "Border")
+            critic.OffRoad(this);
     }
 
     private void OnCollisionEnter(Collision col)
