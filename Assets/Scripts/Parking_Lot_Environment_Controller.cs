@@ -28,7 +28,7 @@ public class Parking_Lot_Environment_Controller : MonoBehaviour
     private Transform[,] tileMatrix;
 
     // Start is called before the first frame update
-    public void makeObject()
+    void Awake()
     {
         parkingSpaces   = new List<ParkingSpace>();
         vehicles        = new List<GameObject>();
@@ -164,7 +164,7 @@ public class Parking_Lot_Environment_Controller : MonoBehaviour
             if (mapping[i] == true)
             {
                 vehicles[indexVeh].transform.localRotation = Quaternion.Euler(0,parkingSpaces[i].Rotation.eulerAngles.y,0);
-                vehicles[indexVeh].transform.localPosition = parkingSpaces[i].Center;
+                vehicles[indexVeh].transform.position = parkingSpaces[i].Center;
                 parkingSpaces[i].IsOccupied = true;
                 indexVeh++;
             }

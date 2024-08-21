@@ -74,7 +74,7 @@ public class Park_Training_Controller : MonoBehaviour
         foreach(AgentPKWBase a in m_AgentGroup.GetRegisteredAgents())
         {
             a.AddReward(-1f/maxTrainingSteps);
-            if(currentLesson.rewardDriveForward && a.PKW.carSpeed >= 15)
+            if(currentLesson.rewardDriveForward && a.PKW.carSpeed >= 5)
                 a.AddReward(1f/maxTrainingSteps);
 
         }
@@ -124,7 +124,7 @@ public class Park_Training_Controller : MonoBehaviour
 
     public void OffRoad(AgentPKWBase agent)
     {
-        agent.AddReward(-0.5f/maxTrainingSteps);
+        agent.AddReward(-0.2f/maxTrainingSteps);
     }
 
     public void CollisionWithAgent(AgentPKWBase agent)
@@ -358,9 +358,8 @@ public class Park_Training_Controller : MonoBehaviour
                                +"Prefabs in der Prefab Liste des Training Controllers.");
 
         currentEnvironment = Instantiate(envPrefab, this.transform);
-        envController = envPrefab.GetComponent<Parking_Lot_Environment_Controller>();
+        envController = currentEnvironment.GetComponent<Parking_Lot_Environment_Controller>();
         envController.CarObstacleContainer = this.carObstacleContainer;
-        envController.makeObject();
         spawnPoints = envController.spawnPoints;
     }
 
@@ -405,7 +404,7 @@ public class Park_Training_Controller : MonoBehaviour
             }
             
             // setze Agenten auf seinen Spawnpunkt und rotiere entsprechend
-            agent.transform.localPosition = agentInformationList[agent].spawn.position;
+            agent.transform.position = agentInformationList[agent].spawn.position;
             agent.transform.localRotation = agentInformationList[agent].spawn.parent.localRotation;
         }
     }

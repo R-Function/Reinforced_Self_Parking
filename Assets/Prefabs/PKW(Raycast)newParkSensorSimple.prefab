@@ -57,14 +57,14 @@ MonoBehaviour:
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 4294966323
-  m_ObservationStacks: 1
+  m_ObservationStacks: 3
   m_AlternatingRayOrder: 1
   m_UseBatchedRaycasts: 0
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
   m_StartVerticalOffset: 0
   m_EndVerticalOffset: -2
---- !u!1 &852424506774153859
+--- !u!1 &8450262245698403813
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -72,48 +72,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6701816544834719558}
-  - component: {fileID: 3399994399316329500}
+  - component: {fileID: 8256465515337166651}
+  - component: {fileID: 1814530919912241949}
   m_Layer: 0
-  m_Name: AgentSensor
+  m_Name: ParkSensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6701816544834719558
+--- !u!4 &8256465515337166651
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 852424506774153859}
+  m_GameObject: {fileID: 8450262245698403813}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.14, z: 0.34}
+  m_LocalPosition: {x: 0, y: 0.87, z: 0.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5309987163395330541}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3399994399316329500
+--- !u!114 &1814530919912241949
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 852424506774153859}
+  m_GameObject: {fileID: 8450262245698403813}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SensorName: AgentSensor
+  m_SensorName: ParkSensor
   m_DetectableTags:
-  - Agent
-  m_RaysPerDirection: 2
+  - ParkSpace
+  m_RaysPerDirection: 3
   m_MaxRayDegrees: 70
-  m_SphereCastRadius: 0.3
+  m_SphereCastRadius: 0.35
   m_RayLength: 10
   m_RayLayerMask:
     serializedVersion: 2
@@ -124,7 +124,7 @@ MonoBehaviour:
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
   m_StartVerticalOffset: 0
-  m_EndVerticalOffset: -0.6
+  m_EndVerticalOffset: 0
 --- !u!1001 &1299269346619425823
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -146,12 +146,16 @@ PrefabInstance:
       value: 63
       objectReference: {fileID: 0}
     - target: {fileID: 2189018644035114043, guid: 7090b95c6cd4df0a28f60a6bf66ce4d6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2189018644035114043, guid: 7090b95c6cd4df0a28f60a6bf66ce4d6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.86
+      value: 0.999
       objectReference: {fileID: 0}
     - target: {fileID: 2189018644035114043, guid: 7090b95c6cd4df0a28f60a6bf66ce4d6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.13
+      value: 0.26
       objectReference: {fileID: 0}
     - target: {fileID: 2396309451873347959, guid: 7090b95c6cd4df0a28f60a6bf66ce4d6, type: 3}
       propertyPath: m_DetectableTags.Array.size
@@ -197,6 +201,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7155720371749277184, guid: 7090b95c6cd4df0a28f60a6bf66ce4d6, type: 3}
+      propertyPath: maxSpeed
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7155720371749277184, guid: 7090b95c6cd4df0a28f60a6bf66ce4d6, type: 3}
+      propertyPath: maxReverseSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7155720371749277184, guid: 7090b95c6cd4df0a28f60a6bf66ce4d6, type: 3}
+      propertyPath: maxSteeringAngle
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 7155720371749277184, guid: 7090b95c6cd4df0a28f60a6bf66ce4d6, type: 3}
+      propertyPath: accelerationMultiplier
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7696907243058006701, guid: 7090b95c6cd4df0a28f60a6bf66ce4d6, type: 3}
       propertyPath: m_Name
       value: PKW(Raycast)newParkSensorSimple
@@ -206,8 +226,16 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8124777157613187756, guid: 7090b95c6cd4df0a28f60a6bf66ce4d6, type: 3}
+      propertyPath: m_SphereCastRadius
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8124777157613187756, guid: 7090b95c6cd4df0a28f60a6bf66ce4d6, type: 3}
       propertyPath: m_EndVerticalOffset
       value: -1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8124777157613187756, guid: 7090b95c6cd4df0a28f60a6bf66ce4d6, type: 3}
+      propertyPath: m_RayLayerMask.m_Bits
+      value: 4294966387
       objectReference: {fileID: 0}
     - target: {fileID: 8124777157613187756, guid: 7090b95c6cd4df0a28f60a6bf66ce4d6, type: 3}
       propertyPath: m_DetectableTags.Array.size
@@ -215,15 +243,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8124777157613187756, guid: 7090b95c6cd4df0a28f60a6bf66ce4d6, type: 3}
       propertyPath: m_DetectableTags.Array.data[0]
-      value: Obstacle
+      value: Agent
       objectReference: {fileID: 0}
     - target: {fileID: 8124777157613187756, guid: 7090b95c6cd4df0a28f60a6bf66ce4d6, type: 3}
       propertyPath: m_DetectableTags.Array.data[1]
-      value: Border
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 8124777157613187756, guid: 7090b95c6cd4df0a28f60a6bf66ce4d6, type: 3}
       propertyPath: m_DetectableTags.Array.data[2]
-      value: ParkSpace
+      value: Border
       objectReference: {fileID: 0}
     - target: {fileID: 8362601556306449702, guid: 7090b95c6cd4df0a28f60a6bf66ce4d6, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -244,7 +272,7 @@ PrefabInstance:
       addedObject: {fileID: 1989843862224297506}
     - targetCorrespondingSourceObject: {fileID: 6608807771831670258, guid: 7090b95c6cd4df0a28f60a6bf66ce4d6, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6701816544834719558}
+      addedObject: {fileID: 8256465515337166651}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7696907243058006701, guid: 7090b95c6cd4df0a28f60a6bf66ce4d6, type: 3}
       insertIndex: 2

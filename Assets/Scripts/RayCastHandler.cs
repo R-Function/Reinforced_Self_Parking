@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RayCastHandler : MonoBehaviour
@@ -12,18 +14,28 @@ public class RayCastHandler : MonoBehaviour
     public int rayDistance = 100; // Distance the ray will check for collisions
     [Range(0, 360)]
     public float coneAngle = 10;
-    [Range(0,10)]
+    [Range(0, 10)]
     public int numberOfRays = 5;
+    [Range(0, 10)]
+    public int nearestObjectsListSize = 1;
 
     
     private Vector3[] directions;
     private Quaternion lastRotation;
     private HashSet<Transform> hitObjects;
+    private HashSet<Transform> nearestObjects;
 
     void Start()
     {
         CalculateDirections();
         hitObjects = new HashSet<Transform>();
+        nearestObjects = new HashSet<Transform>();
+        
+        if(nearestObjectsListSize > numberOfRays)
+        {
+            Debug.Log("Size for nearest Objects List is bigger than the number of Rays cast. Value will be set to NumberOfRays.");
+            nearestObjectsListSize = numberOfRays;
+        }
     }
 
     void Update()
@@ -35,33 +47,42 @@ public class RayCastHandler : MonoBehaviour
             CalculateDirections(); // Recalculate directions on rotation change
             lastRotation = transform.rotation; // Update lastRotation
         }
-        CastRays();
+        hitObjects = CastRays();
     }
 
-    public Transform NearestTransform(Transform agent)
+    public HashSet<Transform> NearestTransform(Transform agent)
     {
+        nearestObjects.Clear();
         // wenn objekte in liste aufgenommen wurden
         if(hitObjects.Count != 0)
         {
-            Transform nearest = null;
-            foreach(Transform t in hitObjects)
+            // nur die vorgegebene Anzahl an nächstgelegenen Objekten weitergeben
+            for(int i = 0; i < nearestObjectsListSize; i++)
             {
-                if(nearest == null ||
-                Vector3.Distance(agent.position, t.position) < Vector3.Distance(agent.position, nearest.position))
-                    nearest = t;
+                Transform nearest = null;
+                // suche die n naheliegensten getroffenen Objekte aus der Liste
+                foreach(Transform t in hitObjects)
+                {
+                    bool isCloser = Vector3.Distance(agent.position, t.position) < Vector3.Distance(agent.position, nearest.position);
+                    
+                    if(!nearestObjects.Contains(t) && (nearest == null || isCloser))
+                        nearest = t;
+                }
+                // // Output the name of the object hit
+                // Debug.Log("Hit object: " + nearest.gameObject.name);
+
+                // // Additional information you can retrieve
+                Vector3 hitObjectPosition = nearest.position;
+                float hitObjectRotation   = nearest.eulerAngles.y;
+
+                // // Example: Log the hit point coordinates
+                Debug.Log("Hit position: " + hitObjectPosition);
+                Debug.Log("Hit rotation: " + hitObjectRotation);
+
+                nearestObjects.Add(nearest);
             }
-            // // Output the name of the object hit
-            // Debug.Log("Hit object: " + nearest.gameObject.name);
-
-            // // Additional information you can retrieve
-            // Vector3 hitObjectPosition = nearest.position;
-            // float hitObjectRotation   = nearest.eulerAngles.y;
-
-            // // Example: Log the hit point coordinates
-            // Debug.Log("Hit position: " + hitObjectPosition);
-            // Debug.Log("Hit rotation: " + hitObjectRotation);
-
-            return nearest;
+            Debug.Log("\n");
+            return nearestObjects;
         }
         else
         {
@@ -91,9 +112,10 @@ public class RayCastHandler : MonoBehaviour
         }
     }
 
-    private void CastRays()
+    private HashSet<Transform> CastRays()
     {
         Vector3 startPoint = this.transform.position;
+        HashSet<Transform> currentHitObjects = new HashSet<Transform>();
         
         foreach(Vector3 direction in this.directions)
         {
@@ -104,12 +126,13 @@ public class RayCastHandler : MonoBehaviour
             // Perform the raycast
             if (Physics.Raycast(ray, out hit, rayDistance, detectableLayers))
             {
-                if(!hitObjects.Contains(hit.transform) && hit.collider.tag == detectableTag)
+                if(!currentHitObjects.Contains(hit.transform) && hit.collider.tag == detectableTag)
                 {
-                    hitObjects.Add(hit.transform);
+                    currentHitObjects.Add(hit.transform);
                 }
             }
         }
+        return currentHitObjects;
     }
 
 

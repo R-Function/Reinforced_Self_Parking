@@ -1,7 +1,7 @@
-using System.Collections.Generic;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Sensors.Reflection;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /*  Noziten:
@@ -14,15 +14,20 @@ using UnityEngine;
 *       Werte zu beschränken. 
 */
 
-public class AgentPKW_simple : AgentPKWBase
+public class AgentPKW_final : AgentPKWBase
 {    
-    private List<Transform> parkSpaces;
+    private float[] nearestParkSpaceArrayDis;
+    private Quaternion[] nearestParkSpaceArrayRot;
 
     public override void Initialize()
     {
-        parkSpaces     = new List<Transform>();
         rBody          = GetComponent<Rigidbody>();
         pkw            = GetComponent<PKW_Controller>();
+        rayParkSensor  = parkSensor.GetComponent<RayCastHandler>();
+
+        nearestParkSpaceArrayDis = new float[rayParkSensor.nearestObjectsListSize];
+        nearestParkSpaceArrayRot = new Quaternion[rayParkSensor.nearestObjectsListSize];
+        resetParkSpaceMem();
 
         // rayData     = parkSpaceSensor.GetComponent<RayPerceptionSensorComponent3D>().RaySensor;
         isRunning   = true;
@@ -31,43 +36,55 @@ public class AgentPKW_simple : AgentPKWBase
 
     void Update()
     {
-
+        var nearTransform = rayParkSensor.NearestTransform(this.transform);     
+        if(nearTransform != null)
+        {
+            parkSpaceFound = true;
+            int i = 0;
+            foreach(var nearParkSpace in nearTransform)
+            {
+                nearestParkSpaceArrayDis[i] = Vector3.Distance(this.transform.position, nearParkSpace.position);
+                nearestParkSpaceArrayRot[i] = nearParkSpace.rotation;
+                i++;
+            }
+        }
     }
 
-    override public void resetParkSpaceMem()
-    {
-
-    }
 
     /*____________________OBSERVATIONEN______________________*/
     
     // Geschwindigkeit/Beschleunigung
     // (Zu stacked Observations gemacht, um Gefühl für Bewegung zu verbessern)
-    [Observable(numStackedObservations: 2)]
+    [Observable(numStackedObservations: 3)]
     float VelocityZ{
-        get {return NormalizeValue(pkw.carSpeed, -pkw.maxSpeed, pkw.maxSpeed, -1, 1);}
+        get { return NormalizeValue(pkw.LocalVelocityZ, -pkw.maxReverseSpeed, pkw.maxSpeed, -1, 1);}
     }
     // Gyroskop (Drehung)
-    [Observable(numStackedObservations: 2)]
+    [Observable]
     float Rotation{
-        get { return NormalizeValue((int)this.transform.localEulerAngles.y,0,360);}
+        get {return NormalizeValue((int)this.transform.localEulerAngles.y,0,360);}
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {
+        Debug.Log("Rotation: "+NormalizeValue((int)this.transform.localEulerAngles.y,0,360));
+
         //Motor
         sensor.AddObservation(this.isRunning);
         //GPS
-        // Debug.Log("Position"+this.transform.position);
-        // Debug.Log("Norm Position"+NormalizePosition(this.transform.position));
         sensor.AddObservation(NormalizePosition(this.transform.position).x);
         sensor.AddObservation(NormalizePosition(this.transform.position).z);
+        //Gyroskop
+        sensor.AddObservation(NormalizeRotation(this.transform.eulerAngles).y);
         //Parkplatzposition
-        foreach (Transform parkSpace in parkSpaces)
+        sensor.AddObservation(NormalizePosition(parkingLot.position).x);
+        sensor.AddObservation(NormalizePosition(parkingLot.position).z);
+        //Parkplatzsensor
+        sensor.AddObservation(parkSpaceFound);
+        for(int i = 0; i < rayParkSensor.nearestObjectsListSize; i++)
         {
-            sensor.AddObservation(NormalizePosition(parkSpace.localPosition).x);
-            sensor.AddObservation(NormalizePosition(parkSpace.localPosition).z);
-            sensor.AddObservation(NormalizeValue((int)parkSpace.localEulerAngles.y,0,360));
+            sensor.AddObservation(NormalizeValue((int)nearestParkSpaceArrayDis[i], 0, rayParkSensor.rayDistance));
+            sensor.AddObservation(NormalizeValue((int)nearestParkSpaceArrayRot[i].eulerAngles.y,0,360));
         }
     }
 
@@ -141,8 +158,7 @@ public class AgentPKW_simple : AgentPKWBase
 
     private void OnTriggerStay(Collider col)
     {
-        if(col.gameObject.tag == "Border")
-            critic.OffRoad(this);
+        
     }
 
     private void OnCollisionEnter(Collision col)
@@ -194,21 +210,16 @@ public class AgentPKW_simple : AgentPKWBase
         if(Input.GetKey("space"))
             discreteActionsOut[0]   = 3;
     }
-
-    // Properties
-    public override void setParkingLot(Transform parkingLotTransform)
+    /*___________Hilfmethoden___________*/
+    public override void resetParkSpaceMem()
     {
-        base.setParkingLot(parkingLotTransform);
-        parkSpaces.Clear();
-        foreach (Transform parkSpace in parkingLot)
-            {
-                foreach(Transform child in parkSpace)
-                {
-                    if(child.tag == "ParkSpace")
-                    {
-                        parkSpaces.Add(child);
-                    }
-                }
-            }
+        parkSpaceFound = false;
+        for(int i = 0; i < rayParkSensor.nearestObjectsListSize; i++)
+        {
+            nearestParkSpaceArrayDis[i] = -1f;
+            nearestParkSpaceArrayRot[i] = Quaternion.identity;
+        }
+        rayParkSensor.clearHitObjects();
     }
+
 }

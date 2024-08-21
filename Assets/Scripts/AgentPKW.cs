@@ -33,8 +33,8 @@ public class AgentPKW : AgentPKWBase
         if(nearTransform != null)
         {
             parkSpaceFound = true;
-            nearestParkSpacePos = nearTransform.position;
-            nearestParkSpaceRot = nearTransform.rotation;
+            // nearestParkSpacePos = nearTransform.position;
+            // nearestParkSpaceRot = nearTransform.rotation;
         }
     }
 
@@ -70,10 +70,10 @@ public class AgentPKW : AgentPKWBase
         sensor.AddObservation(NormalizePosition(parkingLot.position).x);
         sensor.AddObservation(NormalizePosition(parkingLot.position).z);
         //Parkplatzsensor
-        sensor.AddObservation(parkSpaceFound);
-        sensor.AddObservation(NormalizePosition(nearestParkSpacePos).x);
-        sensor.AddObservation(NormalizePosition(nearestParkSpacePos).z);
-        sensor.AddObservation(NormalizeRotation(nearestParkSpaceRot.eulerAngles).y);
+        // sensor.AddObservation(parkSpaceFound);
+    //     sensor.AddObservation(NormalizePosition(nearestParkSpacePos).x);
+    //     sensor.AddObservation(NormalizePosition(nearestParkSpacePos).z);
+    //     sensor.AddObservation(NormalizeRotation(nearestParkSpaceRot.eulerAngles).y);
     }
 
     /*______________________AKTIONEN______________________*/

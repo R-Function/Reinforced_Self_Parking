@@ -8,9 +8,9 @@
 		"rewardDriveForward": true,	
 		"carsOnParkingLot": 7,
 		"remainTimeInParkingSpace": 0.5,
-		"randomiseSpawnAt": 5,		
+		"randomiseSpawnAt": 10,		
 		"randomiseEntranceAt": 0,
-		"randomiseCarsOnParkingLotAt": 50,
+		"randomiseCarsOnParkingLotAt": 100,
 		"randomiseEnvironmentRotationAt": 0
 	},
 	{

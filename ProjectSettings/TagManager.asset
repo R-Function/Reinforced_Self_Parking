@@ -18,6 +18,7 @@ TagManager:
   - DrivewayArea
   - StreetArea
   - EntranceArea
+  - ParkedCar
   layers:
   - Default
   - TransparentFX
