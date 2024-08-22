@@ -63,25 +63,25 @@ public class RayCastHandler : MonoBehaviour
                 // suche die n naheliegensten getroffenen Objekte aus der Liste
                 foreach(Transform t in hitObjects)
                 {
-                    bool isCloser = Vector3.Distance(agent.position, t.position) < Vector3.Distance(agent.position, nearest.position);
-                    
-                    if(!nearestObjects.Contains(t) && (nearest == null || isCloser))
+                    if(!nearestObjects.Contains(t) && (nearest == null || Vector3.Distance(agent.position, t.position) < Vector3.Distance(agent.position, nearest.position)))
                         nearest = t;
                 }
                 // // Output the name of the object hit
                 // Debug.Log("Hit object: " + nearest.gameObject.name);
 
                 // // Additional information you can retrieve
-                Vector3 hitObjectPosition = nearest.position;
-                float hitObjectRotation   = nearest.eulerAngles.y;
+                // if(nearest != null)
+                // {
+                //     Vector3 hitObjectPosition = nearest.position;
+                //     float hitObjectRotation   = nearest.eulerAngles.y;
 
-                // // Example: Log the hit point coordinates
-                Debug.Log("Hit position: " + hitObjectPosition);
-                Debug.Log("Hit rotation: " + hitObjectRotation);
+                //     // // Example: Log the hit point coordinates
+                //     Debug.Log("Hit position: " + hitObjectPosition);
+                //     Debug.Log("Hit rotation: " + hitObjectRotation);
+                // }
 
                 nearestObjects.Add(nearest);
             }
-            Debug.Log("\n");
             return nearestObjects;
         }
         else

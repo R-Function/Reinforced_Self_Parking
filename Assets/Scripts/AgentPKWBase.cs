@@ -124,7 +124,7 @@ public class AgentPKWBase : Agent
     public bool IsBreakAllowed{get{return isBreakAllowed;} set{isBreakAllowed = value;}}
     public bool IsReverseAllowed{get{return isReverseAllowed;} set{isReverseAllowed = value;}}
 
-    virtual public void resetParkSpaceMem()
+    virtual public void resetRaySensorMem()
     {
         parkSpaceFound = false;
         nearestParkSpacePos = Vector3.zero;

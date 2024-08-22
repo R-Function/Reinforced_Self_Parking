@@ -561,6 +561,7 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
+  parkSensor: {fileID: 0}
   isRunning: 0
   isBreakAllowed: 1
   isReverseAllowed: 1
@@ -916,7 +917,7 @@ GameObject:
   - component: {fileID: 3971124648320279712}
   m_Layer: 0
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: Agent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -34,7 +34,7 @@ public class AgentPKW_simple : AgentPKWBase
 
     }
 
-    override public void resetParkSpaceMem()
+    override public void resetRaySensorMem()
     {
 
     }

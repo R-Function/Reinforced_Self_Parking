@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /*
@@ -22,7 +23,7 @@ public class Parking_Lot_Environment_Controller : MonoBehaviour
     public List<Transform> spawnPoints;
     public Transform parkingSpaceTransforms;
 
-    private List <ParkingSpace> parkingSpaces;
+    private Dictionary<Transform,bool> parkingSpaces;
     private List <GameObject> vehicles;
     
     private Transform[,] tileMatrix;
@@ -30,7 +31,7 @@ public class Parking_Lot_Environment_Controller : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        parkingSpaces   = new List<ParkingSpace>();
+        parkingSpaces   = new Dictionary<Transform, bool>();
         vehicles        = new List<GameObject>();
         tileMatrix      = st_createTileMatrix();
 
@@ -42,7 +43,7 @@ public class Parking_Lot_Environment_Controller : MonoBehaviour
             {
                 if(child.tag == "ParkSpace")
                 {
-                    parkingSpaces.Add(new ParkingSpace(false, child));
+                    parkingSpaces.Add(child, false);
                     // Debug.Log("Hinzufügen des Parkplatzes zur Liste: "+child.tag+index.ToString());
                     index++;
                 }
@@ -60,6 +61,11 @@ public class Parking_Lot_Environment_Controller : MonoBehaviour
         //     SetAndShuffleCars(parkedCarCount);
         //     randomiseCounter = 0f;
         // } 
+    }
+
+    public bool IsParkSpaceOccupied(Transform parkSpace)
+    {
+        return parkingSpaces[parkSpace];
     }
 
     // vertauscht zufällig zwei Tile-Reihen mit der länge depth 
@@ -163,13 +169,13 @@ public class Parking_Lot_Environment_Controller : MonoBehaviour
         {
             if (mapping[i] == true)
             {
-                vehicles[indexVeh].transform.localRotation = Quaternion.Euler(0,parkingSpaces[i].Rotation.eulerAngles.y,0);
-                vehicles[indexVeh].transform.position = parkingSpaces[i].Center;
-                parkingSpaces[i].IsOccupied = true;
+                vehicles[indexVeh].transform.localRotation = Quaternion.Euler(0,parkingSpaces.ElementAt(i).Key.rotation.eulerAngles.y,0);
+                vehicles[indexVeh].transform.position = parkingSpaces.ElementAt(i).Key.position;
+                parkingSpaces[parkingSpaces.ElementAt(i).Key] = true;
                 indexVeh++;
             }
             else
-                parkingSpaces[i].IsOccupied = false;
+                parkingSpaces[parkingSpaces.ElementAt(i).Key] = false;
         }
     }
 
@@ -224,35 +230,4 @@ public class Parking_Lot_Environment_Controller : MonoBehaviour
 
     //_________________properties_________________________
     public Transform CarObstacleContainer{ get{return carObstacleContainer;} set{carObstacleContainer = value;}}
-}
-
-// -falls noch zeit ist können reservierte plätze zusätzlich implementiert werden
-// -die orientierung kann auch noch angepasst werden, so dass die blickrichtung auch 
-//  wichtig ist
-class ParkingSpace
-{
-    public enum SpaceTypeEnum
-    {
-        Regular,
-        Handicapped,
-        Family
-    }
-
-    public ParkingSpace(bool p_isOccupied, Transform p_transform, SpaceTypeEnum p_spaceType = SpaceTypeEnum.Regular)
-    {
-        isOccupied  = p_isOccupied;
-        transform   = p_transform;
-        spaceType   = p_spaceType;
-    }
-
-    private bool    isOccupied;
-    private Transform transform;
-    private SpaceTypeEnum spaceType;
-
-    public bool IsOccupied{set{isOccupied = value;}
-                           get{return isOccupied;}}
-    public Vector3 Center{get{return transform.position;}}
-    public Quaternion Rotation{get{return transform.rotation;}}
-    public SpaceTypeEnum SpaceType{get{return spaceType;}
-                                   set{spaceType = value;}}
 }

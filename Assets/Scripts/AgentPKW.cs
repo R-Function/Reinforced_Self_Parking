@@ -20,7 +20,7 @@ public class AgentPKW : AgentPKWBase
         rBody          = GetComponent<Rigidbody>();
         pkw            = GetComponent<PKW_Controller>();
         rayParkSensor  = parkSensor.GetComponent<RayCastHandler>();
-        resetParkSpaceMem();
+        resetRaySensorMem();
 
         // rayData     = parkSpaceSensor.GetComponent<RayPerceptionSensorComponent3D>().RaySensor;
         isRunning   = true;

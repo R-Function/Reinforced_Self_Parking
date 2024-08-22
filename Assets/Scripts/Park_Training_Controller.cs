@@ -139,6 +139,11 @@ public class Park_Training_Controller : MonoBehaviour
             FinishEpisode();
     }
 
+    public void CollisionWithParkedCar(AgentPKWBase agent)
+    {
+        agent.AddReward(-0.3f);
+    }
+
     public void GoalEnterParkingSpace(AgentPKWBase agent, Transform parkingSpace)
     {
         /*  Das ganze soll wie folgt verlaufen
@@ -159,7 +164,8 @@ public class Park_Training_Controller : MonoBehaviour
         {
             // wenn lange genug in parklücke gewesen,
             // --> reward austeilen, agent abschalten
-            if(agentInfoPair.Value.GetTimeinSeconds() >= this.currentLesson.remainTimeInParkingSpace)
+            if(!IsParkSpaceOccupied(agentInfoPair.Value.parkingSpacesInContact.Last()) 
+               && agentInfoPair.Value.GetTimeinSeconds() >= this.currentLesson.remainTimeInParkingSpace)
             {
                 agentInfoPair.Key.isRunning = false;
                 float distReward = CalcDistanceReward(agentInfoPair.Key.PKWBody, agentInfoPair.Value.parkingSpacesInContact.Last(), 0.5f);
@@ -299,7 +305,7 @@ public class Park_Training_Controller : MonoBehaviour
             agent.isRunning = true;
             agent.IsBreakAllowed    = currentLesson.agentControllBreak;
             agent.IsReverseAllowed  = currentLesson.agentControllReverse;
-            agent.resetParkSpaceMem();
+            agent.resetRaySensorMem();
             agentInformationList[agent].ResetInfo();
         }
 
@@ -424,6 +430,11 @@ public class Park_Training_Controller : MonoBehaviour
                 return true;
         }
         return false;
+    }
+
+    public bool IsParkSpaceOccupied(Transform parkSpaceTransform)
+    {
+        return envController.IsParkSpaceOccupied(parkSpaceTransform);
     }
 }
 
