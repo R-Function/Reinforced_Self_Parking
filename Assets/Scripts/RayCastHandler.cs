@@ -9,12 +9,13 @@ public class RayCastHandler : MonoBehaviour
 {
     public LayerMask detectableLayers; // Layers the ray can interact with
     public string detectableTag;
+    private AgentPKW_final parent;
     
     [Range(0, 90)]
     public int rayDistance = 100; // Distance the ray will check for collisions
     [Range(0, 360)]
     public float coneAngle = 10;
-    [Range(0, 10)]
+    [Range(0, 25)]
     public int numberOfRays = 5;
     [Range(0, 10)]
     public int nearestObjectsListSize = 1;
@@ -64,7 +65,8 @@ public class RayCastHandler : MonoBehaviour
                 foreach(Transform t in hitObjects)
                 {
                     if(!nearestObjects.Contains(t) && (nearest == null || Vector3.Distance(agent.position, t.position) < Vector3.Distance(agent.position, nearest.position)))
-                        nearest = t;
+                        if(Parent == null || !Parent.Critic.IsParkSpaceOccupied(t))
+                            nearest = t;
                 }
                 // // Output the name of the object hit
                 // Debug.Log("Hit object: " + nearest.gameObject.name);
@@ -163,6 +165,11 @@ public class RayCastHandler : MonoBehaviour
                 Gizmos.DrawLine(startPoint, startPoint + direction * rayDistance);
             }
         }
+    }
+
+    public AgentPKW_final Parent{
+        get { return parent; }
+        set { parent = value; }
     }
 
     void OnValidate()

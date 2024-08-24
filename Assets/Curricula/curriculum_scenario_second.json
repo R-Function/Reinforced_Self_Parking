@@ -10,7 +10,7 @@
 		"remainTimeInParkingSpace": 0.5,
 		"randomiseSpawnAt": 10,		
 		"randomiseEntranceAt": 0,
-		"randomiseCarsOnParkingLotAt": 100,
+		"randomiseCarsOnParkingLotAt": 50,
 		"randomiseEnvironmentRotationAt": 0
 	},
 	{

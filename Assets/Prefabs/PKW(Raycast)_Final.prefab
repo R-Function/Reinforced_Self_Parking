@@ -48,7 +48,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   detectableTag: Agent
-  rayDistance: 8
+  rayDistance: 10
   coneAngle: 333
   numberOfRays: 10
   nearestObjectsListSize: 0
@@ -100,10 +100,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 9
   detectableTag: ParkSpace
-  rayDistance: 8
-  coneAngle: 166
-  numberOfRays: 7
-  nearestObjectsListSize: 3
+  rayDistance: 10
+  coneAngle: 261
+  numberOfRays: 11
+  nearestObjectsListSize: 1
 --- !u!1001 &8374952081850976481
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -146,7 +146,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3631358316615922521, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
       propertyPath: m_BrainParameters.VectorObservationSize
-      value: 13
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3631358316615922521, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_BrainParameters.NumStackedVectorObservations
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4895410249736262586, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
       propertyPath: m_SuspensionSpring.spring
@@ -254,7 +258,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6784925596940202021, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
       propertyPath: m_RayLength
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6784925596940202021, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
       propertyPath: m_SensorName
@@ -270,7 +274,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6784925596940202021, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
       propertyPath: m_SphereCastRadius
-      value: 0.5
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 6784925596940202021, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
       propertyPath: m_EndVerticalOffset

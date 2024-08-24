@@ -23,17 +23,20 @@ public class AgentPKW_final : AgentPKWBase
     private RayCastHandler rayAgentSensor;
     private float[] otherAgentsDis;
     private Vector3[] otherAgentsDir;
+    private bool[] foundViableParkSpace;
 
     public override void Initialize()
     {
         rBody          = GetComponent<Rigidbody>();
         pkw            = GetComponent<PKW_Controller>();
         rayParkSensor  = parkSensor.GetComponent<RayCastHandler>();
+        rayParkSensor.Parent = this;
         rayAgentSensor = agentSensor.GetComponent<RayCastHandler>();
 
         nearestParkSpaceArrayDis = new float[rayParkSensor.nearestObjectsListSize];
         nearestParkSpaceArrayRot = new Quaternion[rayParkSensor.nearestObjectsListSize];
         nearestParkSpaceArrayDir = new Vector3[rayParkSensor.nearestObjectsListSize];
+        foundViableParkSpace     = new bool[rayParkSensor.nearestObjectsListSize];
 
         otherAgentsDis = new float[rayAgentSensor.nearestObjectsListSize];
         otherAgentsDir = new Vector3[rayAgentSensor.nearestObjectsListSize];
@@ -55,8 +58,8 @@ public class AgentPKW_final : AgentPKWBase
     // Geschwindigkeit/Beschleunigung
     // (Zu stacked Observations gemacht, um Gefühl für Bewegung zu verbessern)
     [Observable(numStackedObservations: 3)]
-    float VelocityZ{
-        get { return NormalizeValue(pkw.LocalVelocityZ, -pkw.maxReverseSpeed, pkw.maxSpeed, -1, 1);}
+    float carSpeed{
+        get { return NormalizeValue(pkw.carSpeed, -pkw.maxSpeed, pkw.maxSpeed, -1, 1);}
     }
     // Gyroskop (Drehung)
     [Observable(numStackedObservations: 3)]
@@ -77,9 +80,9 @@ public class AgentPKW_final : AgentPKWBase
         sensor.AddObservation(NormalizePosition(parkingLot.position).x);
         sensor.AddObservation(NormalizePosition(parkingLot.position).z);
         //Parkplatzsensor
-        sensor.AddObservation(parkSpaceFound);
         for(int i = 0; i < rayParkSensor.nearestObjectsListSize; i++)
         {
+            sensor.AddObservation(foundViableParkSpace[i]);
             sensor.AddObservation(System.Math.Clamp(NormalizeValue(nearestParkSpaceArrayDis[i], 0, rayParkSensor.rayDistance),0f,1f));
             sensor.AddObservation(NormalizeValue((int)nearestParkSpaceArrayRot[i].eulerAngles.y,0,360));
         }
@@ -102,12 +105,12 @@ public class AgentPKW_final : AgentPKWBase
         var nearTransform = rayParkSensor.NearestTransform(this.transform);
         if(nearTransform != null && nearTransform.Count > 0)
         {
-            parkSpaceFound = true;
             int i = 0;
             foreach(var nearParkSpace in nearTransform)
             {
                 if(nearParkSpace != null && !critic.IsParkSpaceOccupied(nearParkSpace))
                 {
+                    foundViableParkSpace[i]     = true;
                     nearestParkSpaceArrayDir[i] = (nearParkSpace.position - this.transform.position).normalized;
                     nearestParkSpaceArrayDis[i] = Vector3.Distance(this.transform.position, nearParkSpace.position);
                     nearestParkSpaceArrayRot[i] = nearParkSpace.rotation;
@@ -119,24 +122,25 @@ public class AgentPKW_final : AgentPKWBase
         }
         else
         {
-            parkSpaceFound = false;
             for(int i = 0; i < rayParkSensor.nearestObjectsListSize; i++)
             {
                SetNearParkSpaceZero(i);
             }
         }
         // Testen der Werte
-        for(int i = 0; i < rayParkSensor.nearestObjectsListSize; i++)
-            {
-                // Debug.Log("Hit norm Direction "+ i + ".: " +nearestParkSpaceArrayDir[i]);
-                // Debug.Log("Hit norm Distance " + i + ".: " + System.Math.Clamp(NormalizeValue(nearestParkSpaceArrayDis[i], 0, rayParkSensor.rayDistance),0,1));
-                // Debug.Log("Hit norm rotation " + i + ".:" + NormalizeValue((int)nearestParkSpaceArrayRot[i].eulerAngles.y,0,360));
-            }
+        // for(int i = 0; i < rayParkSensor.nearestObjectsListSize; i++)
+        //     {
+        //         Debug.Log("Is viable Parkspace"+ i + ".: "+foundViableParkSpace[i]);
+        //         Debug.Log("Hit norm Direction "+ i + ".: " +nearestParkSpaceArrayDir[i]);
+        //         Debug.Log("Hit norm Distance " + i + ".: " + System.Math.Clamp(NormalizeValue(nearestParkSpaceArrayDis[i], 0, rayParkSensor.rayDistance),0,1));
+        //         Debug.Log("Hit norm rotation " + i + ".:" + NormalizeValue((int)nearestParkSpaceArrayRot[i].eulerAngles.y,0,360));
+        //     }
     }
     private void SetNearParkSpaceZero(int index)
     {
+        foundViableParkSpace[index]     = false;
         nearestParkSpaceArrayDir[index] = Vector3.zero;
-        nearestParkSpaceArrayDis[index] = -1f;
+        nearestParkSpaceArrayDis[index] = 0f;
         nearestParkSpaceArrayRot[index] = Quaternion.identity;
     }
 
@@ -159,25 +163,28 @@ public class AgentPKW_final : AgentPKWBase
                     otherAgentsDir[i] = dir;
                 }
                 else
-                {
-                    otherAgentsDis[i] = -1;
-                    otherAgentsDir[i] = Vector3.zero;
-                }
+                    setNearAgentZero(i);
+                
                 i++;
             }
         }
         else
             for(int i = 0; i < rayAgentSensor.nearestObjectsListSize;i++)
-                {
-                    otherAgentsDis[i] = -1f;
-                    otherAgentsDir[i] = Vector3.zero;
-                }
+                setNearAgentZero(i);
+                
         // for(int i = 0; i < rayAgentSensor.nearestObjectsListSize; i++)
         //     {
         //         Debug.Log("Hit norm Direction "+ i + ".: " +otherAgentsDir[i]);
         //         Debug.Log("Hit norm Distance " + i + ".: " + NormalizeValue(otherAgentsDis[i], 0, rayAgentSensor.rayDistance));
         //     }
     }
+
+    private void setNearAgentZero(int index)
+    {
+        otherAgentsDis[index] = 0f;
+        otherAgentsDir[index] = Vector3.zero;
+    }
+
 
     /*______________________AKTIONEN______________________*/
     public override void OnActionReceived(ActionBuffers actions)

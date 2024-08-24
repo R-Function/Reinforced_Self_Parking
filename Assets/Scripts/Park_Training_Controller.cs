@@ -153,8 +153,11 @@ public class Park_Training_Controller : MonoBehaviour
                     vom ziel entfernt ist
                 - Curriculum könnte beinhalten, dass der agent selbst abschaltet.
         */
-        agentInformationList[agent].parkingSpacesInContact.Add(parkingSpace);
-        agentInformationList[agent].TimeInParkingSpace = 0;
+        if(!IsParkSpaceOccupied(parkingSpace))
+        {
+            agentInformationList[agent].parkingSpacesInContact.Add(parkingSpace);
+            agentInformationList[agent].TimeInParkingSpace = 0;
+        }
     }
 
     private void GoalStayInParkingSpace(KeyValuePair<AgentPKWBase, AgentInfo> agentInfoPair)
@@ -185,8 +188,11 @@ public class Park_Training_Controller : MonoBehaviour
 
     public void ExitParkingSpace(AgentPKWBase agent, Transform parkingSpace)
     {
-        agentInformationList[agent].parkingSpacesInContact.Remove(parkingSpace);
-        agentInformationList[agent].TimeInParkingSpace = 0;
+        if(!IsParkSpaceOccupied(parkingSpace))
+        {
+            agentInformationList[agent].parkingSpacesInContact.Remove(parkingSpace);
+            agentInformationList[agent].TimeInParkingSpace = 0;
+        }
     }
 
     public void GoalExitParkingLot()
