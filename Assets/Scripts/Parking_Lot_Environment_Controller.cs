@@ -25,6 +25,7 @@ public class Parking_Lot_Environment_Controller : MonoBehaviour
 
     private Dictionary<Transform,bool> parkingSpaces;
     private List <GameObject> vehicles;
+    private List <Transform> dynamicOccupiedParkSpaces;
     
     private Transform[,] tileMatrix;
 
@@ -34,6 +35,7 @@ public class Parking_Lot_Environment_Controller : MonoBehaviour
         parkingSpaces   = new Dictionary<Transform, bool>();
         vehicles        = new List<GameObject>();
         tileMatrix      = st_createTileMatrix();
+        dynamicOccupiedParkSpaces = new List<Transform>();
 
         // lade die parkplätze in die parkplatzliste
         int index = 0;
@@ -66,6 +68,21 @@ public class Parking_Lot_Environment_Controller : MonoBehaviour
     public bool IsParkSpaceOccupied(Transform parkSpace)
     {
         return parkingSpaces[parkSpace];
+    }
+
+    public void SetParkSpaceOccupied(Transform parkSpace)
+    {
+        dynamicOccupiedParkSpaces.Add(parkSpace);
+        parkingSpaces[parkSpace] = true;
+    }
+
+    public void ClearOccupiedParkSpaces()
+    {
+        foreach(Transform pSpace in dynamicOccupiedParkSpaces)
+        {
+            parkingSpaces[pSpace] = false;
+        }
+        dynamicOccupiedParkSpaces.Clear();
     }
 
     // vertauscht zufällig zwei Tile-Reihen mit der länge depth 

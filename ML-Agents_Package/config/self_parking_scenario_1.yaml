@@ -34,7 +34,7 @@ behaviors:
           goal_conditioning_type: hyper
           deterministic: false
     keep_checkpoints: 10
-    max_steps: 800000000
+    max_steps: 20000000
     time_horizon: 128
     summary_freq: 40000
     
@@ -47,7 +47,7 @@ environment_parameters:
           behavior: PKWParking
           signal_smoothing: true
           min_lesson_length: 250
-          threshold: 0.2
+          threshold: 0.03
         value: 0
       - name: ReverseLesson
         completion_criteria:
@@ -55,7 +55,7 @@ environment_parameters:
           behavior: PKWParking
           signal_smoothing: true
           min_lesson_length: 500
-          threshold: 0.39
+          threshold: 0.3
         value: 1
       - name: TurnLesson
         completion_criteria:

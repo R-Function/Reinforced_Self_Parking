@@ -24,6 +24,11 @@ public class AgentPKW_final : AgentPKWBase
     private float[] otherAgentsDis;
     private Vector3[] otherAgentsDir;
     private bool[] foundViableParkSpace;
+    private bool parkSpaceSensorHit;
+
+
+    private int parkSensorSize;
+    private int agentSensorSize;
 
     public override void Initialize()
     {
@@ -32,14 +37,17 @@ public class AgentPKW_final : AgentPKWBase
         rayParkSensor  = parkSensor.GetComponent<RayCastHandler>();
         rayParkSensor.Parent = this;
         rayAgentSensor = agentSensor.GetComponent<RayCastHandler>();
+        parkSpaceSensorHit = false;
 
-        nearestParkSpaceArrayDis = new float[rayParkSensor.nearestObjectsListSize];
-        nearestParkSpaceArrayRot = new Quaternion[rayParkSensor.nearestObjectsListSize];
-        nearestParkSpaceArrayDir = new Vector3[rayParkSensor.nearestObjectsListSize];
-        foundViableParkSpace     = new bool[rayParkSensor.nearestObjectsListSize];
+        parkSensorSize = rayParkSensor.nearestObjectsListSize;
+        nearestParkSpaceArrayDis = new float[parkSensorSize];
+        nearestParkSpaceArrayRot = new Quaternion[parkSensorSize];
+        nearestParkSpaceArrayDir = new Vector3[parkSensorSize];
+        foundViableParkSpace     = new bool[parkSensorSize];
 
-        otherAgentsDis = new float[rayAgentSensor.nearestObjectsListSize];
-        otherAgentsDir = new Vector3[rayAgentSensor.nearestObjectsListSize];
+        agentSensorSize = rayAgentSensor.nearestObjectsListSize;
+        otherAgentsDis = new float[agentSensorSize];
+        otherAgentsDir = new Vector3[agentSensorSize];
         resetRaySensorMem();
 
         isRunning   = true;
@@ -69,6 +77,8 @@ public class AgentPKW_final : AgentPKWBase
 
     public override void CollectObservations(VectorSensor sensor)
     {
+        //In Goal check
+        sensor.AddObservation(isInGoal);
         //Motor
         sensor.AddObservation(this.isRunning);
         //GPS
@@ -80,14 +90,15 @@ public class AgentPKW_final : AgentPKWBase
         sensor.AddObservation(NormalizePosition(parkingLot.position).x);
         sensor.AddObservation(NormalizePosition(parkingLot.position).z);
         //Parkplatzsensor
-        for(int i = 0; i < rayParkSensor.nearestObjectsListSize; i++)
+        sensor.AddObservation(parkSpaceSensorHit);
+        for(int i = 0; i < parkSensorSize; i++)
         {
             sensor.AddObservation(foundViableParkSpace[i]);
             sensor.AddObservation(System.Math.Clamp(NormalizeValue(nearestParkSpaceArrayDis[i], 0, rayParkSensor.rayDistance),0f,1f));
             sensor.AddObservation(NormalizeValue((int)nearestParkSpaceArrayRot[i].eulerAngles.y,0,360));
         }
         //AgentenSensor (richtung und entfernung)
-        for(int i = 0; i < rayAgentSensor.nearestObjectsListSize; i++)
+        for(int i = 0; i < agentSensorSize; i++)
         {
             sensor.AddObservation(System.Math.Clamp(NormalizeValue(otherAgentsDis[i], 0, rayParkSensor.rayDistance),0f,1f));
             sensor.AddObservation(otherAgentsDir[i].x);
@@ -108,27 +119,30 @@ public class AgentPKW_final : AgentPKWBase
             int i = 0;
             foreach(var nearParkSpace in nearTransform)
             {
-                if(nearParkSpace != null && !critic.IsParkSpaceOccupied(nearParkSpace))
+                parkSpaceSensorHit = true;
+                if(nearParkSpace != null)
                 {
-                    foundViableParkSpace[i]     = true;
+                    if(!critic.IsParkSpaceOccupied(nearParkSpace))
+                        foundViableParkSpace[i] = true;
+                    else
+                        foundViableParkSpace[i] = false;
                     nearestParkSpaceArrayDir[i] = (nearParkSpace.position - this.transform.position).normalized;
                     nearestParkSpaceArrayDis[i] = Vector3.Distance(this.transform.position, nearParkSpace.position);
                     nearestParkSpaceArrayRot[i] = nearParkSpace.rotation;
                     i++;
                 }
-                else
-                    SetNearParkSpaceZero(i);
-                }
+            }
         }
         else
         {
-            for(int i = 0; i < rayParkSensor.nearestObjectsListSize; i++)
+            parkSpaceSensorHit = false;
+            for(int i = 0; i < parkSensorSize; i++)
             {
                SetNearParkSpaceZero(i);
             }
         }
         // Testen der Werte
-        // for(int i = 0; i < rayParkSensor.nearestObjectsListSize; i++)
+        // for(int i = 0; i < parkSensorSize; i++)
         //     {
         //         Debug.Log("Is viable Parkspace"+ i + ".: "+foundViableParkSpace[i]);
         //         Debug.Log("Hit norm Direction "+ i + ".: " +nearestParkSpaceArrayDir[i]);
@@ -169,10 +183,10 @@ public class AgentPKW_final : AgentPKWBase
             }
         }
         else
-            for(int i = 0; i < rayAgentSensor.nearestObjectsListSize;i++)
+            for(int i = 0; i < agentSensorSize;i++)
                 setNearAgentZero(i);
                 
-        // for(int i = 0; i < rayAgentSensor.nearestObjectsListSize; i++)
+        // for(int i = 0; i < agentSensorSize; i++)
         //     {
         //         Debug.Log("Hit norm Direction "+ i + ".: " +otherAgentsDir[i]);
         //         Debug.Log("Hit norm Distance " + i + ".: " + NormalizeValue(otherAgentsDis[i], 0, rayAgentSensor.rayDistance));
@@ -229,6 +243,11 @@ public class AgentPKW_final : AgentPKWBase
                     break;
             }
         }
+        else
+        {
+            pkw.ThrottleOff();
+            pkw.ResetSteeringAngle();
+        }
     }
 
     /*______________TRIGGER/COLLIDER METHODEN__________________*/
@@ -242,6 +261,8 @@ public class AgentPKW_final : AgentPKWBase
         {
             critic.ExitRoad(this);
         }
+        else if(col.gameObject.tag == "FailState")
+            critic.ExitTrainingArea(this);
     }
 
     private void OnTriggerExit(Collider col)
@@ -319,5 +340,4 @@ public class AgentPKW_final : AgentPKWBase
         rayParkSensor.clearHitObjects();
         rayAgentSensor.clearHitObjects();
     }
-
 }

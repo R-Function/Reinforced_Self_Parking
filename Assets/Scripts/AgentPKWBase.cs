@@ -33,6 +33,7 @@ public class AgentPKWBase : Agent
     // private bool inGoal;
     [SerializeField]
     public bool isRunning;
+    protected bool isInGoal;
 
     // public string indexName;
     protected Park_Training_Controller critic;
@@ -123,6 +124,8 @@ public class AgentPKWBase : Agent
     public PKW_Controller PKW{get{return pkw;}}
     public bool IsBreakAllowed{get{return isBreakAllowed;} set{isBreakAllowed = value;}}
     public bool IsReverseAllowed{get{return isReverseAllowed;} set{isReverseAllowed = value;}}
+    public bool IsInGoal{ get{ return isInGoal; } set { isInGoal = value; } }
+
 
     virtual public void resetRaySensorMem()
     {

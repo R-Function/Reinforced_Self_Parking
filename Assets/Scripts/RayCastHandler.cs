@@ -65,8 +65,7 @@ public class RayCastHandler : MonoBehaviour
                 foreach(Transform t in hitObjects)
                 {
                     if(!nearestObjects.Contains(t) && (nearest == null || Vector3.Distance(agent.position, t.position) < Vector3.Distance(agent.position, nearest.position)))
-                        if(Parent == null || !Parent.Critic.IsParkSpaceOccupied(t))
-                            nearest = t;
+                        nearest = t;
                 }
                 // // Output the name of the object hit
                 // Debug.Log("Hit object: " + nearest.gameObject.name);

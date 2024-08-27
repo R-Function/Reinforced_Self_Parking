@@ -73,13 +73,16 @@ public class Park_Training_Controller : MonoBehaviour
         m_ResetTimer += 1;
         foreach(AgentPKWBase a in m_AgentGroup.GetRegisteredAgents())
         {
-            a.AddReward(-1f/maxTrainingSteps);
-            if(currentLesson.rewardDriveForward && a.PKW.carSpeed >= 5)
+            if(a.isRunning == true)
+                a.AddReward(-1f/maxTrainingSteps);
+            if(currentLesson.rewardDriveForward && a.PKW.carSpeed >= 12)
                 a.AddReward(1f/maxTrainingSteps);
 
         }
         if (m_ResetTimer >= maxTrainingSteps && maxTrainingSteps > 0)
         {
+            foreach(AgentPKWBase a in agentList)
+                a.isRunning = false;
             FinishEpisode(true);
             Debug.Log("Folgendes Training hat die erlaubte Anzahl Steps überschritten: "+this.gameObject.name);
         }
@@ -114,6 +117,7 @@ public class Park_Training_Controller : MonoBehaviour
     public void ExitTrainingArea(AgentPKWBase agent)
     {
         agent.AddReward(-1f);
+        agent.isRunning = false;
         FinishEpisode();
     }
 
@@ -136,25 +140,27 @@ public class Park_Training_Controller : MonoBehaviour
     {
         agent.AddReward(-0.5f);
         if(currentLesson.agentControllReverse == false)
+        {
+            agent.isRunning = false;
             FinishEpisode();
+        }
     }
 
     public void CollisionWithParkedCar(AgentPKWBase agent)
     {
         agent.AddReward(-0.3f);
+        if(currentLesson.agentControllReverse == false)
+        {
+            agent.isRunning = false;
+            FinishEpisode();
+        }
     }
 
     public void GoalEnterParkingSpace(AgentPKWBase agent, Transform parkingSpace)
     {
-        /*  Das ganze soll wie folgt verlaufen
-                - Agent meldet, welche Parklücke er betreten hat
-                - Agent wird abgeschaltet und erhält punkte nachdem er nicht mehr rollt
-                - Die Punktzahl/Belohnung hängt davon ab, wie weit er
-                    vom ziel entfernt ist
-                - Curriculum könnte beinhalten, dass der agent selbst abschaltet.
-        */
         if(!IsParkSpaceOccupied(parkingSpace))
         {
+            agent.IsInGoal = true;
             agentInformationList[agent].parkingSpacesInContact.Add(parkingSpace);
             agentInformationList[agent].TimeInParkingSpace = 0;
         }
@@ -171,6 +177,7 @@ public class Park_Training_Controller : MonoBehaviour
                && agentInfoPair.Value.GetTimeinSeconds() >= this.currentLesson.remainTimeInParkingSpace)
             {
                 agentInfoPair.Key.isRunning = false;
+                envController.SetParkSpaceOccupied(agentInfoPair.Value.parkingSpacesInContact.Last());
                 float distReward = CalcDistanceReward(agentInfoPair.Key.PKWBody, agentInfoPair.Value.parkingSpacesInContact.Last(), 0.5f);
                 float rotReward  = CalcRotationReward(agentInfoPair.Key.PKWBody, agentInfoPair.Value.parkingSpacesInContact.Last(), 0.5f);
                 agentInfoPair.Key.AddReward(distReward + rotReward);
@@ -192,6 +199,8 @@ public class Park_Training_Controller : MonoBehaviour
         {
             agentInformationList[agent].parkingSpacesInContact.Remove(parkingSpace);
             agentInformationList[agent].TimeInParkingSpace = 0;
+            if(agentInformationList[agent].parkingSpacesInContact.Count <= 0)
+                agent.IsInGoal = false;
         }
     }
 
@@ -280,11 +289,21 @@ public class Park_Training_Controller : MonoBehaviour
     /*#########################################################*/
     public void FinishEpisode(bool isInterupt = false)
     {
-        if(isInterupt)
-            m_AgentGroup.GroupEpisodeInterrupted();
-        else
-            m_AgentGroup.EndGroupEpisode();
-        ResetScene();
+        bool allFinished = true;
+        foreach(AgentPKWBase a in agentList)
+        {
+            if(a.isRunning == true)
+                allFinished = false;
+        }
+
+        if(allFinished)
+        {
+            if(isInterupt)
+                m_AgentGroup.GroupEpisodeInterrupted();
+            else
+                m_AgentGroup.EndGroupEpisode();
+            ResetScene();
+        }
     }
     
     private void ResetScene()
@@ -308,6 +327,7 @@ public class Park_Training_Controller : MonoBehaviour
         foreach(AgentPKWBase agent in agentList)
         {
             // m_AgentGroup.RegisterAgent(agent);
+            agent.IsInGoal = false;
             agent.isRunning = true;
             agent.IsBreakAllowed    = currentLesson.agentControllBreak;
             agent.IsReverseAllowed  = currentLesson.agentControllReverse;
@@ -344,6 +364,7 @@ public class Park_Training_Controller : MonoBehaviour
         if(episodeCounter % currentLesson.randomiseSpawnAt != 0)
             SpawnAgents();
 
+        envController.ClearOccupiedParkSpaces();
         episodeCounter++;
     }
 

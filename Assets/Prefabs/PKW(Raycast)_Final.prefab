@@ -50,8 +50,68 @@ MonoBehaviour:
   detectableTag: Agent
   rayDistance: 10
   coneAngle: 333
-  numberOfRays: 10
-  nearestObjectsListSize: 0
+  numberOfRays: 13
+  nearestObjectsListSize: 3
+--- !u!1 &3862550217133239382
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8290326064211913205}
+  - component: {fileID: 2537719062234450740}
+  m_Layer: 0
+  m_Name: Orientation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8290326064211913205
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3862550217133239382}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.47, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 101077048500805530}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2537719062234450740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3862550217133239382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SensorName: Orientation
+  m_DetectableTags: []
+  m_RaysPerDirection: 0
+  m_MaxRayDegrees: 70
+  m_SphereCastRadius: 0.5
+  m_RayLength: 2
+  m_RayLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967091
+  m_ObservationStacks: 3
+  m_AlternatingRayOrder: 1
+  m_UseBatchedRaycasts: 0
+  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
+  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
+  m_StartVerticalOffset: 0
+  m_EndVerticalOffset: -0.7
 --- !u!1 &6738681766236544837
 GameObject:
   m_ObjectHideFlags: 0
@@ -101,8 +161,8 @@ MonoBehaviour:
     m_Bits: 9
   detectableTag: ParkSpace
   rayDistance: 10
-  coneAngle: 261
-  numberOfRays: 11
+  coneAngle: 240
+  numberOfRays: 15
   nearestObjectsListSize: 1
 --- !u!1001 &8374952081850976481
 PrefabInstance:
@@ -146,7 +206,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3631358316615922521, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
       propertyPath: m_BrainParameters.VectorObservationSize
-      value: 9
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3631358316615922521, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
       propertyPath: m_BrainParameters.NumStackedVectorObservations
@@ -258,7 +318,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6784925596940202021, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
       propertyPath: m_RayLength
-      value: 10
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 6784925596940202021, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
       propertyPath: m_SensorName
@@ -295,6 +355,9 @@ PrefabInstance:
     - {fileID: 5505624393645741919, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
     - {fileID: 6544748000649404247, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8457434101638535035, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8290326064211913205}
     - targetCorrespondingSourceObject: {fileID: 8457434101638535035, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8092407023215368084}
