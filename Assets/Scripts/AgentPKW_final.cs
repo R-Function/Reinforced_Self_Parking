@@ -35,7 +35,6 @@ public class AgentPKW_final : AgentPKWBase
         rBody          = GetComponent<Rigidbody>();
         pkw            = GetComponent<PKW_Controller>();
         rayParkSensor  = parkSensor.GetComponent<RayCastHandler>();
-        rayParkSensor.Parent = this;
         rayAgentSensor = agentSensor.GetComponent<RayCastHandler>();
         parkSpaceSensorHit = false;
 

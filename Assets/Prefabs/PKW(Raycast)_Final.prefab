@@ -48,10 +48,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   detectableTag: Agent
-  rayDistance: 10
+  rayDistance: 0
   coneAngle: 333
-  numberOfRays: 13
-  nearestObjectsListSize: 3
+  numberOfRays: 0
+  nearestObjectsListSize: 0
 --- !u!1 &3862550217133239382
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,7 +97,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SensorName: Orientation
-  m_DetectableTags: []
+  m_DetectableTags:
+  - StreetArea
+  - EntranceArea
+  - DrivewayArea
   m_RaysPerDirection: 0
   m_MaxRayDegrees: 70
   m_SphereCastRadius: 0.5
@@ -160,9 +163,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 9
   detectableTag: ParkSpace
-  rayDistance: 10
-  coneAngle: 240
-  numberOfRays: 15
+  rayDistance: 7
+  coneAngle: 200
+  numberOfRays: 12
   nearestObjectsListSize: 1
 --- !u!1001 &8374952081850976481
 PrefabInstance:
@@ -206,7 +209,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3631358316615922521, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
       propertyPath: m_BrainParameters.VectorObservationSize
-      value: 20
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 3631358316615922521, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
       propertyPath: m_BrainParameters.NumStackedVectorObservations
@@ -318,7 +321,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6784925596940202021, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
       propertyPath: m_RayLength
-      value: 12
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6784925596940202021, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
       propertyPath: m_SensorName
@@ -330,7 +333,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6784925596940202021, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
       propertyPath: m_RaysPerDirection
-      value: 4
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6784925596940202021, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
       propertyPath: m_SphereCastRadius
@@ -342,11 +345,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6784925596940202021, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
       propertyPath: m_DetectableTags.Array.size
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6784925596940202021, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
       propertyPath: m_DetectableTags.Array.data[2]
       value: ParkedCar
+      objectReference: {fileID: 0}
+    - target: {fileID: 6784925596940202021, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_DetectableTags.Array.data[3]
+      value: Agent
+      objectReference: {fileID: 0}
+    - target: {fileID: 6784925596940202021, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
+      propertyPath: m_DetectableTags.Array.data[4]
+      value: FailState
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5339690780964078419, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}

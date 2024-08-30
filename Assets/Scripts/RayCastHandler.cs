@@ -9,7 +9,6 @@ public class RayCastHandler : MonoBehaviour
 {
     public LayerMask detectableLayers; // Layers the ray can interact with
     public string detectableTag;
-    private AgentPKW_final parent;
     
     [Range(0, 90)]
     public int rayDistance = 100; // Distance the ray will check for collisions
@@ -164,11 +163,6 @@ public class RayCastHandler : MonoBehaviour
                 Gizmos.DrawLine(startPoint, startPoint + direction * rayDistance);
             }
         }
-    }
-
-    public AgentPKW_final Parent{
-        get { return parent; }
-        set { parent = value; }
     }
 
     void OnValidate()

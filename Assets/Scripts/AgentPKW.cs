@@ -19,8 +19,8 @@ public class AgentPKW : AgentPKWBase
     {
         rBody          = GetComponent<Rigidbody>();
         pkw            = GetComponent<PKW_Controller>();
-        rayParkSensor  = parkSensor.GetComponent<RayCastHandler>();
-        resetRaySensorMem();
+        // rayParkSensor  = parkSensor.GetComponent<RayCastHandler>();
+        // resetRaySensorMem();
 
         // rayData     = parkSpaceSensor.GetComponent<RayPerceptionSensorComponent3D>().RaySensor;
         isRunning   = true;
@@ -29,13 +29,13 @@ public class AgentPKW : AgentPKWBase
 
     void Update()
     {
-        var nearTransform = rayParkSensor.NearestTransform(this.transform);     
-        if(nearTransform != null)
-        {
-            parkSpaceFound = true;
-            // nearestParkSpacePos = nearTransform.position;
-            // nearestParkSpaceRot = nearTransform.rotation;
-        }
+        // var nearTransform = rayParkSensor.NearestTransform(this.transform);     
+        // if(nearTransform != null)
+        // {
+        //     parkSpaceFound = true;
+        //     // nearestParkSpacePos = nearTransform.position;
+        //     // nearestParkSpaceRot = nearTransform.rotation;
+        // }
     }
 
 
@@ -43,18 +43,14 @@ public class AgentPKW : AgentPKWBase
     
     // Geschwindigkeit/Beschleunigung
     // (Zu stacked Observations gemacht, um Gefühl für Bewegung zu verbessern)
-    [Observable(numStackedObservations: 3)]
-    float VelocityX{
-        get { return NormalizeValue(pkw.LocalVelocityX, -pkw.maxSpeed, pkw.maxSpeed, -1, 1);}
-    }
-    [Observable(numStackedObservations: 3)]
+    [Observable(numStackedObservations: 1)]
     float VelocityZ{
         get { return NormalizeValue(pkw.LocalVelocityZ, -pkw.maxReverseSpeed, pkw.maxSpeed, -1, 1);}
     }
     // Gyroskop (Drehung)
     [Observable]
     float Rotation{
-        get { return NormalizeRotation(this.transform.eulerAngles).y;}
+        get { return NormalizeValue((int)this.transform.eulerAngles.y,0,360);}
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -64,8 +60,6 @@ public class AgentPKW : AgentPKWBase
         //GPS
         sensor.AddObservation(NormalizePosition(this.transform.position).x);
         sensor.AddObservation(NormalizePosition(this.transform.position).z);
-        //Gyroskop
-        sensor.AddObservation(NormalizeRotation(this.transform.eulerAngles).y);
         //Parkplatzposition
         sensor.AddObservation(NormalizePosition(parkingLot.position).x);
         sensor.AddObservation(NormalizePosition(parkingLot.position).z);
@@ -118,6 +112,11 @@ public class AgentPKW : AgentPKWBase
                     pkw.Turn(-1);
                     break;
             }
+        }
+        else
+        {
+            pkw.ThrottleOff();
+            pkw.ResetSteeringAngle();
         }
     }
 
@@ -197,5 +196,10 @@ public class AgentPKW : AgentPKWBase
         //Bremsen
         if(Input.GetKey("space"))
             discreteActionsOut[0]   = 3;
+    }
+    /*___________Hilfmethoden___________*/
+    public override void resetRaySensorMem()
+    {
+        return;
     }
 }

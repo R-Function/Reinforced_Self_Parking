@@ -1,0 +1,55 @@
+{"Lessons":[
+	{
+		"name":"FirstLesson",
+		"maxSteps": 25000,
+		"environmentPrefabName":"Environment_Three_Driveways_Start",	
+		"agentControllBreak": true,
+		"agentControllReverse": false,
+		"carsOnParkingLot": 2,
+		"remainTimeInParkingSpace":0.5,
+		"randomiseSpawnAt": 25,		
+		"randomiseEntranceAt": 0,
+		"randomiseCarsOnParkingLotAt": 50,
+		"randomiseEnvironmentRotationAt": 0
+	},
+	{
+		"name":"SecondLesson",	
+		"maxSteps": 25000,
+		"environmentPrefabName":"Environment_Three_Driveways_Start",	
+		"agentControllBreak": true,
+		"agentControllReverse": true,
+		"carsOnParkingLot": 6,
+		"remainTimeInParkingSpace":1,
+		"randomiseSpawnAt": 25,		
+		"randomiseEntranceAt": 0,
+		"randomiseCarsOnParkingLotAt": 50,
+		"randomiseEnvironmentRotationAt": 0
+	},
+	{
+		"name":"ThirdLesson",	
+		"maxSteps": 25000,
+		"environmentPrefabName":"Environment_Three_Driveways_Easy",	
+		"agentControllBreak": true,
+		"agentControllReverse": true,
+		"carsOnParkingLot": 5,
+		"remainTimeInParkingSpace":1,
+		"randomiseSpawnAt": 25,		
+		"randomiseEntranceAt": 0,
+		"randomiseCarsOnParkingLotAt": 50,
+		"randomiseEnvironmentRotationAt": 0
+	},
+	{
+		"name":"Final",	
+		"maxSteps": 25000,
+		"environmentPrefabName":"Environment_Three_Driveways_Start",	
+		"agentControllBreak": true,
+		"agentControllReverse": true,
+		"carsOnParkingLot": 5,
+		"remainTimeInParkingSpace":1,
+		"randomiseSpawnAt": 25,		
+		"randomiseEntranceAt": 0,
+		"randomiseCarsOnParkingLotAt": 50,
+		"randomiseEnvironmentRotationAt": 0
+	}
+]
+}

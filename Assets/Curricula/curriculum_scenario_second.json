@@ -1,7 +1,7 @@
 {"Lessons":[
 	{
 		"name":"DriveForwardLesson",
-		"maxSteps": 40000,
+		"maxSteps": 25000,
 		"environmentPrefabName":"Environment_Three_Driveways_Easy",
 		"agentControllBreak": true,
 		"agentControllReverse": false,
@@ -15,12 +15,12 @@
 	},
 	{
 		"name":"ReverseLesson",
-		"maxSteps": 40000,
+		"maxSteps": 25000,
 		"environmentPrefabName":"Environment_Three_Driveways_Easy",	
 		"agentControllBreak": true,
 		"agentControllReverse": true,
 		"rewardDriveForward": true,
-		"carsOnParkingLot": 4,
+		"carsOnParkingLot": 3,
 		"remainTimeInParkingSpace":1,
 		"randomiseSpawnAt": 10,		
 		"randomiseEntranceAt": 0,
