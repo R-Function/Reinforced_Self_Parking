@@ -61,7 +61,7 @@ public class AgentPKW_S1_V3_I2 : AgentPKWBase
     public override void CollectObservations(VectorSensor sensor)
     {
         // //In Goal check
-        // sensor.AddObservation(isInGoal);
+        sensor.AddObservation(isInGoal);
         //Motor
         sensor.AddObservation(this.isRunning);
         //GPS

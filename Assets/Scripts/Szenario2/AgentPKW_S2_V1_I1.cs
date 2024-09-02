@@ -1,3 +1,4 @@
+using System;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Sensors.Reflection;
@@ -62,11 +63,9 @@ public class AgentPKW_S2_V1_I1 : AgentPKWBase
     public override void CollectObservations(VectorSensor sensor)
     {
         // //In Goal check
-        foreach(AgentPKWBase a in critic.agentList)
-        {
-            sensor.AddObservation(a.IsInGoal);
-        }
-        // sensor.AddObservation(isInGoal);
+        sensor.AddObservation(CheckAgentsInGoal());
+        //Zielmarker
+        sensor.AddObservation(isInGoal);
         //Motor
         sensor.AddObservation(this.isRunning);
         //GPS
@@ -87,6 +86,14 @@ public class AgentPKW_S2_V1_I1 : AgentPKWBase
         }
     }
 
+    private float CheckAgentsInGoal()
+    {
+        int i = 0;
+        foreach(var a in critic.agentList)
+            if(a.IsInGoal)
+                i++;
+        return (float)i/critic.agentList.Count; 
+    }
 
     // wenn mindestens ein freier Parkplatz gefunden wurde
     // wird dieser in die Liste derzeit naheliegender,

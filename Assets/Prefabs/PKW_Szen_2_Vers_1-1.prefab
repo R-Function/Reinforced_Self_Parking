@@ -220,7 +220,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3631358316615922521, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
       propertyPath: m_BrainParameters.VectorObservationSize
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 3631358316615922521, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
       propertyPath: m_BrainParameters.NumStackedVectorObservations
@@ -240,7 +240,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4915974200540530724, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
       propertyPath: m_Name
-      value: PKW_Szen_1_Vers_3-2
+      value: PKW_Szen_1_Vers_3-2 1
       objectReference: {fileID: 0}
     - target: {fileID: 5553401497870056747, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
       propertyPath: m_SuspensionSpring.spring
@@ -422,7 +422,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4915974200540530724, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
       insertIndex: 2
-      addedObject: {fileID: 7839658454876408303}
+      addedObject: {fileID: 5060796751635183168}
   m_SourcePrefab: {fileID: 100100000, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
 --- !u!146 &1215883963394930412 stripped
 WheelCollider:
@@ -454,7 +454,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4915974200540530724, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
   m_PrefabInstance: {fileID: 2061282473311557144}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7839658454876408303
+--- !u!114 &5060796751635183168
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -463,7 +463,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6386712302871993916}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39fc7ea6a89270808812ee9453319ae9, type: 3}
+  m_Script: {fileID: 11500000, guid: 63fbbd6526491b051af3e14305799d5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   agentParameters:
@@ -472,7 +472,6 @@ MonoBehaviour:
   MaxStep: 0
   parkSensor: {fileID: 3273030110903254516}
   isRunning: 0
-  isInGoal: 0
   isBreakAllowed: 0
   isReverseAllowed: 0
 --- !u!146 &6878360929070695842 stripped

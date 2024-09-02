@@ -33,6 +33,7 @@ public class AgentPKWBase : Agent
     // private bool inGoal;
     [SerializeField]
     public bool isRunning;
+    [SerializeField]
     protected bool isInGoal;
 
     // public string indexName;

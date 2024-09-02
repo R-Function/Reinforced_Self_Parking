@@ -4,7 +4,7 @@ using Unity.MLAgents;
 using System;
 using System.Linq;
 
-
+//singleagent
 public class Park_Training_Controller : MonoBehaviour
 {
     //Testvariablen
@@ -178,8 +178,8 @@ public class Park_Training_Controller : MonoBehaviour
             {
                 agentInfoPair.Key.isRunning = false;
                 envController.SetParkSpaceOccupied(agentInfoPair.Value.parkingSpacesInContact.Last());
-                float distReward = CalcDistanceReward(agentInfoPair.Key.PKWBody, agentInfoPair.Value.parkingSpacesInContact.Last(), 0.25f);
-                float rotReward  = CalcRotationReward(agentInfoPair.Key.PKWBody, agentInfoPair.Value.parkingSpacesInContact.Last(), 0.25f);
+                float distReward = CalcDistanceReward(agentInfoPair.Key.PKWBody, agentInfoPair.Value.parkingSpacesInContact.Last(), 0.5f);
+                float rotReward  = CalcRotationReward(agentInfoPair.Key.PKWBody, agentInfoPair.Value.parkingSpacesInContact.Last(), 0.5f);
                 agentInfoPair.Key.AddReward(distReward + rotReward);
                 FinishEpisode();
                 // Debug.Log(agentInfoPair.Key.gameObject.name
@@ -298,13 +298,8 @@ public class Park_Training_Controller : MonoBehaviour
 
         if(allFinished)
         {
-            foreach(AgentPKWBase a in agentList)
-            {
-                if(a.IsInGoal)
-                    m_AgentGroup.AddGroupReward(0.5f/m_AgentGroup.GetRegisteredAgents().Count);
-            }
             if(isInterupt)
-                m_AgentGroup.GroupEpisodeInterrupted();
+                m_AgentGroup.EndGroupEpisode();
             else
                 m_AgentGroup.EndGroupEpisode();
             ResetScene();

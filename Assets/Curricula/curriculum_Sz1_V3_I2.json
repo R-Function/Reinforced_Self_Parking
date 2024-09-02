@@ -18,7 +18,7 @@
 		"environmentPrefabName":"Environment_Three_Driveways_Start",	
 		"agentControllBreak": true,
 		"agentControllReverse": true,
-		"carsOnParkingLot": 6,
+		"carsOnParkingLot": 4,
 		"remainTimeInParkingSpace":1,
 		"randomiseSpawnAt": 25,		
 		"randomiseEntranceAt": 0,

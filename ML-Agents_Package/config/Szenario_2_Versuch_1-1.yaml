@@ -1,6 +1,6 @@
 behaviors:
   PKWParking:
-    trainer_type: ppo
+    trainer_type: poca
     hyperparameters:
       batch_size: 256
       buffer_size: 2048
