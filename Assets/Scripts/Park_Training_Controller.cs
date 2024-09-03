@@ -4,7 +4,7 @@ using Unity.MLAgents;
 using System;
 using System.Linq;
 
-//singleagent
+//multiagenten
 public class Park_Training_Controller : MonoBehaviour
 {
     //Testvariablen
@@ -74,7 +74,7 @@ public class Park_Training_Controller : MonoBehaviour
         foreach(AgentPKWBase a in m_AgentGroup.GetRegisteredAgents())
         {
             if(a.isRunning == true)
-                a.AddReward(-1f/maxTrainingSteps);
+                m_AgentGroup.AddGroupReward(-1f/maxTrainingSteps);
             if(currentLesson.rewardDriveForward && a.PKW.carSpeed >= 12)
                 a.AddReward(1f/maxTrainingSteps);
 
@@ -232,9 +232,9 @@ public class Park_Training_Controller : MonoBehaviour
 
     private float CalcRotationReward(Transform agentBody, Transform goal, float baseReward = 0)
     {
-        float rotAgent  = agentBody.eulerAngles.y - 180;
-        float rotGoal   = goal.eulerAngles.y - 180;
-        float rotOffset = Mathf.Abs(rotGoal-rotAgent);
+        int rotAgent  = (int)agentBody.eulerAngles.y-180;
+        int rotGoal   = (int)goal.eulerAngles.y-180;
+        int rotOffset = Mathf.Abs(rotGoal-rotAgent);
 
         // normalisiert auf einen bereich von -1 bis 1
         // --> vorwärts wird genauso gewertet wie rückwärts
@@ -246,9 +246,9 @@ public class Park_Training_Controller : MonoBehaviour
         float reward = Mathf.Pow(offsetNorm, 2) * baseReward;
         // if(reward > baseReward*0.9)
         // {
-        //     Debug.Log("Rot Reward von "+agentBody.name+" ist = "+reward.ToString());
-        //     Debug.Log("rot Agent: "+rotAgent);
-        //     Debug.Log("rot Goal: "+rotGoal);
+            // Debug.Log("Rot Reward von "+agentBody.name+" ist = "+reward.ToString());
+            // Debug.Log("rot Agent: "+rotAgent);
+            // Debug.Log("rot Goal: "+rotGoal);
         // }
         return reward;
     }
@@ -298,8 +298,13 @@ public class Park_Training_Controller : MonoBehaviour
 
         if(allFinished)
         {
+            foreach(AgentPKWBase a in agentList)
+            {
+                if(a.IsInGoal)
+                    m_AgentGroup.AddGroupReward(1f/agentList.Count);
+            }
             if(isInterupt)
-                m_AgentGroup.EndGroupEpisode();
+                m_AgentGroup.GroupEpisodeInterrupted();
             else
                 m_AgentGroup.EndGroupEpisode();
             ResetScene();
@@ -528,3 +533,4 @@ public class AgentInfo
         timeInParkingSpace = 0;
     }
 }
+

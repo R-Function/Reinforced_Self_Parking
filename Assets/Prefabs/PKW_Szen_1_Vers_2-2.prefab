@@ -60,7 +60,7 @@ MonoBehaviour:
   m_AlternatingRayOrder: 1
   m_UseBatchedRaycasts: 0
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
-  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
+  rayMissColor: {r: 1, g: 0.98218226, b: 0.216981, a: 1}
   m_StartVerticalOffset: 0
   m_EndVerticalOffset: -3.61
 --- !u!1 &5453430049290744100
@@ -123,7 +123,7 @@ MonoBehaviour:
   m_AlternatingRayOrder: 1
   m_UseBatchedRaycasts: 0
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
-  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
+  rayMissColor: {r: 0.2471698, g: 0.34496188, b: 1, a: 1}
   m_StartVerticalOffset: 0
   m_EndVerticalOffset: -0.7
 --- !u!1 &6738681766236544837
@@ -174,7 +174,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 9
   detectableTag: ParkSpace
-  rayDistance: 10
+  rayDistance: 8
   coneAngle: 240
   numberOfRays: 10
   nearestObjectsListSize: 1

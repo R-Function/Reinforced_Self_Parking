@@ -299,7 +299,7 @@ public class Park_Training_Controller : MonoBehaviour
         if(allFinished)
         {
             if(isInterupt)
-                m_AgentGroup.GroupEpisodeInterrupted();
+                m_AgentGroup.EndGroupEpisode();
             else
                 m_AgentGroup.EndGroupEpisode();
             ResetScene();

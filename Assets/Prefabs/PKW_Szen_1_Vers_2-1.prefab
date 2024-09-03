@@ -695,7 +695,7 @@ MonoBehaviour:
   m_AlternatingRayOrder: 1
   m_UseBatchedRaycasts: 0
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
-  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
+  rayMissColor: {r: 0.9875004, g: 1, b: 0.42830187, a: 1}
   m_StartVerticalOffset: 0
   m_EndVerticalOffset: -3.61
 --- !u!1 &5787132185543887039
@@ -829,7 +829,7 @@ MonoBehaviour:
   m_AlternatingRayOrder: 1
   m_UseBatchedRaycasts: 0
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
-  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
+  rayMissColor: {r: 0.17924517, g: 0.31357524, b: 1, a: 1}
   m_StartVerticalOffset: 0
   m_EndVerticalOffset: -0.7
 --- !u!1 &6235514392166819855
@@ -996,7 +996,7 @@ MonoBehaviour:
   m_AlternatingRayOrder: 1
   m_UseBatchedRaycasts: 0
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
-  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
+  rayMissColor: {r: 1, g: 0.435849, b: 0.97753996, a: 1}
   m_StartVerticalOffset: 0
   m_EndVerticalOffset: -0.5
 --- !u!1 &7671485529217454691
