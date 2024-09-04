@@ -74,8 +74,11 @@ public class Park_Training_Controller : MonoBehaviour
         m_AgentGroup.AddGroupReward(-1f/maxTrainingSteps);
         foreach(AgentPKWBase a in m_AgentGroup.GetRegisteredAgents())
         {
-            if(currentLesson.rewardDriveForward && a.PKW.carSpeed >= 12)
-                a.AddReward(0.5f/maxTrainingSteps);
+            if(currentLesson.rewardDriveForward)
+            {
+                float speedReward = Math.Clamp((2*(a.PKW.carSpeed/a.PKW.maxSpeed)/maxTrainingSteps),-0.5f/maxTrainingSteps,1f/maxTrainingSteps);
+                a.AddReward(speedReward);
+            }
         }
         if (m_ResetTimer >= maxTrainingSteps && maxTrainingSteps > 0)
         {
@@ -131,12 +134,12 @@ public class Park_Training_Controller : MonoBehaviour
 
     public void CollisionWithAgent(AgentPKWBase agent)
     {
-        m_AgentGroup.AddGroupReward(-0.15f);
+        agent.AddReward(-0.15f);
     }
 
     public void CollisionWithObstacle(AgentPKWBase agent)
     {
-        agent.AddReward(-0.5f);
+        agent.AddReward(-0.4f);
         if(currentLesson.agentControllReverse == false)
         {
             agent.isRunning = false;

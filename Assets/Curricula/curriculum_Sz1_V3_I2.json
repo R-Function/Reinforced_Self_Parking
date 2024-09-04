@@ -43,7 +43,7 @@
 	{
 		"name":"Final",	
 		"maxSteps": 25000,
-		"environmentPrefabName":"Environment_Three_Driveways_Start",	
+		"environmentPrefabName":"Environment_One_Driveway",	
 		"agentControllBreak": true,
 		"agentControllReverse": true,
 		"carsOnParkingLot": 5,
