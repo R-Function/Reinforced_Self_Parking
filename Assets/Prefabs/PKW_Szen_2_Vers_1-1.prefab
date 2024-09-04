@@ -48,73 +48,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 9
   detectableTag: ParkSpace
-  rayDistance: 10
+  rayDistance: 12
   coneAngle: 240
   numberOfRays: 11
   nearestObjectsListSize: 1
---- !u!1 &5032838559113489841
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8196408586989370088}
-  - component: {fileID: 8163452118349932366}
-  m_Layer: 0
-  m_Name: Front
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8196408586989370088
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5032838559113489841}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.93, z: 0.21}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7621765110822453603}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8163452118349932366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5032838559113489841}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SensorName: FrontLiDAR
-  m_DetectableTags:
-  - Obstacle
-  - Agent
-  - ParkedCar
-  m_RaysPerDirection: 3
-  m_MaxRayDegrees: 90
-  m_SphereCastRadius: 0.4
-  m_RayLength: 10
-  m_RayLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294966323
-  m_ObservationStacks: 1
-  m_AlternatingRayOrder: 1
-  m_UseBatchedRaycasts: 0
-  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
-  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
-  m_StartVerticalOffset: 0
-  m_EndVerticalOffset: 0
 --- !u!1 &5061598914903038497
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,7 +78,7 @@ Transform:
   m_GameObject: {fileID: 5061598914903038497}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.395, z: 0}
+  m_LocalPosition: {x: 0, y: 0.473, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -164,10 +101,12 @@ MonoBehaviour:
   - Obstacle
   - Border
   - FailState
-  m_RaysPerDirection: 4
+  - Agent
+  - ParkedCar
+  m_RaysPerDirection: 7
   m_MaxRayDegrees: 162
   m_SphereCastRadius: 0.2
-  m_RayLength: 4
+  m_RayLength: 12
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 4294966387
@@ -240,7 +179,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4915974200540530724, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
       propertyPath: m_Name
-      value: PKW_Szen_1_Vers_3-2 1
+      value: PKW_Szen_2_Vers_1-1
       objectReference: {fileID: 0}
     - target: {fileID: 5553401497870056747, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
       propertyPath: m_SuspensionSpring.spring
@@ -415,9 +354,6 @@ PrefabInstance:
       addedObject: {fileID: 5000233484842506969}
     - targetCorrespondingSourceObject: {fileID: 8457434101638535035, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8196408586989370088}
-    - targetCorrespondingSourceObject: {fileID: 8457434101638535035, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 5269291857050228091}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4915974200540530724, guid: c148919a44ae85a43a41cda5cec9d17a, type: 3}
@@ -472,6 +408,7 @@ MonoBehaviour:
   MaxStep: 0
   parkSensor: {fileID: 3273030110903254516}
   isRunning: 0
+  isInGoal: 0
   isBreakAllowed: 0
   isReverseAllowed: 0
 --- !u!146 &6878360929070695842 stripped

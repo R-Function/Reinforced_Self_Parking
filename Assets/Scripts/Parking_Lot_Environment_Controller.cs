@@ -34,7 +34,7 @@ public class Parking_Lot_Environment_Controller : MonoBehaviour
     {
         parkingSpaces   = new Dictionary<Transform, bool>();
         vehicles        = new List<GameObject>();
-        tileMatrix      = st_createTileMatrix();
+        //tileMatrix      = st_createTileMatrix();
         dynamicOccupiedParkSpaces = new List<Transform>();
 
         // lade die parkplätze in die parkplatzliste

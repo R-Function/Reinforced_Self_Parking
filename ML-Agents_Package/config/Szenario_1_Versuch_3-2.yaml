@@ -1,15 +1,16 @@
 behaviors:
   PKWParking:
+    init_path: /home/attac1/Dokumente/Machine_Learning_Projekt/Self_Parking_MDRL/ML-Agents_Package/results/Versuch_3-2.2/PKWParking/PKWParking-9999929.pt
     trainer_type: ppo
     hyperparameters:
       batch_size: 64
       buffer_size: 4096
       learning_rate: 0.0002
-      beta: 0.01
-      epsilon: 0.1
+      beta: 0.002
+      epsilon: 0.25
       lambd: 0.96
       num_epoch: 4
-      learning_rate_schedule: constant
+      learning_rate_schedule: linear
     network_settings:
       normalize: true
       hidden_units: 256
@@ -36,7 +37,7 @@ environment_parameters:
           behavior: PKWParking
           signal_smoothing: true
           min_lesson_length: 250
-          threshold: 0.35
+          threshold: 0.4
         value: 0
       - name: ReverseLesson
         completion_criteria:
@@ -44,7 +45,7 @@ environment_parameters:
           behavior: PKWParking
           signal_smoothing: true
           min_lesson_length: 250
-          threshold: 0.42
+          threshold: 0.46
         value: 1
       - name: TurnLesson
         completion_criteria:

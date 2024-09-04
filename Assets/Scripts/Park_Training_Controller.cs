@@ -71,13 +71,11 @@ public class Park_Training_Controller : MonoBehaviour
     void FixedUpdate()
     {
         m_ResetTimer += 1;
+        m_AgentGroup.AddGroupReward(-1f/maxTrainingSteps);
         foreach(AgentPKWBase a in m_AgentGroup.GetRegisteredAgents())
         {
-            if(a.isRunning == true)
-                m_AgentGroup.AddGroupReward(-1f/maxTrainingSteps);
             if(currentLesson.rewardDriveForward && a.PKW.carSpeed >= 12)
-                a.AddReward(1f/maxTrainingSteps);
-
+                a.AddReward(0.5f/maxTrainingSteps);
         }
         if (m_ResetTimer >= maxTrainingSteps && maxTrainingSteps > 0)
         {
@@ -86,7 +84,7 @@ public class Park_Training_Controller : MonoBehaviour
             FinishEpisode(true);
             Debug.Log("Folgendes Training hat die erlaubte Anzahl Steps überschritten: "+this.gameObject.name);
         }
-
+ 
         //zum testen, wenn agent auf parkplatz, dann belohnung berechnen
         // foreach(KeyValuePair<AgentPKWBase, AgentInfo> agentInfo in agentInformationList)
         // {
@@ -133,7 +131,7 @@ public class Park_Training_Controller : MonoBehaviour
 
     public void CollisionWithAgent(AgentPKWBase agent)
     {
-        agent.AddReward(-0.5f);
+        m_AgentGroup.AddGroupReward(-0.15f);
     }
 
     public void CollisionWithObstacle(AgentPKWBase agent)
@@ -443,7 +441,10 @@ public class Park_Training_Controller : MonoBehaviour
             
             // setze Agenten auf seinen Spawnpunkt und rotiere entsprechend
             agent.transform.position = agentInformationList[agent].spawn.position;
-            agent.transform.localRotation = agentInformationList[agent].spawn.parent.localRotation;
+            if(agentInformationList[agent].spawn.parent.tag == "Respawn")
+                agent.transform.localRotation = agentInformationList[agent].spawn.parent.localRotation;
+            else
+                agent.transform.localRotation = agentInformationList[agent].spawn.localRotation;
         }
     }
 
