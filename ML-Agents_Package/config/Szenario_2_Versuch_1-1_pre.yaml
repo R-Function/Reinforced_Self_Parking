@@ -5,8 +5,8 @@ behaviors:
       batch_size: 64
       buffer_size: 4096
       learning_rate: 0.0001
-      beta: 0.0015
-      epsilon: 0.25
+      beta: 0.001
+      epsilon: 0.2
       lambd: 0.96
       num_epoch: 4
       learning_rate_schedule: linear
@@ -44,7 +44,7 @@ environment_parameters:
           behavior: PKWParking
           signal_smoothing: true
           min_lesson_length: 250
-          threshold: 0.5
+          threshold: 0.54
         value: 1
       - name: TurnLesson
         completion_criteria:

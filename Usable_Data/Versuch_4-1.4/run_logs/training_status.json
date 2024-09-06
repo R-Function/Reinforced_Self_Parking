@@ -1,0 +1,32 @@
+{
+    "PKWParking_Parameters": {
+        "lesson_num": 1
+    },
+    "PKWParking": {
+        "checkpoints": [
+            {
+                "steps": 1653863,
+                "file_path": "results/Versuch_4-1.4/PKWParking/PKWParking-1653863.onnx",
+                "reward": 0.18223326846623422,
+                "creation_time": 1725536131.3759096,
+                "auxillary_file_paths": [
+                    "results/Versuch_4-1.4/PKWParking/PKWParking-1653863.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1653863,
+            "file_path": "results/Versuch_4-1.4/PKWParking.onnx",
+            "reward": 0.18223326846623422,
+            "creation_time": 1725536131.3759096,
+            "auxillary_file_paths": [
+                "results/Versuch_4-1.4/PKWParking/PKWParking-1653863.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0.dev0",
+        "torch_version": "2.2.1"
+    }
+}

@@ -191,8 +191,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 49.5, y: 3, z: 34}
-  m_Center: {x: 22.5, y: 1, z: 15}
+  m_Size: {x: 72, y: 3, z: 34}
+  m_Center: {x: 19, y: 1, z: 15}
 --- !u!114 &108234744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,9 +211,11 @@ MonoBehaviour:
   - {fileID: 7956424732914637246, guid: 2e0f3cccb68c09c4d9039b53cdd662d2, type: 3}
   - {fileID: 8163536376273993121, guid: 4b751a0eeac7897439db520a6bb19785, type: 3}
   - {fileID: 4055138494349910885, guid: 56478ba442fb515fba54a33009ed5cee, type: 3}
-  - {fileID: 7956424732914637246, guid: bc7c737cf586bc9f1924c8fd635452cc, type: 3}
+  - {fileID: 645403710685722226, guid: 260cf88268a42114a9bf5dcd266c7e8c, type: 3}
+  - {fileID: 645403710685722226, guid: 4184ce2111b3b4ab6a7b8df26062bf6e, type: 3}
+  - {fileID: 8163536376273993121, guid: 3e25dcb28e090a04da15e4c0b9df7de5, type: 3}
   carObstacleContainer: {fileID: 1766363714}
-  curriculumFile: {fileID: 4900000, guid: 766c2f7a7565e8841831fe7a9adc1c9b, type: 3}
+  curriculumFile: {fileID: 4900000, guid: 13e12459cc5e69768a7bdc2dcbaac134, type: 3}
   agentList:
   - {fileID: 2033462899}
   startLessonDefault: 2
@@ -333,8 +335,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 49.5, y: 3, z: 34}
-  m_Center: {x: 22.5, y: 1, z: 15}
+  m_Size: {x: 72, y: 3, z: 34}
+  m_Center: {x: 19, y: 1, z: 15}
 --- !u!114 &214112879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,9 +355,11 @@ MonoBehaviour:
   - {fileID: 7956424732914637246, guid: 2e0f3cccb68c09c4d9039b53cdd662d2, type: 3}
   - {fileID: 8163536376273993121, guid: 4b751a0eeac7897439db520a6bb19785, type: 3}
   - {fileID: 4055138494349910885, guid: 56478ba442fb515fba54a33009ed5cee, type: 3}
-  - {fileID: 7956424732914637246, guid: bc7c737cf586bc9f1924c8fd635452cc, type: 3}
+  - {fileID: 645403710685722226, guid: 260cf88268a42114a9bf5dcd266c7e8c, type: 3}
+  - {fileID: 645403710685722226, guid: 4184ce2111b3b4ab6a7b8df26062bf6e, type: 3}
+  - {fileID: 8163536376273993121, guid: 3e25dcb28e090a04da15e4c0b9df7de5, type: 3}
   carObstacleContainer: {fileID: 1544900745}
-  curriculumFile: {fileID: 4900000, guid: 766c2f7a7565e8841831fe7a9adc1c9b, type: 3}
+  curriculumFile: {fileID: 4900000, guid: 13e12459cc5e69768a7bdc2dcbaac134, type: 3}
   agentList:
   - {fileID: 511301387}
   startLessonDefault: 2
@@ -975,8 +979,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 49.5, y: 3, z: 34}
-  m_Center: {x: 22.5, y: 1, z: 15}
+  m_Size: {x: 72, y: 3, z: 34}
+  m_Center: {x: 19, y: 1, z: 15}
 --- !u!114 &627129107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -995,9 +999,11 @@ MonoBehaviour:
   - {fileID: 7956424732914637246, guid: 2e0f3cccb68c09c4d9039b53cdd662d2, type: 3}
   - {fileID: 8163536376273993121, guid: 4b751a0eeac7897439db520a6bb19785, type: 3}
   - {fileID: 4055138494349910885, guid: 56478ba442fb515fba54a33009ed5cee, type: 3}
-  - {fileID: 7956424732914637246, guid: bc7c737cf586bc9f1924c8fd635452cc, type: 3}
+  - {fileID: 645403710685722226, guid: 260cf88268a42114a9bf5dcd266c7e8c, type: 3}
+  - {fileID: 645403710685722226, guid: 4184ce2111b3b4ab6a7b8df26062bf6e, type: 3}
+  - {fileID: 8163536376273993121, guid: 3e25dcb28e090a04da15e4c0b9df7de5, type: 3}
   carObstacleContainer: {fileID: 706548581}
-  curriculumFile: {fileID: 4900000, guid: 766c2f7a7565e8841831fe7a9adc1c9b, type: 3}
+  curriculumFile: {fileID: 4900000, guid: 13e12459cc5e69768a7bdc2dcbaac134, type: 3}
   agentList:
   - {fileID: 1270847546}
   startLessonDefault: 2
@@ -1284,8 +1290,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 49.5, y: 3, z: 34}
-  m_Center: {x: 22.5, y: 1, z: 15}
+  m_Size: {x: 72, y: 3, z: 34}
+  m_Center: {x: 19, y: 1, z: 15}
 --- !u!114 &723492740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1304,9 +1310,11 @@ MonoBehaviour:
   - {fileID: 7956424732914637246, guid: 2e0f3cccb68c09c4d9039b53cdd662d2, type: 3}
   - {fileID: 8163536376273993121, guid: 4b751a0eeac7897439db520a6bb19785, type: 3}
   - {fileID: 4055138494349910885, guid: 56478ba442fb515fba54a33009ed5cee, type: 3}
-  - {fileID: 7956424732914637246, guid: bc7c737cf586bc9f1924c8fd635452cc, type: 3}
+  - {fileID: 645403710685722226, guid: 260cf88268a42114a9bf5dcd266c7e8c, type: 3}
+  - {fileID: 645403710685722226, guid: 4184ce2111b3b4ab6a7b8df26062bf6e, type: 3}
+  - {fileID: 8163536376273993121, guid: 3e25dcb28e090a04da15e4c0b9df7de5, type: 3}
   carObstacleContainer: {fileID: 1184310191}
-  curriculumFile: {fileID: 4900000, guid: 766c2f7a7565e8841831fe7a9adc1c9b, type: 3}
+  curriculumFile: {fileID: 4900000, guid: 13e12459cc5e69768a7bdc2dcbaac134, type: 3}
   agentList:
   - {fileID: 1469840505}
   startLessonDefault: 2
@@ -1364,8 +1372,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 49.5, y: 3, z: 34}
-  m_Center: {x: 22.5, y: 1, z: 15}
+  m_Size: {x: 72, y: 3, z: 34}
+  m_Center: {x: 19, y: 1, z: 15}
 --- !u!114 &815920550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1384,9 +1392,11 @@ MonoBehaviour:
   - {fileID: 7956424732914637246, guid: 2e0f3cccb68c09c4d9039b53cdd662d2, type: 3}
   - {fileID: 8163536376273993121, guid: 4b751a0eeac7897439db520a6bb19785, type: 3}
   - {fileID: 4055138494349910885, guid: 56478ba442fb515fba54a33009ed5cee, type: 3}
-  - {fileID: 7956424732914637246, guid: bc7c737cf586bc9f1924c8fd635452cc, type: 3}
+  - {fileID: 645403710685722226, guid: 260cf88268a42114a9bf5dcd266c7e8c, type: 3}
+  - {fileID: 645403710685722226, guid: 4184ce2111b3b4ab6a7b8df26062bf6e, type: 3}
+  - {fileID: 8163536376273993121, guid: 3e25dcb28e090a04da15e4c0b9df7de5, type: 3}
   carObstacleContainer: {fileID: 400436891}
-  curriculumFile: {fileID: 4900000, guid: 766c2f7a7565e8841831fe7a9adc1c9b, type: 3}
+  curriculumFile: {fileID: 4900000, guid: 13e12459cc5e69768a7bdc2dcbaac134, type: 3}
   agentList:
   - {fileID: 372637534}
   startLessonDefault: 2
@@ -1444,8 +1454,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 49.5, y: 3, z: 34}
-  m_Center: {x: 22.5, y: 1, z: 15}
+  m_Size: {x: 72, y: 3, z: 34}
+  m_Center: {x: 19, y: 1, z: 15}
 --- !u!114 &889870910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1464,9 +1474,11 @@ MonoBehaviour:
   - {fileID: 7956424732914637246, guid: 2e0f3cccb68c09c4d9039b53cdd662d2, type: 3}
   - {fileID: 8163536376273993121, guid: 4b751a0eeac7897439db520a6bb19785, type: 3}
   - {fileID: 4055138494349910885, guid: 56478ba442fb515fba54a33009ed5cee, type: 3}
-  - {fileID: 7956424732914637246, guid: bc7c737cf586bc9f1924c8fd635452cc, type: 3}
+  - {fileID: 645403710685722226, guid: 260cf88268a42114a9bf5dcd266c7e8c, type: 3}
+  - {fileID: 645403710685722226, guid: 4184ce2111b3b4ab6a7b8df26062bf6e, type: 3}
+  - {fileID: 8163536376273993121, guid: 3e25dcb28e090a04da15e4c0b9df7de5, type: 3}
   carObstacleContainer: {fileID: 1405487354}
-  curriculumFile: {fileID: 4900000, guid: 766c2f7a7565e8841831fe7a9adc1c9b, type: 3}
+  curriculumFile: {fileID: 4900000, guid: 13e12459cc5e69768a7bdc2dcbaac134, type: 3}
   agentList:
   - {fileID: 304358751}
   startLessonDefault: 2
@@ -1689,8 +1701,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 49.5, y: 3, z: 34}
-  m_Center: {x: 22.5, y: 1, z: 15}
+  m_Size: {x: 72, y: 3, z: 34}
+  m_Center: {x: 19, y: 1, z: 15}
 --- !u!114 &1101706774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1709,9 +1721,11 @@ MonoBehaviour:
   - {fileID: 7956424732914637246, guid: 2e0f3cccb68c09c4d9039b53cdd662d2, type: 3}
   - {fileID: 8163536376273993121, guid: 4b751a0eeac7897439db520a6bb19785, type: 3}
   - {fileID: 4055138494349910885, guid: 56478ba442fb515fba54a33009ed5cee, type: 3}
-  - {fileID: 7956424732914637246, guid: bc7c737cf586bc9f1924c8fd635452cc, type: 3}
+  - {fileID: 645403710685722226, guid: 260cf88268a42114a9bf5dcd266c7e8c, type: 3}
+  - {fileID: 645403710685722226, guid: 4184ce2111b3b4ab6a7b8df26062bf6e, type: 3}
+  - {fileID: 8163536376273993121, guid: 3e25dcb28e090a04da15e4c0b9df7de5, type: 3}
   carObstacleContainer: {fileID: 1853921662}
-  curriculumFile: {fileID: 4900000, guid: 766c2f7a7565e8841831fe7a9adc1c9b, type: 3}
+  curriculumFile: {fileID: 4900000, guid: 13e12459cc5e69768a7bdc2dcbaac134, type: 3}
   agentList:
   - {fileID: 720330017}
   startLessonDefault: 2
@@ -1769,8 +1783,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 49.5, y: 3, z: 34}
-  m_Center: {x: 22.5, y: 1, z: 15}
+  m_Size: {x: 72, y: 3, z: 34}
+  m_Center: {x: 19, y: 1, z: 15}
 --- !u!114 &1143334173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1789,9 +1803,11 @@ MonoBehaviour:
   - {fileID: 7956424732914637246, guid: 2e0f3cccb68c09c4d9039b53cdd662d2, type: 3}
   - {fileID: 8163536376273993121, guid: 4b751a0eeac7897439db520a6bb19785, type: 3}
   - {fileID: 4055138494349910885, guid: 56478ba442fb515fba54a33009ed5cee, type: 3}
-  - {fileID: 7956424732914637246, guid: bc7c737cf586bc9f1924c8fd635452cc, type: 3}
+  - {fileID: 645403710685722226, guid: 260cf88268a42114a9bf5dcd266c7e8c, type: 3}
+  - {fileID: 645403710685722226, guid: 4184ce2111b3b4ab6a7b8df26062bf6e, type: 3}
+  - {fileID: 8163536376273993121, guid: 3e25dcb28e090a04da15e4c0b9df7de5, type: 3}
   carObstacleContainer: {fileID: 1187386941}
-  curriculumFile: {fileID: 4900000, guid: 766c2f7a7565e8841831fe7a9adc1c9b, type: 3}
+  curriculumFile: {fileID: 4900000, guid: 13e12459cc5e69768a7bdc2dcbaac134, type: 3}
   agentList:
   - {fileID: 516270274}
   startLessonDefault: 2
@@ -2130,8 +2146,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 49.5, y: 3, z: 34}
-  m_Center: {x: 22.5, y: 1, z: 15}
+  m_Size: {x: 72, y: 3, z: 34}
+  m_Center: {x: 19, y: 1, z: 15}
 --- !u!114 &1332634586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2150,9 +2166,11 @@ MonoBehaviour:
   - {fileID: 7956424732914637246, guid: 2e0f3cccb68c09c4d9039b53cdd662d2, type: 3}
   - {fileID: 8163536376273993121, guid: 4b751a0eeac7897439db520a6bb19785, type: 3}
   - {fileID: 4055138494349910885, guid: 56478ba442fb515fba54a33009ed5cee, type: 3}
-  - {fileID: 7956424732914637246, guid: bc7c737cf586bc9f1924c8fd635452cc, type: 3}
+  - {fileID: 645403710685722226, guid: 260cf88268a42114a9bf5dcd266c7e8c, type: 3}
+  - {fileID: 645403710685722226, guid: 4184ce2111b3b4ab6a7b8df26062bf6e, type: 3}
+  - {fileID: 8163536376273993121, guid: 3e25dcb28e090a04da15e4c0b9df7de5, type: 3}
   carObstacleContainer: {fileID: 1785059833}
-  curriculumFile: {fileID: 4900000, guid: 766c2f7a7565e8841831fe7a9adc1c9b, type: 3}
+  curriculumFile: {fileID: 4900000, guid: 13e12459cc5e69768a7bdc2dcbaac134, type: 3}
   agentList:
   - {fileID: 1079075726}
   startLessonDefault: 2
@@ -2210,8 +2228,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 49.5, y: 3, z: 34}
-  m_Center: {x: 22.5, y: 1, z: 15}
+  m_Size: {x: 72, y: 3, z: 34}
+  m_Center: {x: 19, y: 1, z: 15}
 --- !u!114 &1376999781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2230,9 +2248,11 @@ MonoBehaviour:
   - {fileID: 7956424732914637246, guid: 2e0f3cccb68c09c4d9039b53cdd662d2, type: 3}
   - {fileID: 8163536376273993121, guid: 4b751a0eeac7897439db520a6bb19785, type: 3}
   - {fileID: 4055138494349910885, guid: 56478ba442fb515fba54a33009ed5cee, type: 3}
-  - {fileID: 7956424732914637246, guid: bc7c737cf586bc9f1924c8fd635452cc, type: 3}
+  - {fileID: 645403710685722226, guid: 260cf88268a42114a9bf5dcd266c7e8c, type: 3}
+  - {fileID: 645403710685722226, guid: 4184ce2111b3b4ab6a7b8df26062bf6e, type: 3}
+  - {fileID: 8163536376273993121, guid: 3e25dcb28e090a04da15e4c0b9df7de5, type: 3}
   carObstacleContainer: {fileID: 611635898}
-  curriculumFile: {fileID: 4900000, guid: 766c2f7a7565e8841831fe7a9adc1c9b, type: 3}
+  curriculumFile: {fileID: 4900000, guid: 13e12459cc5e69768a7bdc2dcbaac134, type: 3}
   agentList:
   - {fileID: 1486273894}
   startLessonDefault: 2
@@ -2528,9 +2548,11 @@ MonoBehaviour:
   - {fileID: 7956424732914637246, guid: 2e0f3cccb68c09c4d9039b53cdd662d2, type: 3}
   - {fileID: 8163536376273993121, guid: 4b751a0eeac7897439db520a6bb19785, type: 3}
   - {fileID: 4055138494349910885, guid: 56478ba442fb515fba54a33009ed5cee, type: 3}
-  - {fileID: 7956424732914637246, guid: bc7c737cf586bc9f1924c8fd635452cc, type: 3}
+  - {fileID: 645403710685722226, guid: 260cf88268a42114a9bf5dcd266c7e8c, type: 3}
+  - {fileID: 645403710685722226, guid: 4184ce2111b3b4ab6a7b8df26062bf6e, type: 3}
+  - {fileID: 8163536376273993121, guid: 3e25dcb28e090a04da15e4c0b9df7de5, type: 3}
   carObstacleContainer: {fileID: 86472728}
-  curriculumFile: {fileID: 4900000, guid: 766c2f7a7565e8841831fe7a9adc1c9b, type: 3}
+  curriculumFile: {fileID: 4900000, guid: 13e12459cc5e69768a7bdc2dcbaac134, type: 3}
   agentList:
   - {fileID: 1195725828}
   startLessonDefault: 2
@@ -2570,8 +2592,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 49.5, y: 3, z: 34}
-  m_Center: {x: 22.5, y: 1, z: 15}
+  m_Size: {x: 72, y: 3, z: 34}
+  m_Center: {x: 19, y: 1, z: 15}
 --- !u!1 &1565445857
 GameObject:
   m_ObjectHideFlags: 0
@@ -2609,8 +2631,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 49.5, y: 3, z: 34}
-  m_Center: {x: 22.5, y: 1, z: 15}
+  m_Size: {x: 72, y: 3, z: 34}
+  m_Center: {x: 19, y: 1, z: 15}
 --- !u!114 &1565445859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2629,9 +2651,11 @@ MonoBehaviour:
   - {fileID: 7956424732914637246, guid: 2e0f3cccb68c09c4d9039b53cdd662d2, type: 3}
   - {fileID: 8163536376273993121, guid: 4b751a0eeac7897439db520a6bb19785, type: 3}
   - {fileID: 4055138494349910885, guid: 56478ba442fb515fba54a33009ed5cee, type: 3}
-  - {fileID: 7956424732914637246, guid: bc7c737cf586bc9f1924c8fd635452cc, type: 3}
+  - {fileID: 645403710685722226, guid: 260cf88268a42114a9bf5dcd266c7e8c, type: 3}
+  - {fileID: 645403710685722226, guid: 4184ce2111b3b4ab6a7b8df26062bf6e, type: 3}
+  - {fileID: 8163536376273993121, guid: 3e25dcb28e090a04da15e4c0b9df7de5, type: 3}
   carObstacleContainer: {fileID: 573299103}
-  curriculumFile: {fileID: 4900000, guid: 766c2f7a7565e8841831fe7a9adc1c9b, type: 3}
+  curriculumFile: {fileID: 4900000, guid: 13e12459cc5e69768a7bdc2dcbaac134, type: 3}
   agentList:
   - {fileID: 2006471448}
   startLessonDefault: 2
@@ -2813,8 +2837,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 49.5, y: 3, z: 34}
-  m_Center: {x: 22.5, y: 1, z: 15}
+  m_Size: {x: 72, y: 3, z: 34}
+  m_Center: {x: 19, y: 1, z: 15}
 --- !u!114 &1864428788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2833,9 +2857,11 @@ MonoBehaviour:
   - {fileID: 7956424732914637246, guid: 2e0f3cccb68c09c4d9039b53cdd662d2, type: 3}
   - {fileID: 8163536376273993121, guid: 4b751a0eeac7897439db520a6bb19785, type: 3}
   - {fileID: 4055138494349910885, guid: 56478ba442fb515fba54a33009ed5cee, type: 3}
-  - {fileID: 7956424732914637246, guid: bc7c737cf586bc9f1924c8fd635452cc, type: 3}
+  - {fileID: 645403710685722226, guid: 260cf88268a42114a9bf5dcd266c7e8c, type: 3}
+  - {fileID: 645403710685722226, guid: 4184ce2111b3b4ab6a7b8df26062bf6e, type: 3}
+  - {fileID: 8163536376273993121, guid: 3e25dcb28e090a04da15e4c0b9df7de5, type: 3}
   carObstacleContainer: {fileID: 693078607}
-  curriculumFile: {fileID: 4900000, guid: 766c2f7a7565e8841831fe7a9adc1c9b, type: 3}
+  curriculumFile: {fileID: 4900000, guid: 13e12459cc5e69768a7bdc2dcbaac134, type: 3}
   agentList:
   - {fileID: 554964092}
   startLessonDefault: 2
@@ -2893,8 +2919,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 49.5, y: 3, z: 34}
-  m_Center: {x: 22.5, y: 1, z: 15}
+  m_Size: {x: 72, y: 3, z: 34}
+  m_Center: {x: 19, y: 1, z: 15}
 --- !u!114 &1876319290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2913,9 +2939,11 @@ MonoBehaviour:
   - {fileID: 7956424732914637246, guid: 2e0f3cccb68c09c4d9039b53cdd662d2, type: 3}
   - {fileID: 8163536376273993121, guid: 4b751a0eeac7897439db520a6bb19785, type: 3}
   - {fileID: 4055138494349910885, guid: 56478ba442fb515fba54a33009ed5cee, type: 3}
-  - {fileID: 7956424732914637246, guid: bc7c737cf586bc9f1924c8fd635452cc, type: 3}
+  - {fileID: 645403710685722226, guid: 260cf88268a42114a9bf5dcd266c7e8c, type: 3}
+  - {fileID: 645403710685722226, guid: 4184ce2111b3b4ab6a7b8df26062bf6e, type: 3}
+  - {fileID: 8163536376273993121, guid: 3e25dcb28e090a04da15e4c0b9df7de5, type: 3}
   carObstacleContainer: {fileID: 1808312384}
-  curriculumFile: {fileID: 4900000, guid: 766c2f7a7565e8841831fe7a9adc1c9b, type: 3}
+  curriculumFile: {fileID: 4900000, guid: 13e12459cc5e69768a7bdc2dcbaac134, type: 3}
   agentList:
   - {fileID: 409126932}
   startLessonDefault: 2
@@ -3046,8 +3074,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 49.5, y: 3, z: 34}
-  m_Center: {x: 22.5, y: 1, z: 15}
+  m_Size: {x: 72, y: 3, z: 34}
+  m_Center: {x: 19, y: 1, z: 15}
 --- !u!114 &1942006332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3066,9 +3094,11 @@ MonoBehaviour:
   - {fileID: 7956424732914637246, guid: 2e0f3cccb68c09c4d9039b53cdd662d2, type: 3}
   - {fileID: 8163536376273993121, guid: 4b751a0eeac7897439db520a6bb19785, type: 3}
   - {fileID: 4055138494349910885, guid: 56478ba442fb515fba54a33009ed5cee, type: 3}
-  - {fileID: 7956424732914637246, guid: bc7c737cf586bc9f1924c8fd635452cc, type: 3}
+  - {fileID: 645403710685722226, guid: 260cf88268a42114a9bf5dcd266c7e8c, type: 3}
+  - {fileID: 645403710685722226, guid: 4184ce2111b3b4ab6a7b8df26062bf6e, type: 3}
+  - {fileID: 8163536376273993121, guid: 3e25dcb28e090a04da15e4c0b9df7de5, type: 3}
   carObstacleContainer: {fileID: 204828096}
-  curriculumFile: {fileID: 4900000, guid: 766c2f7a7565e8841831fe7a9adc1c9b, type: 3}
+  curriculumFile: {fileID: 4900000, guid: 13e12459cc5e69768a7bdc2dcbaac134, type: 3}
   agentList:
   - {fileID: 1314191239}
   startLessonDefault: 2
@@ -3199,8 +3229,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 49.5, y: 3, z: 34}
-  m_Center: {x: 22.5, y: 1, z: 15}
+  m_Size: {x: 72, y: 3, z: 34}
+  m_Center: {x: 19, y: 1, z: 15}
 --- !u!114 &2012720517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3219,9 +3249,11 @@ MonoBehaviour:
   - {fileID: 7956424732914637246, guid: 2e0f3cccb68c09c4d9039b53cdd662d2, type: 3}
   - {fileID: 8163536376273993121, guid: 4b751a0eeac7897439db520a6bb19785, type: 3}
   - {fileID: 4055138494349910885, guid: 56478ba442fb515fba54a33009ed5cee, type: 3}
-  - {fileID: 7956424732914637246, guid: bc7c737cf586bc9f1924c8fd635452cc, type: 3}
+  - {fileID: 645403710685722226, guid: 260cf88268a42114a9bf5dcd266c7e8c, type: 3}
+  - {fileID: 645403710685722226, guid: 4184ce2111b3b4ab6a7b8df26062bf6e, type: 3}
+  - {fileID: 8163536376273993121, guid: 3e25dcb28e090a04da15e4c0b9df7de5, type: 3}
   carObstacleContainer: {fileID: 1498446355}
-  curriculumFile: {fileID: 4900000, guid: 766c2f7a7565e8841831fe7a9adc1c9b, type: 3}
+  curriculumFile: {fileID: 4900000, guid: 13e12459cc5e69768a7bdc2dcbaac134, type: 3}
   agentList:
   - {fileID: 2013416134}
   startLessonDefault: 2
@@ -3498,8 +3530,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 49.5, y: 3, z: 34}
-  m_Center: {x: 22.5, y: 1, z: 15}
+  m_Size: {x: 72, y: 3, z: 34}
+  m_Center: {x: 19, y: 1, z: 15}
 --- !u!114 &2092436553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3518,9 +3550,11 @@ MonoBehaviour:
   - {fileID: 7956424732914637246, guid: 2e0f3cccb68c09c4d9039b53cdd662d2, type: 3}
   - {fileID: 8163536376273993121, guid: 4b751a0eeac7897439db520a6bb19785, type: 3}
   - {fileID: 4055138494349910885, guid: 56478ba442fb515fba54a33009ed5cee, type: 3}
-  - {fileID: 7956424732914637246, guid: bc7c737cf586bc9f1924c8fd635452cc, type: 3}
+  - {fileID: 645403710685722226, guid: 260cf88268a42114a9bf5dcd266c7e8c, type: 3}
+  - {fileID: 645403710685722226, guid: 4184ce2111b3b4ab6a7b8df26062bf6e, type: 3}
+  - {fileID: 8163536376273993121, guid: 3e25dcb28e090a04da15e4c0b9df7de5, type: 3}
   carObstacleContainer: {fileID: 179933723}
-  curriculumFile: {fileID: 4900000, guid: 766c2f7a7565e8841831fe7a9adc1c9b, type: 3}
+  curriculumFile: {fileID: 4900000, guid: 13e12459cc5e69768a7bdc2dcbaac134, type: 3}
   agentList:
   - {fileID: 2074416492}
   startLessonDefault: 2
@@ -3578,8 +3612,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 49.5, y: 3, z: 34}
-  m_Center: {x: 22.5, y: 1, z: 15}
+  m_Size: {x: 72, y: 3, z: 34}
+  m_Center: {x: 19, y: 1, z: 15}
 --- !u!114 &2100553181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3598,9 +3632,11 @@ MonoBehaviour:
   - {fileID: 7956424732914637246, guid: 2e0f3cccb68c09c4d9039b53cdd662d2, type: 3}
   - {fileID: 8163536376273993121, guid: 4b751a0eeac7897439db520a6bb19785, type: 3}
   - {fileID: 4055138494349910885, guid: 56478ba442fb515fba54a33009ed5cee, type: 3}
-  - {fileID: 7956424732914637246, guid: bc7c737cf586bc9f1924c8fd635452cc, type: 3}
+  - {fileID: 645403710685722226, guid: 260cf88268a42114a9bf5dcd266c7e8c, type: 3}
+  - {fileID: 645403710685722226, guid: 4184ce2111b3b4ab6a7b8df26062bf6e, type: 3}
+  - {fileID: 8163536376273993121, guid: 3e25dcb28e090a04da15e4c0b9df7de5, type: 3}
   carObstacleContainer: {fileID: 538736591}
-  curriculumFile: {fileID: 4900000, guid: 766c2f7a7565e8841831fe7a9adc1c9b, type: 3}
+  curriculumFile: {fileID: 4900000, guid: 13e12459cc5e69768a7bdc2dcbaac134, type: 3}
   agentList:
   - {fileID: 1919988146}
   startLessonDefault: 2

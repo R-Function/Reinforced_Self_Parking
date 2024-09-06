@@ -84,7 +84,7 @@ public class Park_Training_Controller : MonoBehaviour
         {
             foreach(AgentPKWBase a in agentList)
                 a.isRunning = false;
-            FinishEpisode(true);
+            FinishEpisode(false);
             Debug.Log("Folgendes Training hat die erlaubte Anzahl Steps überschritten: "+this.gameObject.name);
         }
  
