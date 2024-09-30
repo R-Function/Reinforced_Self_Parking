@@ -77,7 +77,7 @@ public class Park_Training_Controller : MonoBehaviour
             if(currentLesson.rewardDriveForward)
             {
                 float speedReward = Math.Clamp((2*(a.PKW.carSpeed/a.PKW.maxSpeed)/maxTrainingSteps),-0.5f/maxTrainingSteps,1f/maxTrainingSteps);
-                a.AddReward(speedReward);
+                m_AgentGroup.AddGroupReward(speedReward/agentList.Count);
             }
         }
         if (m_ResetTimer >= maxTrainingSteps && maxTrainingSteps > 0)
