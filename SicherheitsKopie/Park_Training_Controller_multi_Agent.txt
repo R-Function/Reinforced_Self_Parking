@@ -71,22 +71,23 @@ public class Park_Training_Controller : MonoBehaviour
     void FixedUpdate()
     {
         m_ResetTimer += 1;
+        m_AgentGroup.AddGroupReward(-1f/maxTrainingSteps);
         foreach(AgentPKWBase a in m_AgentGroup.GetRegisteredAgents())
         {
-            if(a.isRunning == true)
-                m_AgentGroup.AddGroupReward(-1f/maxTrainingSteps);
-            if(currentLesson.rewardDriveForward && a.PKW.carSpeed >= 12)
-                a.AddReward(1f/maxTrainingSteps);
-
+            if(currentLesson.rewardDriveForward)
+            {
+                float speedReward = Math.Clamp((2*(a.PKW.carSpeed/a.PKW.maxSpeed)/maxTrainingSteps),-0.5f/maxTrainingSteps,1f/maxTrainingSteps);
+                m_AgentGroup.AddGroupReward(speedReward/agentList.Count);
+            }
         }
         if (m_ResetTimer >= maxTrainingSteps && maxTrainingSteps > 0)
         {
             foreach(AgentPKWBase a in agentList)
                 a.isRunning = false;
-            FinishEpisode(true);
+            FinishEpisode(false);
             Debug.Log("Folgendes Training hat die erlaubte Anzahl Steps überschritten: "+this.gameObject.name);
         }
-
+ 
         //zum testen, wenn agent auf parkplatz, dann belohnung berechnen
         // foreach(KeyValuePair<AgentPKWBase, AgentInfo> agentInfo in agentInformationList)
         // {
@@ -133,12 +134,12 @@ public class Park_Training_Controller : MonoBehaviour
 
     public void CollisionWithAgent(AgentPKWBase agent)
     {
-        agent.AddReward(-0.5f);
+        agent.AddReward(-0.15f);
     }
 
     public void CollisionWithObstacle(AgentPKWBase agent)
     {
-        agent.AddReward(-0.5f);
+        agent.AddReward(-0.4f);
         if(currentLesson.agentControllReverse == false)
         {
             agent.isRunning = false;
@@ -443,7 +444,10 @@ public class Park_Training_Controller : MonoBehaviour
             
             // setze Agenten auf seinen Spawnpunkt und rotiere entsprechend
             agent.transform.position = agentInformationList[agent].spawn.position;
-            agent.transform.localRotation = agentInformationList[agent].spawn.parent.localRotation;
+            if(agentInformationList[agent].spawn.parent.tag == "Respawn")
+                agent.transform.localRotation = agentInformationList[agent].spawn.parent.localRotation;
+            else
+                agent.transform.localRotation = agentInformationList[agent].spawn.localRotation;
         }
     }
 

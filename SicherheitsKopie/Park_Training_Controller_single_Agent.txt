@@ -435,10 +435,12 @@ public class Park_Training_Controller : MonoBehaviour
                 occupiedSpawnPoints[agentIndex] = spawnPoint;
                 agentIndex++;
             }
-            
             // setze Agenten auf seinen Spawnpunkt und rotiere entsprechend
             agent.transform.position = agentInformationList[agent].spawn.position;
-            agent.transform.localRotation = agentInformationList[agent].spawn.parent.localRotation;
+            if(agentInformationList[agent].spawn.parent.tag == "Respawn")
+                agent.transform.localRotation = agentInformationList[agent].spawn.parent.localRotation;
+            else
+                agent.transform.localRotation = agentInformationList[agent].spawn.localRotation;
         }
     }
 

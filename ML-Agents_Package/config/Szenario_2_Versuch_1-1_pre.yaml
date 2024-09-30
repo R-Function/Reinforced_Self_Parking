@@ -1,17 +1,17 @@
 behaviors:
   PKWParking:
-    trainer_type: poca
+    trainer_type: ppo
     hyperparameters:
       batch_size: 64
       buffer_size: 4096
-      learning_rate: 0.0001
+      learning_rate: 0.00015
       beta: 0.001
       epsilon: 0.2
       lambd: 0.96
-      num_epoch: 4
+      num_epoch: 5
       learning_rate_schedule: linear
     network_settings:
-      normalize: true
+      normalize: false
       hidden_units: 256
       num_layers: 3
       vis_encode_type: simple
@@ -36,7 +36,7 @@ environment_parameters:
           behavior: PKWParking
           signal_smoothing: true
           min_lesson_length: 250
-          threshold: 0.45
+          threshold: 0.4
         value: 0
       - name: ReverseLesson
         completion_criteria:
@@ -44,7 +44,7 @@ environment_parameters:
           behavior: PKWParking
           signal_smoothing: true
           min_lesson_length: 250
-          threshold: 0.54
+          threshold: 0.4
         value: 1
       - name: TurnLesson
         completion_criteria:
@@ -52,7 +52,7 @@ environment_parameters:
           behavior: PKWParking
           signal_smoothing: true
           min_lesson_length: 250
-          threshold: 0.5
+          threshold: 0.4
         value: 2
       - name: FinalLesson
         value: 3
