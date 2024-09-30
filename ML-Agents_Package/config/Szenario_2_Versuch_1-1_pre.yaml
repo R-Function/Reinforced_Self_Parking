@@ -1,6 +1,7 @@
 behaviors:
   PKWParking:
     trainer_type: ppo
+    init_path: /home/attac1/Dokumente/Machine_Learning_Projekt/Self_Parking_MDRL/ML-Agents_Package/results/Solo_Agent_Presentation/PKWParking/PKWParking-12028907.pt
     hyperparameters:
       batch_size: 64
       buffer_size: 4096

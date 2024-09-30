@@ -4,7 +4,7 @@ using Unity.MLAgents;
 using System;
 using System.Linq;
 
-//multiagenten
+//singleagent
 public class Park_Training_Controller : MonoBehaviour
 {
     //Testvariablen
@@ -71,23 +71,22 @@ public class Park_Training_Controller : MonoBehaviour
     void FixedUpdate()
     {
         m_ResetTimer += 1;
-        m_AgentGroup.AddGroupReward(-1f/maxTrainingSteps);
         foreach(AgentPKWBase a in m_AgentGroup.GetRegisteredAgents())
         {
-            if(currentLesson.rewardDriveForward)
-            {
-                float speedReward = Math.Clamp((2*(a.PKW.carSpeed/a.PKW.maxSpeed)/maxTrainingSteps),-0.5f/maxTrainingSteps,1f/maxTrainingSteps);
-                m_AgentGroup.AddGroupReward(speedReward/agentList.Count);
-            }
+            if(a.isRunning == true)
+                a.AddReward(-1f/maxTrainingSteps);
+            if(currentLesson.rewardDriveForward && a.PKW.carSpeed >= 12)
+                a.AddReward(1f/maxTrainingSteps);
+
         }
         if (m_ResetTimer >= maxTrainingSteps && maxTrainingSteps > 0)
         {
             foreach(AgentPKWBase a in agentList)
                 a.isRunning = false;
-            FinishEpisode(false);
+            FinishEpisode(true);
             Debug.Log("Folgendes Training hat die erlaubte Anzahl Steps überschritten: "+this.gameObject.name);
         }
- 
+
         //zum testen, wenn agent auf parkplatz, dann belohnung berechnen
         // foreach(KeyValuePair<AgentPKWBase, AgentInfo> agentInfo in agentInformationList)
         // {
@@ -134,12 +133,12 @@ public class Park_Training_Controller : MonoBehaviour
 
     public void CollisionWithAgent(AgentPKWBase agent)
     {
-        agent.AddReward(-0.15f);
+        agent.AddReward(-0.5f);
     }
 
     public void CollisionWithObstacle(AgentPKWBase agent)
     {
-        agent.AddReward(-0.4f);
+        agent.AddReward(-0.5f);
         if(currentLesson.agentControllReverse == false)
         {
             agent.isRunning = false;
@@ -233,9 +232,9 @@ public class Park_Training_Controller : MonoBehaviour
 
     private float CalcRotationReward(Transform agentBody, Transform goal, float baseReward = 0)
     {
-        int rotAgent  = (int)agentBody.eulerAngles.y-180;
-        int rotGoal   = (int)goal.eulerAngles.y-180;
-        int rotOffset = Mathf.Abs(rotGoal-rotAgent);
+        float rotAgent  = agentBody.eulerAngles.y - 180;
+        float rotGoal   = goal.eulerAngles.y - 180;
+        float rotOffset = Mathf.Abs(rotGoal-rotAgent);
 
         // normalisiert auf einen bereich von -1 bis 1
         // --> vorwärts wird genauso gewertet wie rückwärts
@@ -247,9 +246,9 @@ public class Park_Training_Controller : MonoBehaviour
         float reward = Mathf.Pow(offsetNorm, 2) * baseReward;
         // if(reward > baseReward*0.9)
         // {
-            // Debug.Log("Rot Reward von "+agentBody.name+" ist = "+reward.ToString());
-            // Debug.Log("rot Agent: "+rotAgent);
-            // Debug.Log("rot Goal: "+rotGoal);
+        //     Debug.Log("Rot Reward von "+agentBody.name+" ist = "+reward.ToString());
+        //     Debug.Log("rot Agent: "+rotAgent);
+        //     Debug.Log("rot Goal: "+rotGoal);
         // }
         return reward;
     }
@@ -299,13 +298,8 @@ public class Park_Training_Controller : MonoBehaviour
 
         if(allFinished)
         {
-            foreach(AgentPKWBase a in agentList)
-            {
-                if(a.IsInGoal)
-                    m_AgentGroup.AddGroupReward(1f/agentList.Count);
-            }
             if(isInterupt)
-                m_AgentGroup.GroupEpisodeInterrupted();
+                m_AgentGroup.EndGroupEpisode();
             else
                 m_AgentGroup.EndGroupEpisode();
             ResetScene();
@@ -441,7 +435,6 @@ public class Park_Training_Controller : MonoBehaviour
                 occupiedSpawnPoints[agentIndex] = spawnPoint;
                 agentIndex++;
             }
-            
             // setze Agenten auf seinen Spawnpunkt und rotiere entsprechend
             agent.transform.position = agentInformationList[agent].spawn.position;
             if(agentInformationList[agent].spawn.parent.tag == "Respawn")
@@ -537,4 +530,3 @@ public class AgentInfo
         timeInParkingSpace = 0;
     }
 }
-
